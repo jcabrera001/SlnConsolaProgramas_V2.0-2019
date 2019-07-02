@@ -36,7 +36,6 @@ Public Class AprobacionARGRFrm
         cmbSemana.Properties.ValueMember = "SemanaID"
         cmbSemana.Properties.DisplayMember = "RangoFecha"
         'cmbSemana.Properties.View.Columns("Año").Visible = False 
-
     End Sub
     Private Sub rbQuitar_CheckedChanged(sender As Object, e As EventArgs) Handles rbQuitar.CheckedChanged
         If Not IsNothing(cmbSemana.EditValue) And Not IsNothing(cmbZafra.EditValue) And rbQuitar.Checked Then

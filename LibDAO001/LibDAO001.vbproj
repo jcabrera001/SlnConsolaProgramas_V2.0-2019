@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{28772918-EA2E-4890-8F6C-593E403B43F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>LibDAO001</RootNamespace>
+    <AssemblyName>LibDAO001</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>LibDAO001.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>LibDAO001.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CDP_Entregas.vb" />
+    <Compile Include="CDP_Formatos.vb" />
+    <Compile Include="CDP_FormatosxProveedor.vb" />
+    <Compile Include="CDP_Ubicaciones.vb" />
+    <Compile Include="ClsAPR.vb" />
+    <Compile Include="ClsConexion.vb" />
+    <Compile Include="ClsEntiAPR.vb" />
+    <Compile Include="ClsUtilitarios.vb" />
+    <Compile Include="ClsVistas.vb" />
+    <Compile Include="IDF_CAIXSdN.vb" />
+    <Compile Include="IDF_CatProductos.vb" />
+    <Compile Include="IDF_Clientes.vb" />
+    <Compile Include="IDF_ClientesAnexo.vb" />
+    <Compile Include="IDF_Conductores.vb" />
+    <Compile Include="IDF_ConfigxEmp.vb" />
+    <Compile Include="IDF_DetConfigxEmp.vb" />
+    <Compile Include="IDF_DetFactComp.vb" />
+    <Compile Include="IDF_DFDescrip.vb" />
+    <Compile Include="IDF_DFFacts.vb" />
+    <Compile Include="IDF_DFs.vb" />
+    <Compile Include="IDF_Empresas.vb" />
+    <Compile Include="IDF_EmpresasAnexo.vb" />
+    <Compile Include="IDF_FactComp.vb" />
+    <Compile Include="IDF_Import.vb" />
+    <Compile Include="IDF_Impuestos.vb" />
+    <Compile Include="IDF_Items.vb" />
+    <Compile Include="IDF_ItemsxDF.vb" />
+    <Compile Include="IDF_Monedas.vb" />
+    <Compile Include="IDF_Periodos.vb" />
+    <Compile Include="IDF_PeriodosXEmpresa.vb" />
+    <Compile Include="IDF_Productos.vb" />
+    <Compile Include="IDF_ProdXFact.vb" />
+    <Compile Include="IDF_ProdxRem.vb" />
+    <Compile Include="IDF_Remisiones.vb" />
+    <Compile Include="IDF_Retenciones.vb" />
+    <Compile Include="IDF_SdNs.vb" />
+    <Compile Include="IDF_Terminos.vb" />
+    <Compile Include="IDF_TiposDoctos.vb" />
+    <Compile Include="IDF_Transportistas.vb" />
+    <Compile Include="IDF_UnidMeds.vb" />
+    <Compile Include="J_Perfil.vb" />
+    <Compile Include="J_Reportes.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="y_Lecturas.vb" />
+    <Compile Include="y_Pluviometros.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

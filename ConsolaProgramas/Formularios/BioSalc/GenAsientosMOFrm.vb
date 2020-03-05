@@ -9,13 +9,13 @@ Public Class GenAsientosMOFrm
     Dim adp As New SqlDataAdapter
     Dim dt As New DataTable
     Dim time As Integer
-    Public Sub New(user As String, pwd As String, empresa As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, user As String, pwd As String, empresa As String, tiempo As Integer)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pwd & ";Initial Catalog=Biosalc;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
         emp = empresa
         time = tiempo
@@ -102,16 +102,14 @@ Public Class GenAsientosMOFrm
             If dt.Rows.Count = 0 Then
                 MsgBox("No existen registros para la semana seleccionada!", MsgBoxStyle.Exclamation, "Información")
             Else
-                f.InitGridControl(gcMostrar, gvMostrar, dt, "POR_INTERFAZ", True)
-
-
-                f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
-                f.FormatColumnGridControl(gvMostrar, "Fecha", "Fecha", 60, DevExpress.Utils.FormatType.DateTime, False)
-                f.FormatColumnGridControl(gvMostrar, "LIBRO_D", "Libro", 50, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "MONTO", "Monto", 60, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
-                f.FormatColumnGridControl(gvMostrar, "Contratista", "Contratista", 50, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "#Asiento", "#Asiento", 70, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "Descripcion", "Descripción", 70, DevExpress.Utils.FormatType.Custom, False)
+                f.InitGridControl(gcMostrar, gvMostrar, dt, "", True) 'POR_INTERFAZ
+                'f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
+                'f.FormatColumnGridControl(gvMostrar, "Fecha", "Fecha", 60, DevExpress.Utils.FormatType.DateTime, False)
+                'f.FormatColumnGridControl(gvMostrar, "LIBRO_D", "Libro", 50, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "MONTO", "Monto", 60, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+                'f.FormatColumnGridControl(gvMostrar, "Contratista", "Contratista", 50, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "#Asiento", "#Asiento", 70, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "Descripcion", "Descripción", 70, DevExpress.Utils.FormatType.Custom, False)
 
                 If rbAnular.Checked And dt.Rows.Count Then
                     btnAceptar.Enabled = True
@@ -125,9 +123,9 @@ Public Class GenAsientosMOFrm
 
         Finally
             cnx.Close()
-
+            SplashScreenManager.CloseForm()
         End Try
-        SplashScreenManager.CloseForm()
+
     End Sub
     Private Sub btnAceptar_Click(sender As Object, e As EventArgs) Handles btnAceptar.Click
         If MsgBox("¿Esta seguro que desea eliminar los asientos seleccionados?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Anular asientos") = MsgBoxResult.Yes Then

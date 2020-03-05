@@ -1421,7 +1421,7 @@ Public Class IDF_DFFacts
         da.InsertCommand.Parameters.Add("@UsuImpresion", SqlDbType.NVarChar, 25, "UsuImpresion")
         ' TODO: Comprobar el tipo de datos a usar...
         da.InsertCommand.Parameters.Add("@FechaImpresion", SqlDbType.DateTime, 0, "FechaImpresion")
-        da.InsertCommand.Parameters.Add("@NotificarA", SqlDbType.NVarChar, 300, "NotificarA")
+        da.InsertCommand.Parameters.Add("@NotificarA", SqlDbType.NVarChar, 600, "NotificarA")
         da.InsertCommand.Parameters.Add("@TotalExento", SqlDbType.Decimal, 0, "TotalExento")
         da.InsertCommand.Parameters.Add("@NumeroOrden", SqlDbType.NVarChar, 50, "NumeroOrden")
         da.InsertCommand.Parameters.Add("@InfoExtra", SqlDbType.NVarChar, 800, "InfoExtra")

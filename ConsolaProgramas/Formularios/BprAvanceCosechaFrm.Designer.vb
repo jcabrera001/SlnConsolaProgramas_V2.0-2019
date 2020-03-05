@@ -534,7 +534,7 @@ Partial Class BprAvanceCosechaFrm
         '
         'LayoutViewCard1
         '
-        Me.LayoutViewCard1.ExpandButtonLocation = DevExpress.Utils.GroupElementLocation.AfterText
+        'Me.LayoutViewCard1.ExpandButtonLocation = DevExpress.Utils.GroupElementLocation.AfterText
         Me.LayoutViewCard1.Items.AddRange(New DevExpress.XtraLayout.BaseLayoutItem() {Me.layoutViewField_gcolLiberacion, Me.layoutViewField_gcolTonsEstimadas})
         Me.LayoutViewCard1.Name = "layoutViewTemplateCard"
         '

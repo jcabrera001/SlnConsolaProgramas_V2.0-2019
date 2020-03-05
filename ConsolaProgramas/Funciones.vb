@@ -7,6 +7,7 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraGrid.Columns.AutoFilterCondition
 Imports DevExpress.Data
 
 Public Class Funciones
@@ -36,7 +37,7 @@ Public Class Funciones
 
     End Sub
     'Metodo para cargar Comboboxes
-    Public Sub SetCombo(ByVal cmb As Windows.Forms.ComboBox, ByVal tabla As DataTable, ByVal Display As String, ByVal Value As String, ByVal posicion As Integer)
+    Public Sub SetCombo(ByVal cmb As System.Windows.Forms.ComboBox, ByVal tabla As DataTable, ByVal Display As String, ByVal Value As String, ByVal posicion As Integer)
 
         cmb.DataSource = tabla
         cmb.DisplayMember = Display
@@ -124,6 +125,13 @@ Public Class Funciones
         gv.Columns(Column).Width = wid
         gv.Columns(Column).OptionsColumn.AllowEdit = Edit
         gv.Columns(Column).DisplayFormat.FormatType = format
+    End Sub
+    Public Sub FormatColumnGridControl(ByVal gv As GridView, ByVal Column As String, ByVal title As String, ByVal wid As Integer, ByVal format As DevExpress.Utils.FormatType, ByVal Edit As Boolean, ByVal condition As AutoFilterCondition)
+        gv.Columns(Column).Caption = title
+        gv.Columns(Column).Width = wid
+        gv.Columns(Column).OptionsColumn.AllowEdit = Edit
+        gv.Columns(Column).DisplayFormat.FormatType = format
+        gv.Columns(Column).OptionsFilter.AutoFilterCondition = condition
     End Sub
     Public Sub FormatColumnGridControl(ByVal gv As GridView, ByVal Column As String, ByVal title As String, ByVal wid As Integer, ByVal formaType As DevExpress.Utils.FormatType, format As String, ByVal Edit As Boolean)
         'Dim colModelPrice As GridColumn = gv.Columns(Column)
@@ -251,7 +259,7 @@ Public Class Funciones
         For i As Integer = 0 To dtb.Rows.Count - 1
             If prm.ParameterName.ToString().ToLower() = dtb.Rows(i).Item("Columna").ToString().ToLower() Then
                 dtb.Rows.Remove(dtb.Rows(i))
-
+                'dtb.Rows(i).Item("Columna") = prm.Value
             End If
         Next
 
@@ -329,5 +337,10 @@ Public Class Funciones
     Public Sub RemoveSummary(gv As GridView, Column As String)
         gv.Columns(Column).Summary.Remove(siTotal)
     End Sub
-   
+    Public Sub ExecuteQuery(sql As String)
+        cnx.Open()
+        Dim cmd As New SqlCommand(sql, cnx)
+        cmd.ExecuteNonQuery()
+        cnx.Close()
+    End Sub
 End Class

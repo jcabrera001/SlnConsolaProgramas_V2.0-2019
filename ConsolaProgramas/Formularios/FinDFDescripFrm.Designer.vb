@@ -407,7 +407,6 @@ Partial Class FinDFDescripFrm
         '
         Me.CmbEditar.AutoSize = False
         Me.CmbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CmbEditar.Enabled = False
         Me.CmbEditar.Image = Global.ConsolaProgramas.My.Resources.Resources.page_edit
         Me.CmbEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.CmbEditar.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -421,7 +420,6 @@ Partial Class FinDFDescripFrm
         Me.CmbActualizarConsulta.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.CmbActualizarConsulta.AutoSize = False
         Me.CmbActualizarConsulta.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CmbActualizarConsulta.Enabled = False
         Me.CmbActualizarConsulta.Image = Global.ConsolaProgramas.My.Resources.Resources.arrow_refresh1
         Me.CmbActualizarConsulta.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.CmbActualizarConsulta.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -440,7 +438,6 @@ Partial Class FinDFDescripFrm
         Me.CmbImprimir.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.CmbImprimir.AutoSize = False
         Me.CmbImprimir.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CmbImprimir.Enabled = False
         Me.CmbImprimir.Image = Global.ConsolaProgramas.My.Resources.Resources.printer
         Me.CmbImprimir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.CmbImprimir.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -1710,6 +1707,7 @@ Partial Class FinDFDescripFrm
         Me.ClientSize = New System.Drawing.Size(850, 573)
         Me.Controls.Add(Me.XTTEmpaginacion)
         Me.Name = "FinDFDescripFrm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Documentos Fuente:"
         CType(Me.XTTEmpaginacion, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XTTEmpaginacion.ResumeLayout(False)

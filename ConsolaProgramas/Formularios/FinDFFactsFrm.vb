@@ -1,4 +1,6 @@
-﻿Imports LibDAO001
+﻿
+Imports System.Data.SqlClient
+Imports LibDAO001
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 
@@ -31,7 +33,29 @@ Public Class FinDFFactsFrm
     Public EsExtendida As Boolean
     Public xFechaLimiteExtendidaCaducada As Integer
     Dim CAI As String
+    Dim cnx As SqlConnection
+    Dim DtDatosImpuestos As New DataTable
+    Dim f As New Funciones()
 
+    Public Sub New(usu As String, pwd As String)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+
+        'Validación si el usuario tiene permisos para anular el botón se muestra habilitado.
+        Dim dtUSu As New DataTable
+        cnx = New SqlConnection("Persist Security Info=False;User ID=" & usu & ";Password=" & pwd & ";Initial Catalog=Produccion;Server=AMIGODB\AMIGODB")
+        f.Conexion = cnx
+
+        dtUSu = f.getDataTable("select * from AAA_listaUSuarios where usuarioID ='" & usu & "' and anulacionFactura = 1")
+
+        If dtUSu.Rows.Count = 0 Then
+            CmbAnular.Enabled = False
+        End If
+    End Sub
     Public Sub FuncionInicial(strU As String, strP As String, StrE As String, IntT As Integer,
                               PerfilID As Integer, PrgID As Integer, FormID As Integer, CAI As String)
         strUsuario = strU
@@ -79,9 +103,9 @@ Public Class FinDFFactsFrm
                         GrdConsulta.Enabled = True
                         OpcionModificar = 3
                     End If
-                    If xTipoOpcionID = CInt(CmbAnular.Tag.ToString) And xActivo = True Then 'Anular
-                        CmbAnular.Enabled = True
-                    End If
+                    'If xTipoOpcionID = CInt(CmbAnular.Tag.ToString) And xActivo = True Then 'Anular
+                    '    CmbAnular.Enabled = True
+                    'End If
                     If xTipoOpcionID = CInt(CmbImprimir.Tag.ToString) And xActivo = True Then 'Imprimir
                         CmbImprimir.Enabled = True
                     End If
@@ -223,31 +247,35 @@ Public Class FinDFFactsFrm
 
     End Sub
     Private Sub CmbEditar_Click(sender As Object, e As EventArgs) Handles CmbEditar.Click
-        Dim nDFFactID As String
+        If FacturaEstado() Then
+            MsgBox("Factura Anulada no puede ser editada!", MsgBoxStyle.Information, "Factura Anulada")
+        Else
+            Dim nDFFactID As String
 
-        'Validar si el tipo de impresion es "Multiple filas"
-        contador = VerificarCantidadFilasSelector(GrdConsultaView.RowCount)
-        If contador >= 0 And contador < 2 Then
-            nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
+            'Validar si el tipo de impresion es "Multiple filas"
+            contador = VerificarCantidadFilasSelector(GrdConsultaView.RowCount)
+            If contador >= 0 And contador < 2 Then
+                nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
 
-            Try
-                If OpcionModificar = 3 Then
-                    CmbGrabarNuevo.Enabled = True
-                    CmbGrabarSalir.Enabled = True
-                    CmbNuevoItem.Enabled = True
-                    CmbEliminarItem.Enabled = True
-                    cmbModificarItem.Enabled = True
-                    Editar(nDFFactID)
-                    CargarItems()
-                End If
+                Try
+                    If OpcionModificar = 3 Then
+                        CmbGrabarNuevo.Enabled = True
+                        CmbGrabarSalir.Enabled = True
+                        CmbNuevoItem.Enabled = True
+                        CmbEliminarItem.Enabled = True
+                        cmbModificarItem.Enabled = True
+                        Editar(nDFFactID)
+                        CargarItems()
+                    End If
 
-            Catch ex As Exception
-                ClsU.NotaCompleta("Debe de elegir un registro para editar. " & ex.Message, 16)
-                'ClsU.Nota("Debe de elegir un registro para editar.")
-            End Try
-        End If
-        If contador >= 2 Then
-            ClsU.NotaCompleta("No se permite editar multiples documentos a la vez, intente de nuevo", 16)
+                Catch ex As Exception
+                    ClsU.NotaCompleta("Debe de elegir un registro para editar. " & ex.Message, 16)
+                    'ClsU.Nota("Debe de elegir un registro para editar.")
+                End Try
+            End If
+            If contador >= 2 Then
+                ClsU.NotaCompleta("No se permite editar multiples documentos a la vez, intente de nuevo", 16)
+            End If
         End If
     End Sub
 
@@ -309,23 +337,27 @@ Public Class FinDFFactsFrm
     End Sub
 
     Private Sub GrdConsulta_DoubleClick(sender As Object, e As EventArgs) Handles GrdConsulta.DoubleClick
-        Dim nDFFactID As Integer
-        nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
+        If FacturaEstado() Then 'Validación, sí la factura está anulada no se puede modificar.
+            MsgBox("Factura Anulada no puede ser editada!", MsgBoxStyle.Information, "Factura Anulada")
+        Else
+            Dim nDFFactID As Integer
+            nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
 
-        Try
-            If OpcionConsultar = 2 Then
-                CmbGrabarNuevo.Enabled = False
-                CmbGrabarSalir.Enabled = False
-                CmbNuevoItem.Enabled = False
-                CmbEliminarItem.Enabled = False
-                cmbModificarItem.Enabled = False
-                'CmbRegActualizar.Enabled = False
-                Editar(nDFFactID)
-                CargarItems()
-            End If
-        Catch ex As Exception
-            ClsU.NotaCompleta("Debe de elegir un registro para editar. " & ex.Message, 16)
-        End Try
+            Try
+                If OpcionConsultar = 2 Then
+                    CmbGrabarNuevo.Enabled = False
+                    CmbGrabarSalir.Enabled = False
+                    CmbNuevoItem.Enabled = False
+                    CmbEliminarItem.Enabled = False
+                    cmbModificarItem.Enabled = False
+                    'CmbRegActualizar.Enabled = False
+                    Editar(nDFFactID)
+                    CargarItems()
+                End If
+            Catch ex As Exception
+                ClsU.NotaCompleta("Debe de elegir un registro para editar. " & ex.Message, 16)
+            End Try
+        End If
     End Sub
 
     Private Sub CmbRegresarConsulta_Click(sender As Object, e As EventArgs) Handles CmbRegresarConsulta.Click
@@ -378,6 +410,8 @@ Public Class FinDFFactsFrm
             strMensaje = "Error: Favor seleccionar termino de pago. Intente de nuevo"
         ElseIf TxtTerminoCodigo.EditValue.ToString.Length = 0 Then
             strMensaje = "Error: Favor seleccionar termino de pago. Intente de nuevo"
+        ElseIf TxtRegImptoCodigo.Text.Length = 0 Then
+            strMensaje = "Error: Favor seleccionar una categoria de impuesto. Intente de nuevo"
         Else
             strMensaje = "1"
         End If
@@ -409,15 +443,20 @@ Public Class FinDFFactsFrm
     End Sub
 
     Private Sub CmbAnular_Click(sender As Object, e As EventArgs) Handles CmbAnular.Click
-        msgResultado = ClsU.NotaCompletaPregunta("¿Desea anular este documento?", 128)
-        If msgResultado = MsgBoxResult.Yes Then
-            Dim nDFFactID As Integer
-            nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
-            Try
-                Anular(nDFFactID, 2) '2=Anulado
-            Catch ex As Exception
-                ClsU.NotaCompleta("Debe de elegir un registro para anular. " & ex.Message, 16)
-            End Try
+        If FacturaEstado() Then
+            MsgBox("Factura ya se encuentra anulada!", MsgBoxStyle.Information, "Factura Anulada")
+        Else
+            msgResultado = ClsU.NotaCompletaPregunta("¿Desea anular este documento?", 128)
+            If msgResultado = MsgBoxResult.Yes Then
+                Dim nDFFactID As Integer
+                nDFFactID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
+                Try
+                    Anular(nDFFactID, 2) '2=Anulado
+                    CargarConsulta()
+                Catch ex As Exception
+                    ClsU.NotaCompleta("Debe de elegir un registro para anular. " & ex.Message, 16)
+                End Try
+            End If
         End If
     End Sub
 
@@ -544,6 +583,9 @@ Public Class FinDFFactsFrm
 
         Me.TxtRegImptoCodigo.EditValue = oProdRegistro.ImptoCodigo
 
+        'Ariel Cabrera
+        ''Filtrado de listado de impuesto, por el impuesto seleccionado al aseleccionar el producto.
+        'DtDatosImpuestos.DefaultView.RowFilter = "TaxCat = '" & TxtRegImptoCodigo.EditValue & "'"
     End Sub
     Public Sub CalcImptoDescto()
         Dim nCantidad, nPrecio, nTotalBruto, nDescuento, nImpuesto, nTotalNeto As Double
@@ -605,7 +647,6 @@ Public Class FinDFFactsFrm
         Dim DtDatosTerminos As New DataTable
         Dim DtDatosEmpresas As New DataTable
         Dim DtDatosDFs As New DataTable
-        Dim DtDatosImpuestos As New DataTable
         Dim DtDatosTiposDoctos As New DataTable
         Dim DtMonedas As New DataTable
         Dim DtCatProductos As New DataTable
@@ -682,7 +723,8 @@ Public Class FinDFFactsFrm
         End Try
 
         Try
-            DtDatosImpuestos = IDF_Impuestos.Tabla("Select * From IDF_Impuestos Where Right(TaxCat,2)='" & StrEmpresa & "' or TaxCat='ISV0'")
+            'DtDatosImpuestos = IDF_Impuestos.Tabla("Select * From IDF_Impuestos Where Right(TaxCat,2)='" & StrEmpresa & "' or TaxCat='ISV0'") 'Ariel cabrera, 
+            DtDatosImpuestos = IDF_Impuestos.Tabla("spIDF_ImpuestosSelect '" & StrEmpresa & "'") ' Where Right(TaxCat,2)='" & StrEmpresa & "' or TaxCat='ISV0'")
             Me.TxtRegImptoCodigo.Properties.DataSource = DtDatosImpuestos
             Me.TxtRegImptoCodigo.Properties.ValueMember = DtDatosImpuestos.Columns(0).ToString()
             Me.TxtRegImptoCodigo.Properties.DisplayMember = DtDatosImpuestos.Columns(1).ToString()
@@ -712,7 +754,6 @@ Public Class FinDFFactsFrm
         End Try
 
     End Sub
-
     Public Sub CargarDFs(cCliente As String)
         Dim DtDatosDFs As New DataTable
         ClsDFs = New IDF_DFs(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -727,7 +768,6 @@ Public Class FinDFFactsFrm
             ClsU.NotaCompleta("Problemas al consultar Documentos Fuentes. " & ex.Message, 16)
         End Try
     End Sub
-
     Public Sub CargarItems()
         ClsProdXFact = New IDF_ProdXFact(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
 
@@ -742,7 +782,6 @@ Public Class FinDFFactsFrm
         End Try
 
     End Sub
-
     Public Sub Nuevo()
         Dim nDFFactNum As Integer
 
@@ -900,7 +939,6 @@ Public Class FinDFFactsFrm
         Me.XTPEncTotales.PageVisible = True
 
     End Sub
-
     Public Sub NuevoItem()
         Me.XTTDetalle.SelectedTabPage = XTTRegPagina1
         Me.GrpRegistro.Text = "Nuevo registro."
@@ -927,7 +965,6 @@ Public Class FinDFFactsFrm
 
         ActivarItem()
     End Sub
-
     Public Sub EliminarItem(nDato As Integer)
         Dim oProdXFact As New IDF_ProdXFact(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
 
@@ -942,7 +979,6 @@ Public Class FinDFFactsFrm
         CargarItems()
 
     End Sub
-
     Public Sub ModificarItem(nDato As Integer)
         Me.GrpRegistro.Text = "Edición de datos."
         ActivarItem()
@@ -1458,5 +1494,14 @@ Public Class FinDFFactsFrm
             End If
         End If
     End Sub
+
+    'Función para validar el estado de una factura
+    Private Function FacturaEstado() As Boolean
+        If GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, GridColumn45) = "ANULADO" Then 'Validación, sí la factura está anulada no se puede modificar.
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
 End Class

@@ -25,6 +25,8 @@ Public Class IDF_ClientesAnexo
     Private _TelCliente2 As System.String
     Private _EmailCliente1 As System.String
     Private _EmailCliente2 As System.String
+    Private _RetencionID As System.String
+    Private _ImptoCodigo As System.String
     '
     ' Este método se usará para ajustar los anchos de las propiedades
     Private Function ajustarAncho(cadena As String, ancho As Integer) As String
@@ -110,12 +112,30 @@ Public Class IDF_ClientesAnexo
     End Property
     Public Property EmailCliente2() As System.String
         Get
-            Return ajustarAncho(_EmailCliente2,100)
+            Return ajustarAncho(_EmailCliente2, 100)
         End Get
         Set(value As System.String)
             _EmailCliente2 = value
         End Set
     End Property
+    Public Property RetencionID As String
+        Get
+            Return ajustarAncho(_RetencionID, 10)
+        End Get
+        Set(value As String)
+            _RetencionID = value
+        End Set
+    End Property
+
+    Public Property ImptoCodigo As String
+        Get
+            Return ajustarAncho(_ImptoCodigo, 10)
+        End Get
+        Set(value As String)
+            _ImptoCodigo = value
+        End Set
+    End Property
+
     '
     Public Default Property Item(index As Integer) As String
         ' Devuelve el contenido del campo indicado en index
@@ -229,6 +249,7 @@ Public Class IDF_ClientesAnexo
             End If
         End Set
     End Property
+
     '
     ' Campos y métodos compartidos (estáticos) para gestionar la base de datos
     '
@@ -264,6 +285,8 @@ Public Class IDF_ClientesAnexo
         oIDF_ClientesAnexo.TelCliente2 = r("TelCliente2").ToString()
         oIDF_ClientesAnexo.EmailCliente1 = r("EmailCliente1").ToString()
         oIDF_ClientesAnexo.EmailCliente2 = r("EmailCliente2").ToString()
+        oIDF_ClientesAnexo.RetencionID = r("RetencionID").ToString()
+        oIDF_ClientesAnexo.ImptoCodigo = r("ImptoCodigo").ToString()
         '
         Return oIDF_ClientesAnexo
     End Function
@@ -281,6 +304,8 @@ Public Class IDF_ClientesAnexo
         r("TelCliente2") = oIDF_ClientesAnexo.TelCliente2
         r("EmailCliente1") = oIDF_ClientesAnexo.EmailCliente1
         r("EmailCliente2") = oIDF_ClientesAnexo.EmailCliente2
+        r("RetencionID") = oIDF_ClientesAnexo.RetencionID
+        r("ImptoCodigo") = oIDF_ClientesAnexo.ImptoCodigo
     End Sub
     '
     ' crea una nueva fila y la asigna a un objeto IDF_ClientesAnexo
@@ -299,6 +324,8 @@ Public Class IDF_ClientesAnexo
         oI.TelCliente2 = oIDF_ClientesAnexo.TelCliente2
         oI.EmailCliente1 = oIDF_ClientesAnexo.EmailCliente1
         oI.EmailCliente2 = oIDF_ClientesAnexo.EmailCliente2
+        oI.RetencionID = oIDF_ClientesAnexo.RetencionID
+        oI.ImptoCodigo = oIDF_ClientesAnexo.ImptoCodigo
         '
         IDF_ClientesAnexo2Row(oI, dr)
         '
@@ -384,7 +411,7 @@ Public Class IDF_ClientesAnexo
         ' TODO: Comprobar cual es el campo de índice principal (sin duplicados)
         '       Yo compruebo que sea un campo llamado ID, pero en tu caso puede ser otro
         '       Ese campo, (en mi caso ID) será el que hay que poner al final junto al WHERE.
-        sCommand = "UPDATE IDF_ClientesAnexo SET TP = @TP, Direccion = @Direccion, EsOtrosComp = @EsOtrosComp, RTN = @RTN, DirCliente2 = @DirCliente2, DirCliente3 = @DirCliente3, TelCliente1 = @TelCliente1, TelCliente2 = @TelCliente2, EmailCliente1 = @EmailCliente1, EmailCliente2 = @EmailCliente2  WHERE (TP = @TP)"
+        sCommand = "UPDATE IDF_ClientesAnexo SET TP = @TP, Direccion = @Direccion, EsOtrosComp = @EsOtrosComp, RTN = @RTN, DirCliente2 = @DirCliente2, DirCliente3 = @DirCliente3, TelCliente1 = @TelCliente1, TelCliente2 = @TelCliente2, EmailCliente1 = @EmailCliente1, EmailCliente2 = @EmailCliente2, RetencionID = @RetencionID, ImptoCodigo = @ImptoCodigo  WHERE (TP = @TP)"
         da.UpdateCommand = New SqlCommand(sCommand, cnn)
         da.UpdateCommand.Parameters.Add("@TP", SqlDbType.NVarChar, 30, "TP")
         da.UpdateCommand.Parameters.Add("@Direccion", SqlDbType.NVarChar, 250, "Direccion")
@@ -397,6 +424,8 @@ Public Class IDF_ClientesAnexo
         da.UpdateCommand.Parameters.Add("@TelCliente2", SqlDbType.NVarChar, 25, "TelCliente2")
         da.UpdateCommand.Parameters.Add("@EmailCliente1", SqlDbType.NVarChar, 100, "EmailCliente1")
         da.UpdateCommand.Parameters.Add("@EmailCliente2", SqlDbType.NVarChar, 100, "EmailCliente2")
+        da.UpdateCommand.Parameters.Add("@RetencionID", SqlDbType.NVarChar, 100, "RetencionID")
+        da.UpdateCommand.Parameters.Add("@ImptoCodigo", SqlDbType.NVarChar, 100, "ImptoCodigo")
         '
         Try
             da.Fill(dt)
@@ -446,7 +475,7 @@ Public Class IDF_ClientesAnexo
         ' El comando INSERT
         ' TODO: No incluir el campo de clave primaria incremental
         '       Yo compruebo que sea un campo llamado ID, pero en tu caso puede ser otro
-        sCommand = "INSERT INTO IDF_ClientesAnexo (TP, Direccion, EsOtrosComp, RTN, DirCliente2, DirCliente3, TelCliente1, TelCliente2, EmailCliente1, EmailCliente2)  VALUES(@TP, @Direccion, @EsOtrosComp, @RTN, @DirCliente2, @DirCliente3, @TelCliente1, @TelCliente2, @EmailCliente1, @EmailCliente2)"
+        sCommand = "INSERT INTO IDF_ClientesAnexo (TP, Direccion, EsOtrosComp, RTN, DirCliente2, DirCliente3, TelCliente1, TelCliente2, EmailCliente1, EmailCliente2, RetencionID, ImptoCodigo)  VALUES(@TP, @Direccion, @EsOtrosComp, @RTN, @DirCliente2, @DirCliente3, @TelCliente1, @TelCliente2, @EmailCliente1, @EmailCliente2, @RetencionID, @ImptoCodigo)"
         da.InsertCommand = New SqlCommand(sCommand, cnn)
         da.InsertCommand.Parameters.Add("@TP", SqlDbType.NVarChar, 30, "TP")
         da.InsertCommand.Parameters.Add("@Direccion", SqlDbType.NVarChar, 250, "Direccion")
@@ -459,6 +488,8 @@ Public Class IDF_ClientesAnexo
         da.InsertCommand.Parameters.Add("@TelCliente2", SqlDbType.NVarChar, 25, "TelCliente2")
         da.InsertCommand.Parameters.Add("@EmailCliente1", SqlDbType.NVarChar, 100, "EmailCliente1")
         da.InsertCommand.Parameters.Add("@EmailCliente2", SqlDbType.NVarChar, 100, "EmailCliente2")
+        da.InsertCommand.Parameters.Add("@RetencionID", SqlDbType.NVarChar, 100, "RetencionID")
+        da.InsertCommand.Parameters.Add("@ImptoCodigo", SqlDbType.NVarChar, 100, "ImptoCodigo")
         '
         '
         Try

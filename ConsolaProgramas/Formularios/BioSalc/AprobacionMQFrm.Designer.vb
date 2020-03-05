@@ -31,8 +31,6 @@ Partial Class AprobacionMQFrm
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.rbQuitar = New System.Windows.Forms.RadioButton()
         Me.rbAprobar = New System.Windows.Forms.RadioButton()
-        Me.gcMostrar = New DevExpress.XtraGrid.GridControl()
-        Me.gvMostrar = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -40,15 +38,23 @@ Partial Class AprobacionMQFrm
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbSemana = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.gcMostrar = New DevExpress.XtraGrid.GridControl()
+        Me.gvMostrar = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Seleccionar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Factura = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Empresa = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Total = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Cobrar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Categoria = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.chkSelecionar.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbCategoria.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbZafra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbSitio.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbSemana.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtTotal
@@ -140,21 +146,6 @@ Partial Class AprobacionMQFrm
         Me.rbAprobar.Text = "Aprobación"
         Me.rbAprobar.UseVisualStyleBackColor = True
         '
-        'gcMostrar
-        '
-        Me.gcMostrar.Location = New System.Drawing.Point(10, 151)
-        Me.gcMostrar.MainView = Me.gvMostrar
-        Me.gcMostrar.Name = "gcMostrar"
-        Me.gcMostrar.Size = New System.Drawing.Size(509, 229)
-        Me.gcMostrar.TabIndex = 25
-        Me.gcMostrar.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMostrar})
-        '
-        'gvMostrar
-        '
-        Me.gvMostrar.GridControl = Me.gcMostrar
-        Me.gvMostrar.Name = "gvMostrar"
-        Me.gvMostrar.OptionsView.ShowGroupPanel = False
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -223,11 +214,105 @@ Partial Class AprobacionMQFrm
         Me.GridView1.OptionsView.ShowAutoFilterRow = True
         Me.GridView1.OptionsView.ShowGroupPanel = False
         '
+        'gcMostrar
+        '
+        Me.gcMostrar.Location = New System.Drawing.Point(10, 151)
+        Me.gcMostrar.MainView = Me.gvMostrar
+        Me.gcMostrar.Name = "gcMostrar"
+        Me.gcMostrar.Size = New System.Drawing.Size(509, 229)
+        Me.gcMostrar.TabIndex = 54
+        Me.gcMostrar.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMostrar})
+        '
+        'gvMostrar
+        '
+        Me.gvMostrar.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.Seleccionar, Me.Factura, Me.Empresa, Me.Total, Me.Cobrar, Me.Categoria})
+        Me.gvMostrar.GridControl = Me.gcMostrar
+        Me.gvMostrar.Name = "gvMostrar"
+        Me.gvMostrar.OptionsView.ShowAutoFilterRow = True
+        Me.gvMostrar.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
+        Me.gvMostrar.OptionsView.ShowGroupPanel = False
+        '
+        'Seleccionar
+        '
+        Me.Seleccionar.Caption = "Seleccionar"
+        Me.Seleccionar.FieldName = "Selector"
+        Me.Seleccionar.Name = "Seleccionar"
+        Me.Seleccionar.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Seleccionar.Visible = True
+        Me.Seleccionar.VisibleIndex = 0
+        Me.Seleccionar.Width = 57
+        '
+        'Factura
+        '
+        Me.Factura.Caption = "Factura"
+        Me.Factura.FieldName = "Factura"
+        Me.Factura.Name = "Factura"
+        Me.Factura.OptionsColumn.AllowEdit = False
+        Me.Factura.OptionsColumn.ReadOnly = True
+        Me.Factura.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Factura.Visible = True
+        Me.Factura.VisibleIndex = 1
+        Me.Factura.Width = 60
+        '
+        'Empresa
+        '
+        Me.Empresa.Caption = "Empresa"
+        Me.Empresa.FieldName = "Empresa"
+        Me.Empresa.Name = "Empresa"
+        Me.Empresa.OptionsColumn.AllowEdit = False
+        Me.Empresa.OptionsColumn.ReadOnly = True
+        Me.Empresa.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Empresa.Visible = True
+        Me.Empresa.VisibleIndex = 2
+        Me.Empresa.Width = 60
+        '
+        'Total
+        '
+        Me.Total.Caption = "Total"
+        Me.Total.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Total.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Total.FieldName = "Total"
+        Me.Total.Name = "Total"
+        Me.Total.OptionsColumn.AllowEdit = False
+        Me.Total.OptionsColumn.ReadOnly = True
+        Me.Total.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Total.UnboundType = DevExpress.Data.UnboundColumnType.[Decimal]
+        Me.Total.Visible = True
+        Me.Total.VisibleIndex = 3
+        Me.Total.Width = 70
+        '
+        'Cobrar
+        '
+        Me.Cobrar.Caption = "Cobrar"
+        Me.Cobrar.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Cobrar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Cobrar.FieldName = "TotalAdmon"
+        Me.Cobrar.Name = "Cobrar"
+        Me.Cobrar.OptionsColumn.AllowEdit = False
+        Me.Cobrar.OptionsColumn.ReadOnly = True
+        Me.Cobrar.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Cobrar.Visible = True
+        Me.Cobrar.VisibleIndex = 4
+        Me.Cobrar.Width = 70
+        '
+        'Categoria
+        '
+        Me.Categoria.Caption = "Categoria"
+        Me.Categoria.FieldName = "Categ"
+        Me.Categoria.Name = "Categoria"
+        Me.Categoria.OptionsColumn.AllowEdit = False
+        Me.Categoria.OptionsColumn.ReadOnly = True
+        Me.Categoria.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Categoria.Visible = True
+        Me.Categoria.VisibleIndex = 5
+        Me.Categoria.Width = 70
+        '
         'AprobacionMQFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(528, 418)
+        Me.Controls.Add(Me.gcMostrar)
         Me.Controls.Add(Me.cmbSemana)
         Me.Controls.Add(Me.cmbSitio)
         Me.Controls.Add(Me.Label2)
@@ -238,7 +323,6 @@ Partial Class AprobacionMQFrm
         Me.Controls.Add(Me.btnAceptar)
         Me.Controls.Add(Me.btnMostrar)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.gcMostrar)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
@@ -253,11 +337,11 @@ Partial Class AprobacionMQFrm
         CType(Me.cmbZafra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmbSitio.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmbSemana.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -271,8 +355,6 @@ Partial Class AprobacionMQFrm
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents rbQuitar As System.Windows.Forms.RadioButton
     Friend WithEvents rbAprobar As System.Windows.Forms.RadioButton
-    Friend WithEvents gcMostrar As DevExpress.XtraGrid.GridControl
-    Friend WithEvents gvMostrar As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -280,4 +362,12 @@ Partial Class AprobacionMQFrm
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents cmbSemana As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents gcMostrar As DevExpress.XtraGrid.GridControl
+    Friend WithEvents gvMostrar As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents Seleccionar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Factura As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Empresa As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Total As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Cobrar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Categoria As DevExpress.XtraGrid.Columns.GridColumn
 End Class

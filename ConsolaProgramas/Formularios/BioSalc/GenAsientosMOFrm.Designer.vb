@@ -30,26 +30,33 @@ Partial Class GenAsientosMOFrm
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.rbAnular = New System.Windows.Forms.RadioButton()
         Me.rbGenerar = New System.Windows.Forms.RadioButton()
-        Me.gcMostrar = New DevExpress.XtraGrid.GridControl()
-        Me.gvMostrar = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbSemana = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.gcMostrar = New DevExpress.XtraGrid.GridControl()
+        Me.gvMostrar = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Seleccionar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Fecha = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Libro = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Monto = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Asiento = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Descripción = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Contratista = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.cmbSitio.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbZafra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbSemana.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtTotal
         '
         Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotal.Location = New System.Drawing.Point(400, 386)
+        Me.txtTotal.Location = New System.Drawing.Point(422, 386)
         Me.txtTotal.Multiline = True
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
@@ -126,21 +133,6 @@ Partial Class GenAsientosMOFrm
         Me.rbGenerar.Text = "Generación de Asiento "
         Me.rbGenerar.UseVisualStyleBackColor = True
         '
-        'gcMostrar
-        '
-        Me.gcMostrar.Location = New System.Drawing.Point(10, 151)
-        Me.gcMostrar.MainView = Me.gvMostrar
-        Me.gcMostrar.Name = "gcMostrar"
-        Me.gcMostrar.Size = New System.Drawing.Size(509, 229)
-        Me.gcMostrar.TabIndex = 25
-        Me.gcMostrar.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMostrar})
-        '
-        'gvMostrar
-        '
-        Me.gvMostrar.GridControl = Me.gcMostrar
-        Me.gvMostrar.Name = "gvMostrar"
-        Me.gvMostrar.OptionsView.ShowGroupPanel = False
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -190,11 +182,106 @@ Partial Class GenAsientosMOFrm
         Me.GridView1.OptionsView.ShowAutoFilterRow = True
         Me.GridView1.OptionsView.ShowGroupPanel = False
         '
+        'gcMostrar
+        '
+        Me.gcMostrar.Location = New System.Drawing.Point(10, 151)
+        Me.gcMostrar.MainView = Me.gvMostrar
+        Me.gcMostrar.Name = "gcMostrar"
+        Me.gcMostrar.Size = New System.Drawing.Size(531, 229)
+        Me.gcMostrar.TabIndex = 53
+        Me.gcMostrar.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvMostrar})
+        '
+        'gvMostrar
+        '
+        Me.gvMostrar.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.Seleccionar, Me.Fecha, Me.Libro, Me.Monto, Me.Asiento, Me.Descripción, Me.Contratista})
+        Me.gvMostrar.GridControl = Me.gcMostrar
+        Me.gvMostrar.Name = "gvMostrar"
+        Me.gvMostrar.OptionsView.ShowAutoFilterRow = True
+        Me.gvMostrar.OptionsView.ShowGroupPanel = False
+        '
+        'Seleccionar
+        '
+        Me.Seleccionar.Caption = "Seleccionar"
+        Me.Seleccionar.FieldName = "Selector"
+        Me.Seleccionar.Name = "Seleccionar"
+        Me.Seleccionar.Visible = True
+        Me.Seleccionar.VisibleIndex = 0
+        Me.Seleccionar.Width = 50
+        '
+        'Fecha
+        '
+        Me.Fecha.Caption = "Fecha"
+        Me.Fecha.FieldName = "Fecha"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.OptionsColumn.AllowEdit = False
+        Me.Fecha.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Fecha.Visible = True
+        Me.Fecha.VisibleIndex = 1
+        Me.Fecha.Width = 60
+        '
+        'Libro
+        '
+        Me.Libro.Caption = "Libro"
+        Me.Libro.FieldName = "LIBRO_D"
+        Me.Libro.Name = "Libro"
+        Me.Libro.OptionsColumn.AllowEdit = False
+        Me.Libro.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Libro.Visible = True
+        Me.Libro.VisibleIndex = 2
+        Me.Libro.Width = 40
+        '
+        'Monto
+        '
+        Me.Monto.Caption = "Monto"
+        Me.Monto.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Monto.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Monto.FieldName = "MONTO"
+        Me.Monto.Name = "Monto"
+        Me.Monto.OptionsColumn.AllowEdit = False
+        Me.Monto.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Monto.Visible = True
+        Me.Monto.VisibleIndex = 3
+        Me.Monto.Width = 60
+        '
+        'Asiento
+        '
+        Me.Asiento.Caption = "#Asiento"
+        Me.Asiento.FieldName = "#Asiento"
+        Me.Asiento.Name = "Asiento"
+        Me.Asiento.OptionsColumn.AllowEdit = False
+        Me.Asiento.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Asiento.Visible = True
+        Me.Asiento.VisibleIndex = 4
+        Me.Asiento.Width = 70
+        '
+        'Descripción
+        '
+        Me.Descripción.Caption = "Descripción"
+        Me.Descripción.FieldName = "Descripcion"
+        Me.Descripción.Name = "Descripción"
+        Me.Descripción.OptionsColumn.AllowEdit = False
+        Me.Descripción.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Descripción.Visible = True
+        Me.Descripción.VisibleIndex = 5
+        Me.Descripción.Width = 70
+        '
+        'Contratista
+        '
+        Me.Contratista.Caption = "Contratista"
+        Me.Contratista.FieldName = "Contratista"
+        Me.Contratista.Name = "Contratista"
+        Me.Contratista.OptionsColumn.AllowEdit = False
+        Me.Contratista.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Contratista.Visible = True
+        Me.Contratista.VisibleIndex = 6
+        Me.Contratista.Width = 50
+        '
         'GenAsientosMOFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(528, 418)
+        Me.ClientSize = New System.Drawing.Size(552, 418)
+        Me.Controls.Add(Me.gcMostrar)
         Me.Controls.Add(Me.cmbSemana)
         Me.Controls.Add(Me.txtTotal)
         Me.Controls.Add(Me.cmbSitio)
@@ -202,7 +289,6 @@ Partial Class GenAsientosMOFrm
         Me.Controls.Add(Me.btnAceptar)
         Me.Controls.Add(Me.btnMostrar)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.gcMostrar)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
@@ -216,10 +302,10 @@ Partial Class GenAsientosMOFrm
         CType(Me.cmbZafra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmbSemana.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -232,11 +318,18 @@ Partial Class GenAsientosMOFrm
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents rbAnular As System.Windows.Forms.RadioButton
     Friend WithEvents rbGenerar As System.Windows.Forms.RadioButton
-    Friend WithEvents gcMostrar As DevExpress.XtraGrid.GridControl
-    Friend WithEvents gvMostrar As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents cmbSemana As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents gcMostrar As DevExpress.XtraGrid.GridControl
+    Friend WithEvents gvMostrar As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents Seleccionar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Fecha As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Libro As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Monto As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Asiento As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Descripción As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Contratista As DevExpress.XtraGrid.Columns.GridColumn
 End Class

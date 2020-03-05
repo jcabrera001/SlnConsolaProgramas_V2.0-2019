@@ -19,34 +19,35 @@ Public Class GenFacturasFrm
     Dim dtOt As New DataTable
     Dim dtOTDetalle As New DataTable
 
+    Dim prmID As SqlParameter
+
     Dim val As Boolean = False
     Dim fila As Boolean = False
-    Public Sub New(user As String, pw As String, empresa As String)
+    Public Sub New(cnx As SqlConnection, user As String, pw As String, empresa As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pw & ";Initial Catalog=Produccion;Server=AMIGODB\AMIGODB")
+        Me.cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pw & ";Initial Catalog=Produccion;Server=AMIGODB\AMIGODB")
         f.Conexion = cnx
         emp = empresa
         usuario = user
         password = pw
 
-        'TablesSetGrid("select Codigo, Descripcion from fotccs where EsCCFacturador = 1", "CentroCosto", cmbDepto, "Descripcion", "Codigo")
     End Sub
     Private Sub GenFacturasFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPrincipal()
         LoadGrid()
 
-        f.NewTable("select FlaLaborID , Codigo, Descripcion from FlaLabores where Sitio= '" & emp & "'", "Labor")
+        f.NewTable("select FlaLaborID , Codigo, Descripcion, Cuenta, Tarifa from FlaLabores where Sitio= '" & emp & "'", "Labor")
         f.NewTable("select Codigo, Descripcion from fotccs where EsCCFacturador = 1", "cc")
 
         'f.SetGridLookUpEdit(cmbLabor, f.dsDesarrollo.Tables("Labor"), "ID", "Descripcion")
         f.SetGridLookUpEdit(cmbDepto, f.dsDesarrollo.Tables("cc"), "Codigo", "Descripcion")
         f.SetGridLookUpEdit(cmbLabor, f.dsDesarrollo.Tables("Labor"), "FlaLaborID", "Descripcion")
 
-      
+
     End Sub
     Public Sub LoadPrincipal()
         dtMain.Clear()
@@ -54,25 +55,27 @@ Public Class GenFacturasFrm
         adpMain.Fill(dtMain)
     End Sub
     Public Sub LoadGrid()
-        f.InitGridControl(gc, gv, dtMain, "Sitio,Empresa,FlaFacturaID,cc,UsuarioCreador", False)
+        f.InitGridControl(gc, gv, dtMain, "Sitio,Empresa,FlaFacturaID,cc,UsuarioCreador,Descripcion,Estado", False)
         f.FormatColumnGridControl(gv, "Codigo", "Código", 70, DevExpress.Utils.FormatType.Custom, False)
         f.FormatColumnGridControl(gv, "Fecha", "Fecha", 70, DevExpress.Utils.FormatType.DateTime, False)
         f.FormatColumnGridControl(gv, "CentroCosto", "Centro Costo", 100, DevExpress.Utils.FormatType.Custom, False)
         f.FormatColumnGridControl(gv, "Aprobada", "Aprobada", 65, DevExpress.Utils.FormatType.Custom, False)
         f.FormatColumnGridControl(gv, "Contabilizada", "Contabilizada", 70, DevExpress.Utils.FormatType.Custom, False)
-        f.FormatColumnGridControl(gv, "Usuario", "Usuario", 70, DevExpress.Utils.FormatType.Custom, False)
-        f.FormatColumnGridControl(gv, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+        f.FormatColumnGridControl(gv, "Usuario", "Usuario", 90, DevExpress.Utils.FormatType.Custom, False)
+        f.FormatColumnGridControl(gv, "nomEstado", "Estado", 80, DevExpress.Utils.FormatType.Custom, False)
+        f.FormatColumnGridControl(gv, "Total", "Total", 90, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+
     End Sub
     Public Sub LoadGridDetalle()
 
         f.InitGridControl(gcDetalle, gvDetalle, dtDetalle, "FlaDetalleFacturaID,FlaFacturaID,FlaLaborID,Ajuste", False) 'FlaDetalleFacturaID,FlaFacturaID,FlaLaborID,Ajuste
         f.FormatColumnGridControl(gvDetalle, "Codigo", "Código", 70, DevExpress.Utils.FormatType.Custom, False)
         f.FormatColumnGridControl(gvDetalle, "Descripcion", "Descripción", 140, DevExpress.Utils.FormatType.Custom, True)
-        f.FormatColumnGridControl(gvDetalle, "Cantidad", "Cantidad", 70, DevExpress.Utils.FormatType.Custom, True)
+        f.FormatColumnGridControl(gvDetalle, "Cantidad", "Cantidad", 50, DevExpress.Utils.FormatType.Custom, True)
         f.FormatColumnGridControl(gvDetalle, "Costo", "Costo", 60, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
         f.FormatColumnGridControl(gvDetalle, "Ajuste", "Ajuste", 60, DevExpress.Utils.FormatType.Custom, True)
         f.FormatColumnGridControl(gvDetalle, "Observaciones", "Observaciones", 120, DevExpress.Utils.FormatType.Custom, True)
-        f.FormatColumnGridControl(gvDetalle, "Cuenta", "Cuenta", 70, DevExpress.Utils.FormatType.Custom, False)
+        f.FormatColumnGridControl(gvDetalle, "Cuenta", "Cuenta", 90, DevExpress.Utils.FormatType.Custom, False)
         f.FormatColumnGridControl(gvDetalle, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
 
         'f.getGridLookUpEdit(gcDetalle, gvDetalle, f.dsDesarrollo.Tables("Labor"), "Descripcion", "Descripcion", "Descripcion", "Descripcion")
@@ -131,11 +134,13 @@ Public Class GenFacturasFrm
         adp.InsertCommand.Parameters("@FlaFacturaID").Direction = ParameterDirection.InputOutput
         adp.UpdateCommand = f.getSQLComand("spFlaFacturasUpdate")
 
+        prmID = New SqlParameter("FlaFacturaID", 0)
         dtDetalle = New DataTable
         adpDetalle = New SqlDataAdapter("spflaDetalleFacturaSelect " & ID, cnx)
 
         adpDetalle.InsertCommand = f.getSQLComand("spFlaDetalleFacturaInsert")
         adpDetalle.UpdateCommand = f.getSQLComand("spFlaDetalleFacturaUpdate")
+        adpDetalle.DeleteCommand = f.getSQLComand("spFlaDetalleFacturaDelete")
 
         adp.Fill(dt)
         adpDetalle.Fill(dtDetalle)
@@ -146,13 +151,16 @@ Public Class GenFacturasFrm
             dt.Rows.Add()
             chkAprobado.Checked = False
             chkContabilizado.Checked = False
+            Dim dtCC = f.getDataTable("select * from flausuarios where usuario = '" & usuario & "'")
+            cmbDepto.EditValue = dtCC.Rows(0).Item("Departamento").ToString
         Else
             dtFecha.EditValue = dt.Rows(0).Item("Fecha").ToString
             chkAprobado.Checked = (dt.Rows(0).Item("Aprobada").ToString)
             chkContabilizado.Checked = dt.Rows(0).Item("Contabilizada").ToString
             cmbDepto.EditValue = dt.Rows(0).Item("cc").ToString
 
-            If dt.Rows(0).Item("Aprobada") Then  'Validar si la factura está aprobada no pueda ser modificada.
+
+            If dt.Rows(0).Item("Estado") <> "G" Then  'Validar si la factura está aprobada o anulada, no pueda ser modificada.
                 CmbGrabarNuevo.Enabled = False
             End If
         End If
@@ -161,7 +169,7 @@ Public Class GenFacturasFrm
         txtCodigo.Text = dt.Rows(0).Item("codigo").ToString
         txtUsuario.Text = dt.Rows(0).Item("Usuario").ToString
         txtUsuario.Tag = dt.Rows(0).Item("UsuarioCreador").ToString
-
+        txtDescripcion.Text = dt.Rows(0).Item("Descripcion").ToString()
         'LoadOT()
     End Sub
     Public Sub Salvar()
@@ -184,12 +192,14 @@ Public Class GenFacturasFrm
         dt.Rows(0).Item("cc") = cmbDepto.EditValue
         dt.Rows(0).Item("Usuario") = usuario
         dt.Rows(0).Item("Sitio") = emp
+        dt.Rows(0).Item("Descripcion") = txtDescripcion.Text
         adp.Update(dt)
 
         Dim id As Integer = dt.Rows.Item(0).Item("FlaFacturaID")
-
         For Each row As DataRow In dtDetalle.Rows
-            row.Item("FlaFacturaID") = id
+            If row.RowState <> DataRowState.Deleted Then
+                row.Item("FlaFacturaID") = id
+            End If
         Next
 
         adpDetalle.Update(dtDetalle)
@@ -208,6 +218,7 @@ Public Class GenFacturasFrm
         txtOTDescrip.Text = ""
         txtOTEntidad.Text = ""
         txtOTCuenta.Text = ""
+        txtDescripcion.Text = ""
         dtFecha.EditValue = Nothing
         cmbDepto.EditValue = Nothing
     End Sub
@@ -225,21 +236,7 @@ Public Class GenFacturasFrm
             End If
         End If
     End Sub
-    'Private Sub gvDetalle_CellValueChanged(sender As Object, e As Views.Base.CellValueChangedEventArgs) Handles gvDetalle.CellValueChanged
-    '    Dim dtBusqueda As New DataTable
-    '    Dim col As String = e.Column.Name.ToLower 'gv.Columns().Name.ToLower
 
-    '    If col = "coldescripcion" And Not IsNothing(e.Value) Then
-    '        dtBusqueda = f.getDataTable("select * from FlaLabores where descripcion = '" & e.Value & "'")
-
-    '        dtDetalle.DefaultView.Item(e.RowHandle).Item("Codigo") = dtBusqueda.Rows(0).Item("codigo")
-    '        dtDetalle.DefaultView.Item(e.RowHandle).Item("costo") = dtBusqueda.Rows(0).Item("Tarifa")
-    '        dtDetalle.DefaultView.Item(e.RowHandle).Item("FlaLaborID") = dtBusqueda.Rows(0).Item("FlaLaborID")
-    '        dtDetalle.DefaultView.Item(e.RowHandle).Item("cantidad") = 1
-    '        dtDetalle.DefaultView.Item(e.RowHandle).Item("Total") = CDbl(dtBusqueda.Rows(0).Item("Tarifa")) * CDbl(dtDetalle.DefaultView.Item(e.RowHandle).Item("cantidad"))
-
-    '    End If
-    'End Sub
     Private Sub btnDetail_Click(sender As Object, e As EventArgs) Handles btnDetail.Click
         fila = False
         Detail()
@@ -263,13 +260,13 @@ Public Class GenFacturasFrm
     End Sub
     Private Sub Detail() 'Ocultar Grupo de registro
         GrpRegistro.Visible = True
-        btnDeleteDetail.Enabled = False
+        btnDelete.Enabled = False
         btnEditDetail.Enabled = False
         btnDetail.Enabled = False
     End Sub
     Public Sub RegresarVista()  'Limpiar los datos del detalle
         GrpRegistro.Visible = False
-        btnDeleteDetail.Enabled = True
+        btnDelete.Enabled = True
         btnEditDetail.Enabled = True
         btnDetail.Enabled = True
         txtCantidad.Text = ""
@@ -322,7 +319,8 @@ Public Class GenFacturasFrm
         'End If
     End Sub
     Private Sub cmbLabor_EditValueChanged(sender As Object, e As EventArgs) Handles cmbLabor.EditValueChanged
-        If Not IsNothing(cmbLabor.EditValue) Then
+    
+        If Len(cmbLabor.EditValue) > 0 Then 'cmbLabor.EditValue <> "" Then '
             Dim dtBusqueda As New DataTable
             dtBusqueda = f.getDataTable("select * from FlaLabores where FlaLaborID = " & cmbLabor.EditValue)
             txtCosto.Text = dtBusqueda.Rows(0).Item("Tarifa").ToString
@@ -347,5 +345,29 @@ Public Class GenFacturasFrm
         v.passwordSesion = password
         v.parametro = gv.GetRowCellValue(gv.FocusedRowHandle, "FlaFacturaID")
         v.Show()
+    End Sub
+
+    Private Sub cmbAnular_Click(sender As Object, e As EventArgs) Handles cmbAnular.Click
+        If gv.GetRowCellValue(gv.FocusedRowHandle, "FlaFacturaID") And gv.GetRowCellValue(gv.FocusedRowHandle, "Estado") = "G" Then
+            If MsgBox("Seguro que desea anular la factura seleccionada?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Anular Factura") = MsgBoxResult.Yes Then
+                cnx.Open()
+                Dim cmdEstado As New SqlCommand("update flafacturas set estado = 'N' where FlaFacturaID = " & gv.GetRowCellValue(gv.FocusedRowHandle, "FlaFacturaID"), cnx)
+                cmdEstado.ExecuteNonQuery()
+                cnx.Close()
+                MsgBox("Factura Anulada exitosamente!", MsgBoxStyle.Information, "Anular Factura")
+                LoadPrincipal()
+            End If
+        Else
+            MsgBox("Factura " & gv.GetRowCellValue(gv.FocusedRowHandle, "nomEstado") & ", no puede ser anulada!", MsgBoxStyle.Information, "Anular Factura")
+        End If
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        If IsNothing(gv.GetFocusedRowCellValue("FlaDetalleFacturaID")) Then  '("FlaDetalleFacturaID").ToString() =  Then
+            gvDetalle.DeleteSelectedRows()
+            'Else
+            '    dtDetalle.Rows.RemoveAt(dtDetalle.DefaultView.Item(gvDetalle.FocusedRowHandle).Item("FlaDetalleFacturaID").ToString())
+        End If
+
     End Sub
 End Class

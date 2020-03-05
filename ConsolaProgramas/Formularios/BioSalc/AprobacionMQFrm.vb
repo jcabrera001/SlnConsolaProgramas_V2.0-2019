@@ -10,13 +10,13 @@ Public Class AprobacionMQFrm
     Dim adp As New SqlDataAdapter
     Dim dt As New DataTable
     Dim time As Integer
-    Public Sub New(user As String, pwd As String, empresa As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, user As String, pwd As String, empresa As String, tiempo As Integer)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pwd & ";Initial Catalog=Biosalc;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
         emp = empresa
         time = tiempo
@@ -85,13 +85,13 @@ Public Class AprobacionMQFrm
         If dt.Rows.Count = 0 Then
             MsgBox("No existen registros para la semana seleccionada!", MsgBoxStyle.Exclamation, "Información")
         Else
-            f.InitGridControl(gcMostrar, gvMostrar, dt, "Aprob", True)
-            f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
-            f.FormatColumnGridControl(gvMostrar, "Factura", "Factura", 60, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Empresa", "Empresa", 60, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
-            f.FormatColumnGridControl(gvMostrar, "TotalAdmon", "Cobrar", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
-            f.FormatColumnGridControl(gvMostrar, "Categ", "Categoria", 70, DevExpress.Utils.FormatType.Custom, False)
+            f.InitGridControl(gcMostrar, gvMostrar, dt, "", True)
+            'f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
+            'f.FormatColumnGridControl(gvMostrar, "Factura", "Factura", 60, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Empresa", "Empresa", 60, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+            'f.FormatColumnGridControl(gvMostrar, "TotalAdmon", "Cobrar", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+            'f.FormatColumnGridControl(gvMostrar, "Categ", "Categoria", 70, DevExpress.Utils.FormatType.Custom, False)
 
             chkSelecionar.Checked = False
             btnAceptar.Enabled = True
@@ -181,7 +181,7 @@ Public Class AprobacionMQFrm
     End Sub
     Public Sub LoadPrincipal()
         dt.Clear()
-        adp.SelectCommand = New SqlCommand("spMTP_ObtenerFacturas_MQ " & cmbSemana.EditValue & ", '" & cmbCategoria.EditValue & "', '" & IIf(IsNothing(cmbSitio.EditValue), "null", cmbSitio.EditValue) & "'", cnx)
+        adp.SelectCommand = New SqlCommand("spMTP_ObtenerFacturas_MQ " & cmbZafra.EditValue & ", " & cmbSemana.EditValue & ", '" & cmbCategoria.EditValue & "', '" & IIf(IsNothing(cmbSitio.EditValue), "null", cmbSitio.EditValue) & "'", cnx)
         adp.SelectCommand.CommandTimeout = time
         adp.Fill(dt)
     End Sub
@@ -191,10 +191,10 @@ Public Class AprobacionMQFrm
         End If
     End Sub
 
-    Private Sub gvMostrar_CellValueChanging(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles gvMostrar.CellValueChanging
+    Private Sub gvMostrar_CellValueChanging(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs)
     End Sub
 
-    Private Sub gvMostrar_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles gvMostrar.CellValueChanged
+    Private Sub gvMostrar_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs)
         Dim Total As Double = 0.0
 
         If rbAprobar.Checked Then

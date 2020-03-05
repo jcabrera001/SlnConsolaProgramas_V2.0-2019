@@ -7,13 +7,13 @@ Public Class LaboresFrm
     Dim adpMain As SqlDataAdapter
     Dim dtMain As New DataTable
     Dim dt As New DataTable
-    Public Sub New(user As String, pw As String, empresa As String)
+    Public Sub New(cnx As SqlConnection, user As String, pw As String, empresa As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pw & ";Initial Catalog=Produccion;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
         emp = empresa
     End Sub

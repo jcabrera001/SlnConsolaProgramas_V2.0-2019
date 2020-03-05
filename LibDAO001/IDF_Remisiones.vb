@@ -1211,14 +1211,17 @@ Public Class IDF_Remisiones
         ' El comando INSERT
         ' TODO: No incluir el campo de clave primaria incremental
         '       Yo compruebo que sea un campo llamado RemisionID, pero en tu caso puede ser otro
-        sCommand = "INSERT INTO IDF_Remisiones (RemNum, CAI, Fecha, EmpresaCodigo, SdNCodigo, DFFactID, Estado, UsuCreador, FechaCreacion, UsuEditor, FechaEdicion, UsuAnulacion, FechaAnulacion, UsuImpresion, FechaImpresion, estaImpreso, PuntoPartida, PuntoDestino, FechaInicio, FechaFinal, Motivo, OtroMotivo, TransportistaID, ConductorID, Marca, Placa, Licencia, Identidad, Marchamo1, Marchamo2, Marchamo3, Marchamo4, TiposDoctoID, NumCabezal)  VALUES(@RemNum, @CAI, @Fecha, @EmpresaCodigo, @SdNCodigo, @DFFactID, @Estado, @UsuCreador, @FechaCreacion, @UsuEditor, @FechaEdicion, @UsuAnulacion, @FechaAnulacion, @UsuImpresion, @FechaImpresion, @estaImpreso, @PuntoPartida, @PuntoDestino, @FechaInicio, @FechaFinal, @Motivo, @OtroMotivo, @TransportistaID, @ConductorID, @Marca, @Placa, @Licencia, @Identidad, @Marchamo1, @Marchamo2, @Marchamo3, @Marchamo4, @TiposDoctoID, @NumCabezal)"
+        sCommand = "IDF_RemisionesInsert" '"INSERT INTO IDF_Remisiones (RemNum, CAI, Fecha, EmpresaCodigo, SdNCodigo, DFFactID, Estado, UsuCreador, FechaCreacion, UsuEditor, FechaEdicion, UsuAnulacion, FechaAnulacion, UsuImpresion, FechaImpresion, estaImpreso, PuntoPartida, PuntoDestino, FechaInicio, FechaFinal, Motivo, OtroMotivo, TransportistaID, ConductorID, Marca, Placa, Licencia, Identidad, Marchamo1, Marchamo2, Marchamo3, Marchamo4, TiposDoctoID, NumCabezal)  VALUES(@RemNum, @CAI, @Fecha, @EmpresaCodigo, @SdNCodigo, @DFFactID, @Estado, @UsuCreador, @FechaCreacion, @UsuEditor, @FechaEdicion, @UsuAnulacion, @FechaAnulacion, @UsuImpresion, @FechaImpresion, @estaImpreso, @PuntoPartida, @PuntoDestino, @FechaInicio, @FechaFinal, @Motivo, @OtroMotivo, @TransportistaID, @ConductorID, @Marca, @Placa, @Licencia, @Identidad, @Marchamo1, @Marchamo2, @Marchamo3, @Marchamo4, @TiposDoctoID, @NumCabezal)"
         da.InsertCommand = New SqlCommand(sCommand, cnn)
-        ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@RemisionID", SqlDbType.Int, 0, "RemisionID")
-        da.InsertCommand.Parameters.Add("@RemNum", SqlDbType.NVarChar, 25, "RemNum")
+        da.InsertCommand.CommandType = CommandType.StoredProcedure
+
+        ' Ariel Cabrera, evitar que se duplique un numero.
+        'da.InsertCommand.Parameters.Add("@RemisionID", SqlDbType.Int, 0, "RemisionID")
+        'da.InsertCommand.Parameters.Add("@RemNum", SqlDbType.NVarChar, 25, "RemNum")
+
         da.InsertCommand.Parameters.Add("@CAI", SqlDbType.NVarChar, 60, "CAI")
         ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@Fecha", SqlDbType.DateTime, 0, "Fecha")
+        da.InsertCommand.Parameters.Add("@Fecha", SqlDbType.DateTime, 100, "Fecha")
         da.InsertCommand.Parameters.Add("@EmpresaCodigo", SqlDbType.NVarChar, 5, "EmpresaCodigo")
         da.InsertCommand.Parameters.Add("@SdNCodigo", SqlDbType.NVarChar, 10, "SdNCodigo")
         ' TODO: Comprobar el tipo de datos a usar...
@@ -1227,16 +1230,16 @@ Public Class IDF_Remisiones
         da.InsertCommand.Parameters.Add("@Estado", SqlDbType.Int, 0, "Estado")
         da.InsertCommand.Parameters.Add("@UsuCreador", SqlDbType.NVarChar, 25, "UsuCreador")
         ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@FechaCreacion", SqlDbType.DateTime, 0, "FechaCreacion")
-        da.InsertCommand.Parameters.Add("@UsuEditor", SqlDbType.NVarChar, 25, "UsuEditor")
+        'da.InsertCommand.Parameters.Add("@FechaCreacion", SqlDbType.DateTime, 0, "FechaCreacion")
+        'da.InsertCommand.Parameters.Add("@UsuEditor", SqlDbType.NVarChar, 25, "UsuEditor")
         ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@FechaEdicion", SqlDbType.DateTime, 0, "FechaEdicion")
-        da.InsertCommand.Parameters.Add("@UsuAnulacion", SqlDbType.NVarChar, 25, "UsuAnulacion")
+        'da.InsertCommand.Parameters.Add("@FechaEdicion", SqlDbType.DateTime, 0, "FechaEdicion")
+        'da.InsertCommand.Parameters.Add("@UsuAnulacion", SqlDbType.NVarChar, 25, "UsuAnulacion")
         ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@FechaAnulacion", SqlDbType.DateTime, 0, "FechaAnulacion")
-        da.InsertCommand.Parameters.Add("@UsuImpresion", SqlDbType.NVarChar, 25, "UsuImpresion")
+        'da.InsertCommand.Parameters.Add("@FechaAnulacion", SqlDbType.DateTime, 0, "FechaAnulacion")
+        'da.InsertCommand.Parameters.Add("@UsuImpresion", SqlDbType.NVarChar, 25, "UsuImpresion")
         ' TODO: Comprobar el tipo de datos a usar...
-        da.InsertCommand.Parameters.Add("@FechaImpresion", SqlDbType.DateTime, 0, "FechaImpresion")
+        'da.InsertCommand.Parameters.Add("@FechaImpresion", SqlDbType.DateTime, 0, "FechaImpresion")
         ' TODO: Comprobar el tipo de datos a usar...
         da.InsertCommand.Parameters.Add("@estaImpreso", SqlDbType.Bit, 0, "estaImpreso")
         da.InsertCommand.Parameters.Add("@PuntoPartida", SqlDbType.NVarChar, 100, "PuntoPartida")

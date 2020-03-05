@@ -21,8 +21,8 @@ Partial Class FinDFFactsFrm
     Private Sub InitializeComponent()
         Dim CmbRegCancelar As DevExpress.XtraEditors.SimpleButton
         Dim CmbRegActualizar As DevExpress.XtraEditors.SimpleButton
-        Dim GridLevelNode3 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
-        Dim GridLevelNode4 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FinDFFactsFrm))
         Me.XTTEmpaginacion = New DevExpress.XtraTab.XtraTabControl()
         Me.XTTPagina1 = New DevExpress.XtraTab.XtraTabPage()
@@ -542,7 +542,6 @@ Partial Class FinDFFactsFrm
         '
         Me.CmbAnular.AutoSize = False
         Me.CmbAnular.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CmbAnular.Enabled = False
         Me.CmbAnular.Image = Global.ConsolaProgramas.My.Resources.Resources.layout_delete
         Me.CmbAnular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.CmbAnular.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -1108,9 +1107,9 @@ Partial Class FinDFFactsFrm
         Me.GrdItems.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        GridLevelNode3.RelationName = "Level1"
-        GridLevelNode4.RelationName = "Level2"
-        Me.GrdItems.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode3, GridLevelNode4})
+        GridLevelNode1.RelationName = "Level1"
+        GridLevelNode2.RelationName = "Level2"
+        Me.GrdItems.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1, GridLevelNode2})
         Me.GrdItems.Location = New System.Drawing.Point(4, 252)
         Me.GrdItems.MainView = Me.GrdVwItems
         Me.GrdItems.Name = "GrdItems"

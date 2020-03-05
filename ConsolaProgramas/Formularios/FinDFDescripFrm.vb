@@ -1,6 +1,8 @@
-﻿Imports LibDAO001
+﻿
+Imports LibDAO001
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
+Imports System.Data.SqlClient
 
 Public Class FinDFDescripFrm
 
@@ -35,24 +37,46 @@ Public Class FinDFDescripFrm
     Public EsExtendida As Boolean
     Public xFechaLimiteExtendidaCaducada As Integer
 
-    Public Sub FuncionInicial(strU As String, strP As String, StrE As String, IntT As Integer,
-                              PerfilID As Integer, PrgID As Integer, FormID As Integer)
+    Dim f As New Funciones
+    Dim dtValidacion As New DataTable
+    'Dim cmd As SqlCommand
+    'Dim cnx As SqlConnection
+
+
+    Private Function ValidarCAI(emp As String, doc As Integer) As Boolean
+        Dim cmd As New SqlClient.SqlCommand
+        Return False
+    End Function
+
+    Public Sub New(cnx As SqlConnection)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        f.Conexion = cnx
+    End Sub
+    Public Sub FuncionInicial(strU As String, strP As String, StrE As String, IntT As Integer, PerfilID As Integer, PrgID As Integer, FormID As Integer)
+
+        dtValidacion = f.getDataTable("spValidacionDocumentos '" & StrE & "', " & IntT)
+
+        ClsAccesos = New ClsVistas()
         strUsuario = strU
         strPassword = strP
         StrEmpresa = StrE
         IntTipoDocto = IntT
 
         'Validar que el tipo de documento pertenece a la Empresa y CAI Actual
-        ClsAccesos = New ClsVistas()
-        dtConfigxEmpresa = ClsAccesos.ObtenerInfoConfigxEmpresa(strUsuario, strPassword, 1, CInt(StrE), IntT)
+
 
         Dim oTipoDocto As New IDF_TiposDoctos(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         oTipoDocto = IDF_TiposDoctos.Buscar("TiposDoctoID='" & IntT & "'")
         Me.Text = oTipoDocto.Descripcion
 
-        contador = 0
-        contador = dtConfigxEmpresa.Rows.Count
-        If contador > 0 Then
+        'MsgBox(dtConfigxEmpresa.Rows(0).Item(0))
+        If dtValidacion.Rows(0).Item("Valor") = -2 Then
+            ClsU.NotaCompleta("El tipo de documento " & Text & " no está disponible. Verifique el CAI actual", 48)
+        Else
             'Obtener lista de Opciones segun formulario por Perfil
             dtOpciones = ClsAccesos.ObtenerOpcionesxForm(strUsuario, strPassword, 1, PerfilID, PrgID, FormID)
             contador = dtOpciones.Rows.Count
@@ -95,8 +119,6 @@ Public Class FinDFDescripFrm
             Else
                 ClsU.NotaCompleta("El perfil del usuario # " & PerfilID & " no tiene los permisos respectivos. ID Usuario: " & strUsuario, 16)
             End If
-        Else
-            ClsU.NotaCompleta("El tipo de documento " & Text & " no esta asignado a esta empresa. Verifique el CAI actual", 48)
         End If
     End Sub
 
@@ -126,117 +148,113 @@ Public Class FinDFDescripFrm
     '    Return xFechaLimiteCaducada
     'End Function
 
-    Public Function ValidarFechaLimiteEmisionCAI() As Integer
+    'cambiar a la nueva validación
+    'Public Function ValidarFechaLimiteEmisionCAI() As Integer
 
-        Dim oDetConfigXEmp As New IDF_DetConfigxEmp(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
-        oDetConfigXEmp = IDF_DetConfigxEmp.BuscarCAI("B.EmpresaCodigo='" & StrEmpresa & "' and A.EsActual=1 and A.TiposDoctoID in (" + Str(IntTipoDocto) + ")")
+    '    Dim oDetConfigXEmp As New IDF_DetConfigxEmp(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
+    '    oDetConfigXEmp = IDF_DetConfigxEmp.BuscarCAI("B.EmpresaCodigo='" & StrEmpresa & "' and A.EsActual=1 and A.TiposDoctoID in (" + Str(IntTipoDocto) + ")")
 
-        'Validar: cantidad de documentos disponible segun CAI actual.
-        Dim intEmpresa As Integer = CInt(StrEmpresa)
+    '    'Validar: cantidad de documentos disponible segun CAI actual.
+    '    Dim intEmpresa As Integer = CInt(StrEmpresa)
 
-        dtIDF_ConfigEmp002 = ClsAccesos.ObtenerInfoIDF_ConfigxEmp(strUsuario, strPassword, 1, intEmpresa, oDetConfigXEmp.CAI, IntTipoDocto)
-        Dim xFechaLimiteCaducada As Integer = CInt(dtIDF_ConfigEmp002.Rows(0)(5))
+    '    dtIDF_ConfigEmp002 = ClsAccesos.ObtenerInfoIDF_ConfigxEmp(strUsuario, strPassword, 1, intEmpresa, oDetConfigXEmp.CAI, IntTipoDocto)
+    '    Dim xFechaLimiteCaducada As Integer = CInt(dtIDF_ConfigEmp002.Rows(0)(5))
 
-        EsExtendida = Convert.ToBoolean(dtIDF_ConfigEmp002.Rows(0)(6))
-        xFechaLimiteExtendidaCaducada = CInt(dtIDF_ConfigEmp002.Rows(0)(8))
+    '    EsExtendida = Convert.ToBoolean(dtIDF_ConfigEmp002.Rows(0)(6))
+    '    xFechaLimiteExtendidaCaducada = CInt(dtIDF_ConfigEmp002.Rows(0)(8))
 
-        'Dim xFechaLimite As String = dtIDF_ConfigEmp002.Rows(0)(3).ToString
-        'Dim xFechaHoy As String = dtIDF_ConfigEmp002.Rows(0)(4).ToString
+    '    'Dim xFechaLimite As String = dtIDF_ConfigEmp002.Rows(0)(3).ToString
+    '    'Dim xFechaHoy As String = dtIDF_ConfigEmp002.Rows(0)(4).ToString
 
-        Return xFechaLimiteCaducada
-    End Function
+    '    Return xFechaLimiteCaducada
+    'End Function
 
-    Public Function ValidarCantidadMinDisponibleCAIxDoc() As Integer
-        'Validar: cantidad de documentos disponible segun CAI actual.
-        Dim intEmpresa As Integer = CInt(StrEmpresa)
+    'Public Function ValidarCantidadMinDisponibleCAIxDoc() As Integer
+    '    'Validar: cantidad de documentos disponible segun CAI actual.
+    '    Dim intEmpresa As Integer = CInt(StrEmpresa)
 
-        dtCxE_Nuevo = ClsAccesos.ObtenerInfoConfigxEmpresa2_Fac(strUsuario, strPassword, 2, intEmpresa, IntTipoDocto)
-        'Obtener datos de cada columna del DataTable
-        Dim xCantOtor As Integer = CInt(dtCxE_Nuevo.Rows(0)(4))
-        Dim xNumInicial As Integer = CInt(dtCxE_Nuevo.Rows(0)(5))
-        Dim xNumFinal As Integer = CInt(dtCxE_Nuevo.Rows(0)(6))
-        Dim xNumActual As Integer = CInt(dtCxE_Nuevo.Rows(0)(7))
-        Dim xCAI As String = dtCxE_Nuevo.Rows(0)(9).ToString()
-        Dim xCantMinima As Integer = CInt(dtCxE_Nuevo.Rows(0)(11))
-        Dim xTotalFacEmiActualxDoc As Integer = CInt(dtCxE_Nuevo.Rows(0)(12))
+    '    dtCxE_Nuevo = ClsAccesos.ObtenerInfoConfigxEmpresa2_Fac(strUsuario, strPassword, 2, intEmpresa, IntTipoDocto)
+    '    'Obtener datos de cada columna del DataTable
+    '    Dim xCantOtor As Integer = CInt(dtCxE_Nuevo.Rows(0)(4))
+    '    Dim xNumInicial As Integer = CInt(dtCxE_Nuevo.Rows(0)(5))
+    '    Dim xNumFinal As Integer = CInt(dtCxE_Nuevo.Rows(0)(6))
+    '    Dim xNumActual As Integer = CInt(dtCxE_Nuevo.Rows(0)(7))
+    '    Dim xCAI As String = dtCxE_Nuevo.Rows(0)(9).ToString()
+    '    Dim xCantMinima As Integer = CInt(dtCxE_Nuevo.Rows(0)(11))
+    '    Dim xTotalFacEmiActualxDoc As Integer = CInt(dtCxE_Nuevo.Rows(0)(12))
 
-        'Validar cantidades
-        Dim Resultado As Integer
-        Dim TotalFacXEmitirSegunCAI As Integer = (xNumFinal - xNumInicial)
-        Dim TotalFacPendientesxEmitir As Integer = (TotalFacXEmitirSegunCAI - xTotalFacEmiActualxDoc)
-        If (xTotalFacEmiActualxDoc >= xCantMinima) And (xTotalFacEmiActualxDoc <= TotalFacXEmitirSegunCAI) Then
-            ClsU.NotaCompleta("Aviso: El Sistema ha detectado que este tipo de Documento [" & Text & "]," & _
-                             " ha rebasado la cantidad minima establecida para esta Empresa de acuerdo al CAI actual [" & xCAI & "]. " &
-                             "Total de facturas pendientes por emitir: " & TotalFacPendientesxEmitir, 48)
-            Resultado = 0
-        ElseIf xTotalFacEmiActualxDoc > TotalFacXEmitirSegunCAI Then
-            ClsU.NotaCompleta("Error: El sistema ha detectado que no tiene cantidad disponible de numeros " & _
-                              "de facturas para el CAI asignado a esta Empresa. Favor intente de nuevo. " & _
-                              "Formulario de [" & Text & "] quedara inhabilitado. Se recomienda iniciar el tramite del nuevo CAI en la DEI.", 16)
-            Resultado = 1
-        End If
+    '    'Validar cantidades
+    '    Dim Resultado As Integer
+    '    Dim TotalFacXEmitirSegunCAI As Integer = (xNumFinal - xNumInicial)
+    '    Dim TotalFacPendientesxEmitir As Integer = (TotalFacXEmitirSegunCAI - xTotalFacEmiActualxDoc)
+    '    If (xTotalFacEmiActualxDoc >= xCantMinima) And (xTotalFacEmiActualxDoc <= TotalFacXEmitirSegunCAI) Then
+    '        ClsU.NotaCompleta("Aviso: El Sistema ha detectado que este tipo de Documento [" & Text & "]," & _
+    '                         " ha rebasado la cantidad minima establecida para esta Empresa de acuerdo al CAI actual [" & xCAI & "]. " &
+    '                         "Total de facturas pendientes por emitir: " & TotalFacPendientesxEmitir, 48)
+    '        Resultado = 0
+    '    ElseIf xTotalFacEmiActualxDoc > TotalFacXEmitirSegunCAI Then
+    '        ClsU.NotaCompleta("Error: El sistema ha detectado que no tiene cantidad disponible de numeros " & _
+    '                          "de facturas para el CAI asignado a esta Empresa. Favor intente de nuevo. " & _
+    '                          "Formulario de [" & Text & "] quedara inhabilitado. Se recomienda iniciar el tramite del nuevo CAI en la DEI.", 16)
+    '        Resultado = 1
+    '    End If
 
-        'dtCantMinima = ClsAccesos.ObtenerMaximoDocxEmpresa(strUsuario, strPassword, 1, intEmpresa, IntTipoDocto, xCAI)
-        'Dim xCantFacturas As Integer = CInt(dtCantMinima.Rows(0)(0))
+    'dtCantMinima = ClsAccesos.ObtenerMaximoDocxEmpresa(strUsuario, strPassword, 1, intEmpresa, IntTipoDocto, xCAI)
+    'Dim xCantFacturas As Integer = CInt(dtCantMinima.Rows(0)(0))
 
-        'Validar si el conteo es igual a la cantidad minima
-        'Lanzar mensaje de Advertencia
-        'Bloqueado por Ing. Manuel Ortega - Martes, 16 de Junio del 2015 - 10:30 am
-        'If (xNumActual >= xCantMinima) And (xNumActual < xNumFinal) Then
-        '    ClsU.NotaCompleta("Aviso: El Sistema ha detectado que este tipo de Documento [" & Text & "]," & _
-        '                      " ha rebasado la cantidad minima establecida segun CAI actual para esta Empresa. " & _
-        '                      "Favor iniciar con el tramite de un Nuevo CAI en la Direccion Ejecutiva de Ingresos.", 48)
-        '    Me.XTTDatos.SelectedTabPage = Me.XTPEncBasico
-        '    Me.XTPEncTotales.PageVisible = False
-        '    Nuevo()
-        '    CargarItems()
-        'ElseIf (xNumActual >= xNumFinal) Then
-        '    ClsU.NotaCompleta("Error: El sistema ha detectado que no tiene cantidad disponible de numeros " & _
-        '                      "de facturas para el CAI Actual asignado a esta Empresa. Favor intente de nuevo. " & _
-        '                      "Formulario de [" & Text & "] quedara inhabilitado", 16)
-        '    Me.Enabled = False
-        'End If
+    'Validar si el conteo es igual a la cantidad minima
+    'Lanzar mensaje de Advertencia
+    'Bloqueado por Ing. Manuel Ortega - Martes, 16 de Junio del 2015 - 10:30 am
+    'If (xNumActual >= xCantMinima) And (xNumActual < xNumFinal) Then
+    '    ClsU.NotaCompleta("Aviso: El Sistema ha detectado que este tipo de Documento [" & Text & "]," & _
+    '                      " ha rebasado la cantidad minima establecida segun CAI actual para esta Empresa. " & _
+    '                      "Favor iniciar con el tramite de un Nuevo CAI en la Direccion Ejecutiva de Ingresos.", 48)
+    '    Me.XTTDatos.SelectedTabPage = Me.XTPEncBasico
+    '    Me.XTPEncTotales.PageVisible = False
+    '    Nuevo()
+    '    CargarItems()
+    'ElseIf (xNumActual >= xNumFinal) Then
+    '    ClsU.NotaCompleta("Error: El sistema ha detectado que no tiene cantidad disponible de numeros " & _
+    '                      "de facturas para el CAI Actual asignado a esta Empresa. Favor intente de nuevo. " & _
+    '                      "Formulario de [" & Text & "] quedara inhabilitado", 16)
+    '    Me.Enabled = False
+    'End If
 
-        Return Resultado
-    End Function
+    '    Return Resultado
+    'End Function
 
     Private Sub CmbNuevo_Click(sender As Object, e As EventArgs) Handles CmbNuevo.Click
         'contador = ValidarFechaLimiteEmisionCAI()
 
         'If contador >= 0 And contador < 2 Then
-        contador = ValidarFechaLimiteEmisionCAI()
+        'contador = ValidarFechaLimiteEmisionCAI()
 
-        If contador = 1 And EsExtendida = False Then
-            ClsU.NotaCompleta("Error: El sistema ha detectado que La Fecha Limite de Emision de estos documentos " & _
-                                "a caducado. Favor tramitar el nuevo CAI en la Direccion Ejecutiva de Ingresos... " & _
-                                    "Formulario de [" & Text & "] quedara inhabilitado", 16)
-        End If
+        'If contador = 1 And EsExtendida = False Then
+        '    ClsU.NotaCompleta("Error: El sistema ha detectado que La Fecha Limite de Emision de estos documentos " & _
+        '                        "a caducado. Favor tramitar el nuevo CAI en la Direccion Ejecutiva de Ingresos... " & _
+        '                            "Formulario de [" & Text & "] quedara inhabilitado", 16)
+        '    Me.Close()
+        'ElseIf contador = 1 And EsExtendida = True And xFechaLimiteExtendidaCaducada = 1 Then
+        '    ClsU.NotaCompleta("Error: El sistema ha detectado que La Fecha Limite de Emision Extendida de estos documentos " & _
+        '                     "a caducado. Favor tramitar el nuevo CAI en la Direccion Ejecutiva de Ingresos... " & _
+        '                         "Formulario de [" & Text & "] quedara inhabilitado", 16)
+        '    Me.Close()
+        'ElseIf EsExtendida = True And xFechaLimiteExtendidaCaducada = 0 Then
 
-        If contador = 1 Then
-            'Si el CAI, tiene fecha extendida (Solicitud de Prorroga Facturacion)
-            If EsExtendida = True And xFechaLimiteExtendidaCaducada = 1 Then
-                ClsU.NotaCompleta("Error: El sistema ha detectado que La Fecha Limite de Emision Extendida de estos documentos " & _
-                                 "a caducado. Favor tramitar el nuevo CAI en la Direccion Ejecutiva de Ingresos... " & _
-                                     "Formulario de [" & Text & "] quedara inhabilitado", 16)
-            End If
-            If EsExtendida = True And xFechaLimiteExtendidaCaducada = 0 Then
-                contador = 0
-            End If
-        End If
+        'End If
 
-        If contador = 0 Then
-            'contador = ValidarCantidadMinDisponibleCAIxDoc()
-            'If contador = 0 Then
-            'CmbGenerarAutoRetenciones.Enabled = False
+        dtValidacion = Nothing
+        dtValidacion = f.getDataTable("spValidacionDocumentos '" & StrEmpresa & "', " & IntTipoDocto)
+
+        If dtValidacion.Rows(0).Item("Valor") = -1 Then
+            MsgBox("Fecha límite de emisión ha caducado", MsgBoxStyle.Critical, "ERROR")
+        Else
             Me.XTTDatos.SelectedTabPage = Me.XTPEncBasico
             Me.XTPEncTotales.PageVisible = False
             Nuevo()
             CargarItems()
-            'End If
         End If
-        If contador = 1 Then
-            Me.Close()
-        End If
+
     End Sub
     Private Sub CmbEditar_Click(sender As Object, e As EventArgs) Handles CmbEditar.Click
         Dim nDFDescripID As String
@@ -245,7 +263,7 @@ Public Class FinDFDescripFrm
         Dim contador As Integer = VerificarCantidadFilasSelector(GrdConsultaView.RowCount)
         If contador >= 0 And contador < 2 Then
             Try
-                
+
                 Editar(nDFDescripID)
                 CargarItems()
 
@@ -981,7 +999,15 @@ Public Class FinDFDescripFrm
     End Sub
 
     Public Sub Grabar(cAccion As String)
+        'If cAccion <> "Edición de datos." Then
+        '    dtValidacion = Nothing
+        '    dtValidacion = f.getDataTable("spValidacionDocumentos '" & StrEmpresa & "', " & IntTipoDocto)
 
+        '    If dtValidacion.Rows(0).Item("Valor") = 0 Then 'Validar la numeracion disponible.
+        '        MsgBox("Número máximo disponible alcanzado." + vbNewLine + "Tramitar un nuevo documento CAI para " + Text, MsgBoxStyle.Critical, "ERROR")
+        '    End If
+
+        'Else
         Dim cDFNum, cEmpresaCodigo As String
 
         Dim oDFDescripRegistro As New IDF_DFDescrip(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -1096,7 +1122,8 @@ Public Class FinDFDescripFrm
                 ClsU.NotaCompleta("Error en la creación del registro. " + ex.Message, 16)
             End Try
         End If
-
+        'End If
+        'End If
     End Sub
 
     Public Sub GrabarItem(cAccion As String)
@@ -1385,3 +1412,4 @@ Public Class FinDFDescripFrm
         End If
     End Sub
 End Class
+

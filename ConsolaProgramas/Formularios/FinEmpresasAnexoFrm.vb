@@ -365,7 +365,7 @@ Public Class FinEmpresasAnexoFrm
 
     Private Sub CmbCargaLogo_Click(sender As Object, e As EventArgs) Handles CmbCargaLogo.Click
 
-        If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+        If OpenFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             PictureBox1.Image = Image.FromFile(OpenFileDialog1.FileName)
             txtPathLogo.Text = OpenFileDialog1.FileName.ToString
         End If
@@ -642,7 +642,7 @@ Public Class FinEmpresasAnexoFrm
             row.Item("Usuario") = strUsuario
         Next
 
-         adp.Update(dt)
+        adp.Update(dt)
         adpDetalle.Update(dtDetalle)
 
         MsgBox("Registro creado exitosamente", MsgBoxStyle.Information, "Ingreso de CAI")

@@ -11,13 +11,13 @@ Public Class AprobacionARGRFrm
     Dim adp As New SqlDataAdapter
     Dim dt As New DataTable
     Dim time As Integer
-    Public Sub New(user As String, pwd As String, empresa As String, tiempo As String)
+    Public Sub New(cnx As SqlConnection, user As String, pwd As String, empresa As String, tiempo As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pwd & ";Initial Catalog=Biosalc;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
         emp = empresa
         time = tiempo
@@ -76,13 +76,13 @@ Public Class AprobacionARGRFrm
         If dt.Rows.Count = 0 Then
             MsgBox("No existen registros para la semana seleccionada!", MsgBoxStyle.Exclamation, "Información")
         Else
-            f.InitGridControl(gcMostrar, gvMostrar, dt, "Aprob", True)
-            f.FormatColumnGridControl(gvMostrar, "Selector", "Selecionar", 50, DevExpress.Utils.FormatType.Custom, True)
-            f.FormatColumnGridControl(gvMostrar, "Factura", "Factura", 60, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Empresa", "Empresa", 60, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
-            f.FormatColumnGridControl(gvMostrar, "TotalAdmon", "Cobrar", 70, DevExpress.Utils.FormatType.Numeric, False)
-            f.FormatColumnGridControl(gvMostrar, "Categ", "Categoria", 70, DevExpress.Utils.FormatType.Custom, False)
+            f.InitGridControl(gcMostrar, gvMostrar, dt, "", True)
+            'f.FormatColumnGridControl(gvMostrar, "Selector", "Selecionar", 50, DevExpress.Utils.FormatType.Custom, True)
+            'f.FormatColumnGridControl(gvMostrar, "Factura", "Factura", 60, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Empresa", "Empresa", 60, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+            'f.FormatColumnGridControl(gvMostrar, "TotalAdmon", "Cobrar", 70, DevExpress.Utils.FormatType.Numeric, False)
+            'f.FormatColumnGridControl(gvMostrar, "Categ", "Categoria", 70, DevExpress.Utils.FormatType.Custom, False)
 
             chkSelecionar.Checked = False
             btnAceptar.Enabled = True
@@ -182,7 +182,7 @@ Public Class AprobacionARGRFrm
     End Sub
     Public Sub LoadPrincipal()
         dt.Clear()
-        adp = New SqlDataAdapter("spMTP_ObtenerFacturas_ARG " & cmbSemana.EditValue & ", 'ARG', '" & cmbSitio.EditValue & "'", cnx)
+        adp = New SqlDataAdapter("spMTP_ObtenerFacturas_ARG " & cmbZafra.EditValue & ", " & cmbSemana.EditValue & ", 'ARG', '" & cmbSitio.EditValue & "'", cnx)
         adp.SelectCommand.CommandTimeout = time
         adp.Fill(dt)
     End Sub

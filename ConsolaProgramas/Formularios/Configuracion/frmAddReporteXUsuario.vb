@@ -14,7 +14,7 @@ Public Class frmAddReporteXUsuario
         f.Conexion = cnx
     End Sub
     Private Sub frmAddReporteXUsuario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dt = f.getDataTable("Select idusuario, Usuario from J_Usuarios")
+        dt = f.getDataTable("spUsuariosSelect")
         gcUsuarios.DataSource = dt
     End Sub
 
@@ -22,5 +22,4 @@ Public Class frmAddReporteXUsuario
         Dim frm As New frmAddReporteXUsuarioDetail(cnx, CInt(gvUsuarios.GetFocusedRowCellValue("idusuario")), gvUsuarios.GetFocusedRowCellValue("Usuario").ToString)
         frm.ShowDialog()
     End Sub
-
 End Class

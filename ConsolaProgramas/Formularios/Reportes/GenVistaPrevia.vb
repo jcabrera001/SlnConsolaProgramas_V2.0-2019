@@ -1,18 +1,5 @@
 ﻿Imports CrystalDecisions.CrystalReports.Engine
-Imports CrystalDecisions.CrystalReports
-Imports CrystalDecisions.ReportSource
 Imports CrystalDecisions.Shared
-Imports CrystalDecisions.Windows
-Imports System.Windows.Forms
-Imports System.Windows
-Imports System.IO
-Imports System.Text
-
-Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
-Imports System.Data
-Imports System.Drawing
 
 Public Class GenVistaPrevia
     Public reporte As String

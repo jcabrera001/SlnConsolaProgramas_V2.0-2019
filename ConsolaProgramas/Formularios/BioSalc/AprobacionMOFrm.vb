@@ -13,13 +13,13 @@ Public Class AprobacionMOFrm
     Dim dt As New DataTable
     Dim time As Integer
     Dim bit As Integer = 0
-    Public Sub New(user As String, pwd As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, user As String, pwd As String, tiempo As Integer)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pwd & ";Initial Catalog=Biosalc;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
         time = tiempo
     End Sub
@@ -56,12 +56,12 @@ Public Class AprobacionMOFrm
             MsgBox("No existen registros para la semana seleccionada!", MsgBoxStyle.Exclamation, "Información")
         Else
             f.InitGridControl(gcMostrar, gvMostrar, dt, "", True)
-            f.FormatColumnGridControl(gvMostrar, "Selector", "Selecionar", 50, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "DistritoID", "Distrito", 50, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "FincaID", "FincaID", 60, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Finca", "Finca", 140, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "LoteID", "Lote", 50, DevExpress.Utils.FormatType.Custom, False)
-            f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+            'f.FormatColumnGridControl(gvMostrar, "Selector", "Selecionar", 50, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "DistritoID", "Distrito", 50, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "FincaID", "FincaID", 60, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Finca", "Finca", 140, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "LoteID", "Lote", 50, DevExpress.Utils.FormatType.Custom, False)
+            'f.FormatColumnGridControl(gvMostrar, "Total", "Total", 70, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
 
 
 

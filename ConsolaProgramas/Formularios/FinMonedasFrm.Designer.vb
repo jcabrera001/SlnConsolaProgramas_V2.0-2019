@@ -86,7 +86,7 @@ Partial Class FinMonedasFrm
         Me.XTTPagina1.Controls.Add(Me.GrdConsulta)
         Me.XTTPagina1.Controls.Add(Me.tsMenu)
         Me.XTTPagina1.Name = "XTTPagina1"
-        Me.XTTPagina1.Size = New System.Drawing.Size(762, 543)
+        Me.XTTPagina1.Size = New System.Drawing.Size(766, 547)
         '
         'GrdConsulta
         '
@@ -139,7 +139,7 @@ Partial Class FinMonedasFrm
         Me.tsMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbEditar, Me.ToolStripSeparator1, Me.CmbNuevo, Me.CmbActualizarConsulta, Me.ToolStripSeparator3, Me.CmbEliminar})
         Me.tsMenu.Location = New System.Drawing.Point(0, 0)
         Me.tsMenu.Name = "tsMenu"
-        Me.tsMenu.Size = New System.Drawing.Size(762, 53)
+        Me.tsMenu.Size = New System.Drawing.Size(766, 53)
         Me.tsMenu.TabIndex = 10
         '
         'CmbEditar
@@ -205,7 +205,7 @@ Partial Class FinMonedasFrm
         Me.XTTPagina2.Controls.Add(Me.XTTDatos)
         Me.XTTPagina2.Controls.Add(Me.ToolStrip1)
         Me.XTTPagina2.Name = "XTTPagina2"
-        Me.XTTPagina2.Size = New System.Drawing.Size(762, 543)
+        Me.XTTPagina2.Size = New System.Drawing.Size(766, 547)
         Me.XTTPagina2.Text = "XtraTabPage2"
         '
         'PCTEncabezado
@@ -221,6 +221,7 @@ Partial Class FinMonedasFrm
         'LblCodigoValor
         '
         Me.LblCodigoValor.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.LblCodigoValor.Appearance.Options.UseFont = True
         Me.LblCodigoValor.Location = New System.Drawing.Point(51, 26)
         Me.LblCodigoValor.Name = "LblCodigoValor"
         Me.LblCodigoValor.Size = New System.Drawing.Size(82, 13)
@@ -238,6 +239,7 @@ Partial Class FinMonedasFrm
         'LblAccion
         '
         Me.LblAccion.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.LblAccion.Appearance.Options.UseFont = True
         Me.LblAccion.Location = New System.Drawing.Point(8, 6)
         Me.LblAccion.Name = "LblAccion"
         Me.LblAccion.Size = New System.Drawing.Size(37, 13)
@@ -264,7 +266,7 @@ Partial Class FinMonedasFrm
         Me.XTPBasico.Controls.Add(Me.LblDescripcion)
         Me.XTPBasico.Controls.Add(Me.LblMonedaCodigo)
         Me.XTPBasico.Name = "XTPBasico"
-        Me.XTPBasico.Size = New System.Drawing.Size(749, 404)
+        Me.XTPBasico.Size = New System.Drawing.Size(753, 407)
         Me.XTPBasico.Text = "Básico"
         '
         'ChkEsDólar
@@ -272,7 +274,7 @@ Partial Class FinMonedasFrm
         Me.ChkEsDólar.Location = New System.Drawing.Point(135, 91)
         Me.ChkEsDólar.Name = "ChkEsDólar"
         Me.ChkEsDólar.Properties.Caption = "Dólar"
-        Me.ChkEsDólar.Size = New System.Drawing.Size(200, 15)
+        Me.ChkEsDólar.Size = New System.Drawing.Size(200, 20)
         Me.ChkEsDólar.TabIndex = 11
         '
         'TxtDescripcion
@@ -310,7 +312,7 @@ Partial Class FinMonedasFrm
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbGrabarNuevo, Me.ToolStripSeparator2, Me.CmbGrabarSalir, Me.CmbRegresarConsulta})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(762, 53)
+        Me.ToolStrip1.Size = New System.Drawing.Size(766, 53)
         Me.ToolStrip1.TabIndex = 11
         '
         'CmbGrabarNuevo

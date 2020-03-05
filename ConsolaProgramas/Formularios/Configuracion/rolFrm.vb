@@ -8,13 +8,13 @@ Public Class rolFrm
     Dim dtMain As New DataTable
     Dim adpAcceso As SqlDataAdapter
     Dim dtAcceso As New DataTable
-    Public Sub New(user As String, pw As String)
+    Public Sub New(cnx As SqlConnection, user As String, pw As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pw & ";Initial Catalog=Produccion;Server=AMIGODB\AMIGODB")
+        Me.cnx = cnx
         f.Conexion = cnx
     End Sub
     Private Sub rolFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -312,9 +312,9 @@ Partial Class LaboresFrm
         '
         Me.Cuenta.Location = New System.Drawing.Point(43, 174)
         Me.Cuenta.Name = "Cuenta"
-        Me.Cuenta.Size = New System.Drawing.Size(35, 13)
+        Me.Cuenta.Size = New System.Drawing.Size(88, 13)
         Me.Cuenta.TabIndex = 2
-        Me.Cuenta.Text = "Cuenta"
+        Me.Cuenta.Text = "Cuenta de Crédito"
         '
         'tarifa
         '

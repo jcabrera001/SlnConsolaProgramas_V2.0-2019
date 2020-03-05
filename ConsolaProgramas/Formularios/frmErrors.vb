@@ -34,10 +34,10 @@
         Close()
     End Sub
 
-    Private Sub frmErrors_FormClosing(sender As Object, e As Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        lvErrores.Clear()
-        Valido = True
-    End Sub
+    'Private Sub frmErrors_FormClosing(sender As Object, e As Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+    '    lvErrores.Clear()
+    '    Valido = True
+    'End Sub
 
     Private Sub cmdAceptar_Click(sender As Object, e As EventArgs) Handles cmdAceptar.Click
         _isOk = True

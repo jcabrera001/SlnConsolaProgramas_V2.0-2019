@@ -22,6 +22,7 @@ Partial Class frmAddReporteXUsuario
         Me.gcUsuarios = New DevExpress.XtraGrid.GridControl()
         Me.gvUsuarios = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.idusuario = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Nombre = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colusuario = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.gcUsuarios, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvUsuarios, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,7 +49,7 @@ Partial Class frmAddReporteXUsuario
         Me.gvUsuarios.Appearance.ColumnFilterButton.Options.UseForeColor = True
         Me.gvUsuarios.Appearance.GroupPanel.ForeColor = System.Drawing.Color.Black
         Me.gvUsuarios.Appearance.GroupPanel.Options.UseForeColor = True
-        Me.gvUsuarios.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.idusuario, Me.colusuario})
+        Me.gvUsuarios.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.idusuario, Me.Nombre, Me.colusuario})
         Me.gvUsuarios.GridControl = Me.gcUsuarios
         Me.gvUsuarios.GroupPanelText = "Usuarios Actuales"
         Me.gvUsuarios.Name = "gvUsuarios"
@@ -62,9 +63,21 @@ Partial Class frmAddReporteXUsuario
         Me.idusuario.FieldName = "idusuario"
         Me.idusuario.Name = "idusuario"
         '
+        'Nombre
+        '
+        Me.Nombre.Caption = "Nombre"
+        Me.Nombre.FieldName = "Nombre"
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.OptionsColumn.AllowEdit = False
+        Me.Nombre.OptionsColumn.ReadOnly = True
+        Me.Nombre.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Nombre.Visible = True
+        Me.Nombre.VisibleIndex = 1
+        Me.Nombre.Width = 240
+        '
         'colusuario
         '
-        Me.colusuario.Caption = "Nombre"
+        Me.colusuario.Caption = "Usuario"
         Me.colusuario.FieldName = "Usuario"
         Me.colusuario.Name = "colusuario"
         Me.colusuario.OptionsColumn.AllowEdit = False
@@ -80,8 +93,11 @@ Partial Class frmAddReporteXUsuario
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(512, 494)
         Me.Controls.Add(Me.gcUsuarios)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmAddReporteXUsuario"
-        Me.Text = "frmAddReporteXUsuario"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Usuarios"
         CType(Me.gcUsuarios, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvUsuarios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -90,5 +106,6 @@ Partial Class frmAddReporteXUsuario
     Friend WithEvents gcUsuarios As DevExpress.XtraGrid.GridControl
     Friend WithEvents gvUsuarios As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents idusuario As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Nombre As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colusuario As DevExpress.XtraGrid.Columns.GridColumn
 End Class

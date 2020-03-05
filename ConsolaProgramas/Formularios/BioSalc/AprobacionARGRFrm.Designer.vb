@@ -33,6 +33,12 @@ Partial Class AprobacionARGRFrm
         Me.rbAprobar = New System.Windows.Forms.RadioButton()
         Me.gcMostrar = New DevExpress.XtraGrid.GridControl()
         Me.gvMostrar = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.Seleccionar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Factura = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Empresa = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Total = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Cobrar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Categoria = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmbSitio = New DevExpress.XtraEditors.LookUpEdit()
@@ -149,9 +155,87 @@ Partial Class AprobacionARGRFrm
         '
         'gvMostrar
         '
+        Me.gvMostrar.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.Seleccionar, Me.Factura, Me.Empresa, Me.Total, Me.Cobrar, Me.Categoria})
         Me.gvMostrar.GridControl = Me.gcMostrar
         Me.gvMostrar.Name = "gvMostrar"
+        Me.gvMostrar.OptionsView.ShowAutoFilterRow = True
+        Me.gvMostrar.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
         Me.gvMostrar.OptionsView.ShowGroupPanel = False
+        '
+        'Seleccionar
+        '
+        Me.Seleccionar.Caption = "Seleccionar"
+        Me.Seleccionar.FieldName = "Selector"
+        Me.Seleccionar.Name = "Seleccionar"
+        Me.Seleccionar.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Seleccionar.Visible = True
+        Me.Seleccionar.VisibleIndex = 0
+        Me.Seleccionar.Width = 57
+        '
+        'Factura
+        '
+        Me.Factura.Caption = "Factura"
+        Me.Factura.FieldName = "Factura"
+        Me.Factura.Name = "Factura"
+        Me.Factura.OptionsColumn.AllowEdit = False
+        Me.Factura.OptionsColumn.ReadOnly = True
+        Me.Factura.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Factura.Visible = True
+        Me.Factura.VisibleIndex = 1
+        Me.Factura.Width = 60
+        '
+        'Empresa
+        '
+        Me.Empresa.Caption = "Empresa"
+        Me.Empresa.FieldName = "Empresa"
+        Me.Empresa.Name = "Empresa"
+        Me.Empresa.OptionsColumn.AllowEdit = False
+        Me.Empresa.OptionsColumn.ReadOnly = True
+        Me.Empresa.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Empresa.Visible = True
+        Me.Empresa.VisibleIndex = 2
+        Me.Empresa.Width = 60
+        '
+        'Total
+        '
+        Me.Total.Caption = "Total"
+        Me.Total.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Total.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Total.FieldName = "Total"
+        Me.Total.Name = "Total"
+        Me.Total.OptionsColumn.AllowEdit = False
+        Me.Total.OptionsColumn.ReadOnly = True
+        Me.Total.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Total.UnboundType = DevExpress.Data.UnboundColumnType.[Decimal]
+        Me.Total.Visible = True
+        Me.Total.VisibleIndex = 3
+        Me.Total.Width = 70
+        '
+        'Cobrar
+        '
+        Me.Cobrar.Caption = "Cobrar"
+        Me.Cobrar.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Cobrar.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Cobrar.FieldName = "TotalAdmon"
+        Me.Cobrar.Name = "Cobrar"
+        Me.Cobrar.OptionsColumn.AllowEdit = False
+        Me.Cobrar.OptionsColumn.ReadOnly = True
+        Me.Cobrar.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Cobrar.Visible = True
+        Me.Cobrar.VisibleIndex = 4
+        Me.Cobrar.Width = 70
+        '
+        'Categoria
+        '
+        Me.Categoria.Caption = "Categoria"
+        Me.Categoria.FieldName = "Categ"
+        Me.Categoria.Name = "Categoria"
+        Me.Categoria.OptionsColumn.AllowEdit = False
+        Me.Categoria.OptionsColumn.ReadOnly = True
+        Me.Categoria.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Categoria.Visible = True
+        Me.Categoria.VisibleIndex = 5
+        Me.Categoria.Width = 70
         '
         'Label4
         '
@@ -254,4 +338,10 @@ Partial Class AprobacionARGRFrm
     Friend WithEvents cmbSitio As DevExpress.XtraEditors.LookUpEdit
     Friend WithEvents cmbSemana As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents Seleccionar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Factura As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Empresa As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Total As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Cobrar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Categoria As DevExpress.XtraGrid.Columns.GridColumn
 End Class

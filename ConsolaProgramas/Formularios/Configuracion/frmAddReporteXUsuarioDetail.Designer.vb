@@ -62,8 +62,11 @@ Partial Class frmAddReporteXUsuarioDetail
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(830, 536)
         Me.Controls.Add(Me.gcReporte)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MinimizeBox = False
         Me.Name = "frmAddReporteXUsuarioDetail"
-        Me.Text = "frmAddReporteXUsuarioDetail"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Añadir Reporte"
         CType(Me.gcReporte, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvReporte, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemCheckEdit1, System.ComponentModel.ISupportInitialize).EndInit()

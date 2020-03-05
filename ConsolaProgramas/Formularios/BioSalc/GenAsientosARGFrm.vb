@@ -9,13 +9,13 @@ Public Class GenAsientosARGFrm
     Dim adp As New SqlDataAdapter
     Dim dt As New DataTable
     Dim time As Integer
-    Public Sub New(user As String, pwd As String, empresa As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, user As String, pwd As String, empresa As String, tiempo As Integer)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        cnx = New SqlConnection("Persist Security Info=False;User ID=" & user & ";Password=" & pwd & ";Initial Catalog=Biosalc;Server=AMIGODB\AMIGODB;")
+        Me.cnx = cnx
         f.Conexion = cnx
         emp = empresa
         time = tiempo
@@ -98,15 +98,15 @@ Public Class GenAsientosARGFrm
             If dt.Rows.Count = 0 Then
                 MsgBox("No existen registros para la semana seleccionada!", MsgBoxStyle.Exclamation, "Información")
             Else
-                f.InitGridControl(gcMostrar, gvMostrar, dt, "Documento,Empresa", True)
+                f.InitGridControl(gcMostrar, gvMostrar, dt, "", True) 'Documento,Empresa
 
-                f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
-                f.FormatColumnGridControl(gvMostrar, "Fecha", "Fecha", 60, DevExpress.Utils.FormatType.DateTime, False)
-                f.FormatColumnGridControl(gvMostrar, "Libro", "Libro", 40, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "Total", "Total", 60, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
-                f.FormatColumnGridControl(gvMostrar, "Asiento", "Asiento", 70, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "Descripcion", "Descripción", 70, DevExpress.Utils.FormatType.Custom, False)
-                f.FormatColumnGridControl(gvMostrar, "Interface", "Interface", 50, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "Selector", "Seleccionar", 50, DevExpress.Utils.FormatType.Custom, True)
+                'f.FormatColumnGridControl(gvMostrar, "Fecha", "Fecha", 60, DevExpress.Utils.FormatType.DateTime, False)
+                'f.FormatColumnGridControl(gvMostrar, "Libro", "Libro", 40, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "Total", "Total", 60, DevExpress.Utils.FormatType.Numeric, "{0:0,0.00}", False)
+                'f.FormatColumnGridControl(gvMostrar, "Asiento", "Asiento", 70, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "Descripcion", "Descripción", 70, DevExpress.Utils.FormatType.Custom, False)
+                'f.FormatColumnGridControl(gvMostrar, "Interface", "Interface", 50, DevExpress.Utils.FormatType.Custom, False)
 
                 If rbAnular.Checked And dt.Rows.Count Then
                     btnAceptar.Enabled = True

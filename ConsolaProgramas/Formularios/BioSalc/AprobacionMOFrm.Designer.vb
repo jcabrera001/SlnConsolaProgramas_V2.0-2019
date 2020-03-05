@@ -43,6 +43,12 @@ Partial Class AprobacionMOFrm
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.ContratistaID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.Nombre = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Seleccionar = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Distrito = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.FincaID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Finca = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Lote = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Total = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.gcMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvMostrar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -102,8 +108,10 @@ Partial Class AprobacionMOFrm
         '
         'gvMostrar
         '
+        Me.gvMostrar.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.Seleccionar, Me.Distrito, Me.FincaID, Me.Finca, Me.Lote, Me.Total})
         Me.gvMostrar.GridControl = Me.gcMostrar
         Me.gvMostrar.Name = "gvMostrar"
+        Me.gvMostrar.OptionsView.ShowAutoFilterRow = True
         Me.gvMostrar.OptionsView.ShowGroupPanel = False
         '
         'GroupBox1
@@ -259,6 +267,79 @@ Partial Class AprobacionMOFrm
         Me.Nombre.Visible = True
         Me.Nombre.VisibleIndex = 1
         '
+        'Seleccionar
+        '
+        Me.Seleccionar.Caption = "Seleccionar"
+        Me.Seleccionar.FieldName = "Selector"
+        Me.Seleccionar.Name = "Seleccionar"
+        Me.Seleccionar.OptionsColumn.ReadOnly = True
+        Me.Seleccionar.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Seleccionar.Visible = True
+        Me.Seleccionar.VisibleIndex = 0
+        Me.Seleccionar.Width = 50
+        '
+        'Distrito
+        '
+        Me.Distrito.Caption = "Distrito"
+        Me.Distrito.FieldName = "DistritoID"
+        Me.Distrito.Name = "Distrito"
+        Me.Distrito.OptionsColumn.AllowEdit = False
+        Me.Distrito.OptionsColumn.ReadOnly = True
+        Me.Distrito.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Distrito.Visible = True
+        Me.Distrito.VisibleIndex = 1
+        Me.Distrito.Width = 50
+        '
+        'FincaID
+        '
+        Me.FincaID.Caption = "FincaID"
+        Me.FincaID.FieldName = "FincaID"
+        Me.FincaID.Name = "FincaID"
+        Me.FincaID.OptionsColumn.AllowEdit = False
+        Me.FincaID.OptionsColumn.ReadOnly = True
+        Me.FincaID.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.FincaID.Visible = True
+        Me.FincaID.VisibleIndex = 2
+        Me.FincaID.Width = 60
+        '
+        'Finca
+        '
+        Me.Finca.Caption = "Finca"
+        Me.Finca.FieldName = "Finca"
+        Me.Finca.Name = "Finca"
+        Me.Finca.OptionsColumn.AllowEdit = False
+        Me.Finca.OptionsColumn.ReadOnly = True
+        Me.Finca.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Finca.Visible = True
+        Me.Finca.VisibleIndex = 3
+        Me.Finca.Width = 140
+        '
+        'Lote
+        '
+        Me.Lote.Caption = "Lote"
+        Me.Lote.FieldName = "LoteID"
+        Me.Lote.Name = "Lote"
+        Me.Lote.OptionsColumn.AllowEdit = False
+        Me.Lote.OptionsColumn.ReadOnly = True
+        Me.Lote.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Lote.Visible = True
+        Me.Lote.VisibleIndex = 4
+        Me.Lote.Width = 50
+        '
+        'Total
+        '
+        Me.Total.Caption = "Total"
+        Me.Total.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.Total.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.Total.FieldName = "Total"
+        Me.Total.Name = "Total"
+        Me.Total.OptionsColumn.AllowEdit = False
+        Me.Total.OptionsColumn.ReadOnly = True
+        Me.Total.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Total.Visible = True
+        Me.Total.VisibleIndex = 5
+        Me.Total.Width = 70
+        '
         'AprobacionMOFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -320,4 +401,10 @@ Partial Class AprobacionMOFrm
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents ContratistaID As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents Nombre As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Seleccionar As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Distrito As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents FincaID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Finca As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Lote As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Total As DevExpress.XtraGrid.Columns.GridColumn
 End Class

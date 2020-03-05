@@ -31,11 +31,14 @@ Partial Class GenFacturasFrm
         Me.CmbNuevo = New System.Windows.Forms.ToolStripButton()
         Me.CmbActualizarConsulta = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmbPrint = New System.Windows.Forms.ToolStripButton()
         Me.CmbEditar = New System.Windows.Forms.ToolStripButton()
+        Me.cmbPrint = New System.Windows.Forms.ToolStripButton()
+        Me.cmbAnular = New System.Windows.Forms.ToolStripButton()
         Me.XTTPagina2 = New DevExpress.XtraTab.XtraTabPage()
         Me.XTTDatos = New DevExpress.XtraTab.XtraTabControl()
         Me.XTPBasico = New DevExpress.XtraTab.XtraTabPage()
+        Me.txtDescripcion = New System.Windows.Forms.RichTextBox()
+        Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
         Me.cmbDepto = New DevExpress.XtraEditors.LookUpEdit()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtEntidad = New DevExpress.XtraEditors.TextEdit()
@@ -50,21 +53,30 @@ Partial Class GenFacturasFrm
         Me.GrpRegistro = New System.Windows.Forms.GroupBox()
         Me.XtraTabControl2 = New DevExpress.XtraTab.XtraTabControl()
         Me.XtraTabPage4 = New DevExpress.XtraTab.XtraTabPage()
+        Me.cmbLabor = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn3 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn5 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtCuentaDet = New DevExpress.XtraEditors.TextEdit()
         Me.lblCuenta = New DevExpress.XtraEditors.LabelControl()
         Me.txtObservaciones = New System.Windows.Forms.RichTextBox()
         Me.txtCantidad = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtCosto = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl12 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
-        Me.cmbLabor = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.cmbLaborTest = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.FlaFacturaID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.Codigo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.Descripcion = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.btnDeleteDetail = New DevExpress.XtraEditors.SimpleButton()
+        Me.Cuenta = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.Tarifa = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtCosto = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl12 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
+        Me.btnDelete = New DevExpress.XtraEditors.SimpleButton()
         Me.btnEditDetail = New DevExpress.XtraEditors.SimpleButton()
         Me.btnDetail = New DevExpress.XtraEditors.SimpleButton()
         Me.gcDetalle = New DevExpress.XtraGrid.GridControl()
@@ -114,11 +126,13 @@ Partial Class GenFacturasFrm
         CType(Me.XtraTabControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraTabControl2.SuspendLayout()
         Me.XtraTabPage4.SuspendLayout()
+        CType(Me.cmbLabor.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCuentaDet.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCantidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtCosto.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cmbLabor.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmbLaborTest.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtCosto.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gcDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gvDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraTabPage2.SuspendLayout()
@@ -166,7 +180,7 @@ Partial Class GenFacturasFrm
         Me.XTTEmpaginacion.Name = "XTTEmpaginacion"
         Me.XTTEmpaginacion.SelectedTabPage = Me.XTTPagina1
         Me.XTTEmpaginacion.ShowTabHeader = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XTTEmpaginacion.Size = New System.Drawing.Size(774, 633)
+        Me.XTTEmpaginacion.Size = New System.Drawing.Size(916, 658)
         Me.XTTEmpaginacion.TabIndex = 14
         Me.XTTEmpaginacion.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XTTPagina1, Me.XTTPagina2})
         '
@@ -175,7 +189,7 @@ Partial Class GenFacturasFrm
         Me.XTTPagina1.Controls.Add(Me.gc)
         Me.XTTPagina1.Controls.Add(Me.tsMenu)
         Me.XTTPagina1.Name = "XTTPagina1"
-        Me.XTTPagina1.Size = New System.Drawing.Size(768, 627)
+        Me.XTTPagina1.Size = New System.Drawing.Size(910, 652)
         '
         'gc
         '
@@ -185,7 +199,7 @@ Partial Class GenFacturasFrm
         Me.gc.Location = New System.Drawing.Point(0, 56)
         Me.gc.MainView = Me.gv
         Me.gc.Name = "gc"
-        Me.gc.Size = New System.Drawing.Size(762, 723)
+        Me.gc.Size = New System.Drawing.Size(904, 593)
         Me.gc.TabIndex = 11
         Me.gc.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gv})
         '
@@ -201,10 +215,10 @@ Partial Class GenFacturasFrm
         '
         'tsMenu
         '
-        Me.tsMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.CmbNuevo, Me.CmbActualizarConsulta, Me.ToolStripSeparator3, Me.cmbPrint, Me.CmbEditar})
+        Me.tsMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.CmbNuevo, Me.CmbActualizarConsulta, Me.ToolStripSeparator3, Me.CmbEditar, Me.cmbPrint, Me.cmbAnular})
         Me.tsMenu.Location = New System.Drawing.Point(0, 0)
         Me.tsMenu.Name = "tsMenu"
-        Me.tsMenu.Size = New System.Drawing.Size(768, 53)
+        Me.tsMenu.Size = New System.Drawing.Size(910, 53)
         Me.tsMenu.TabIndex = 10
         '
         'ToolStripSeparator1
@@ -240,6 +254,17 @@ Partial Class GenFacturasFrm
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 53)
         '
+        'CmbEditar
+        '
+        Me.CmbEditar.AutoSize = False
+        Me.CmbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.CmbEditar.Image = Global.ConsolaProgramas.My.Resources.Resources.page_edit
+        Me.CmbEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.CmbEditar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.CmbEditar.Name = "CmbEditar"
+        Me.CmbEditar.Size = New System.Drawing.Size(50, 50)
+        Me.CmbEditar.Text = "Editar"
+        '
         'cmbPrint
         '
         Me.cmbPrint.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
@@ -252,23 +277,23 @@ Partial Class GenFacturasFrm
         Me.cmbPrint.Size = New System.Drawing.Size(50, 50)
         Me.cmbPrint.Text = "Eliminar"
         '
-        'CmbEditar
+        'cmbAnular
         '
-        Me.CmbEditar.AutoSize = False
-        Me.CmbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CmbEditar.Image = Global.ConsolaProgramas.My.Resources.Resources.page_edit
-        Me.CmbEditar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.CmbEditar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CmbEditar.Name = "CmbEditar"
-        Me.CmbEditar.Size = New System.Drawing.Size(50, 50)
-        Me.CmbEditar.Text = "Editar"
+        Me.cmbAnular.AutoToolTip = False
+        Me.cmbAnular.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmbAnular.Image = Global.ConsolaProgramas.My.Resources.Resources.cancel1
+        Me.cmbAnular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmbAnular.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmbAnular.Name = "cmbAnular"
+        Me.cmbAnular.Size = New System.Drawing.Size(36, 50)
+        Me.cmbAnular.Text = "ToolStripButton1"
         '
         'XTTPagina2
         '
         Me.XTTPagina2.Controls.Add(Me.XTTDatos)
         Me.XTTPagina2.Controls.Add(Me.ToolStrip1)
         Me.XTTPagina2.Name = "XTTPagina2"
-        Me.XTTPagina2.Size = New System.Drawing.Size(768, 627)
+        Me.XTTPagina2.Size = New System.Drawing.Size(910, 652)
         Me.XTTPagina2.Text = "XtraTabPage2"
         '
         'XTTDatos
@@ -279,12 +304,14 @@ Partial Class GenFacturasFrm
         Me.XTTDatos.Location = New System.Drawing.Point(4, 56)
         Me.XTTDatos.Name = "XTTDatos"
         Me.XTTDatos.SelectedTabPage = Me.XTPBasico
-        Me.XTTDatos.Size = New System.Drawing.Size(758, 568)
+        Me.XTTDatos.Size = New System.Drawing.Size(900, 593)
         Me.XTTDatos.TabIndex = 12
         Me.XTTDatos.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XTPBasico})
         '
         'XTPBasico
         '
+        Me.XTPBasico.Controls.Add(Me.txtDescripcion)
+        Me.XTPBasico.Controls.Add(Me.LabelControl9)
         Me.XTPBasico.Controls.Add(Me.cmbDepto)
         Me.XTPBasico.Controls.Add(Me.LabelControl1)
         Me.XTPBasico.Controls.Add(Me.txtEntidad)
@@ -301,12 +328,28 @@ Partial Class GenFacturasFrm
         Me.XTPBasico.Controls.Add(Me.LabelControl2)
         Me.XTPBasico.Controls.Add(Me.LblCodigo)
         Me.XTPBasico.Name = "XTPBasico"
-        Me.XTPBasico.Size = New System.Drawing.Size(752, 540)
+        Me.XTPBasico.Size = New System.Drawing.Size(894, 565)
         Me.XTPBasico.Text = "Básico"
+        '
+        'txtDescripcion
+        '
+        Me.txtDescripcion.Location = New System.Drawing.Point(87, 57)
+        Me.txtDescripcion.Name = "txtDescripcion"
+        Me.txtDescripcion.Size = New System.Drawing.Size(628, 32)
+        Me.txtDescripcion.TabIndex = 31
+        Me.txtDescripcion.Text = ""
+        '
+        'LabelControl9
+        '
+        Me.LabelControl9.Location = New System.Drawing.Point(10, 61)
+        Me.LabelControl9.Name = "LabelControl9"
+        Me.LabelControl9.Size = New System.Drawing.Size(71, 13)
+        Me.LabelControl9.TabIndex = 23
+        Me.LabelControl9.Text = "Observaciones"
         '
         'cmbDepto
         '
-        Me.cmbDepto.Location = New System.Drawing.Point(448, 3)
+        Me.cmbDepto.Location = New System.Drawing.Point(481, 3)
         Me.cmbDepto.Name = "cmbDepto"
         Me.cmbDepto.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cmbDepto.Size = New System.Drawing.Size(143, 20)
@@ -314,7 +357,7 @@ Partial Class GenFacturasFrm
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(407, 7)
+        Me.LabelControl1.Location = New System.Drawing.Point(440, 7)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(33, 13)
         Me.LabelControl1.TabIndex = 21
@@ -322,7 +365,7 @@ Partial Class GenFacturasFrm
         '
         'txtEntidad
         '
-        Me.txtEntidad.Location = New System.Drawing.Point(448, 32)
+        Me.txtEntidad.Location = New System.Drawing.Point(481, 32)
         Me.txtEntidad.Name = "txtEntidad"
         Me.txtEntidad.Size = New System.Drawing.Size(143, 20)
         Me.txtEntidad.TabIndex = 18
@@ -330,7 +373,7 @@ Partial Class GenFacturasFrm
         '
         'LabelControl5
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(401, 36)
+        Me.LabelControl5.Location = New System.Drawing.Point(434, 36)
         Me.LabelControl5.Name = "LabelControl5"
         Me.LabelControl5.Size = New System.Drawing.Size(36, 13)
         Me.LabelControl5.TabIndex = 19
@@ -339,14 +382,14 @@ Partial Class GenFacturasFrm
         '
         'txtOt
         '
-        Me.txtOt.Location = New System.Drawing.Point(250, 31)
+        Me.txtOt.Location = New System.Drawing.Point(283, 31)
         Me.txtOt.Name = "txtOt"
         Me.txtOt.Size = New System.Drawing.Size(143, 20)
         Me.txtOt.TabIndex = 16
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(228, 35)
+        Me.LabelControl4.Location = New System.Drawing.Point(261, 35)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(14, 13)
         Me.LabelControl4.TabIndex = 17
@@ -355,7 +398,7 @@ Partial Class GenFacturasFrm
         'dtFecha
         '
         Me.dtFecha.EditValue = Nothing
-        Me.dtFecha.Location = New System.Drawing.Point(54, 31)
+        Me.dtFecha.Location = New System.Drawing.Point(87, 31)
         Me.dtFecha.Name = "dtFecha"
         Me.dtFecha.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtFecha.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -365,14 +408,14 @@ Partial Class GenFacturasFrm
         'txtUsuario
         '
         Me.txtUsuario.Enabled = False
-        Me.txtUsuario.Location = New System.Drawing.Point(250, 2)
+        Me.txtUsuario.Location = New System.Drawing.Point(283, 2)
         Me.txtUsuario.Name = "txtUsuario"
         Me.txtUsuario.Size = New System.Drawing.Size(143, 20)
         Me.txtUsuario.TabIndex = 13
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(206, 6)
+        Me.LabelControl3.Location = New System.Drawing.Point(239, 6)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(36, 13)
         Me.LabelControl3.TabIndex = 14
@@ -383,22 +426,22 @@ Partial Class GenFacturasFrm
         Me.XtraTabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.XtraTabControl1.Location = New System.Drawing.Point(7, 58)
+        Me.XtraTabControl1.Location = New System.Drawing.Point(7, 95)
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
-        Me.XtraTabControl1.Size = New System.Drawing.Size(742, 479)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(884, 467)
         Me.XtraTabControl1.TabIndex = 10
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
         '
         'XtraTabPage1
         '
         Me.XtraTabPage1.Controls.Add(Me.GrpRegistro)
-        Me.XtraTabPage1.Controls.Add(Me.btnDeleteDetail)
+        Me.XtraTabPage1.Controls.Add(Me.btnDelete)
         Me.XtraTabPage1.Controls.Add(Me.btnEditDetail)
         Me.XtraTabPage1.Controls.Add(Me.btnDetail)
         Me.XtraTabPage1.Controls.Add(Me.gcDetalle)
         Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(736, 451)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(878, 439)
         Me.XtraTabPage1.Text = "Detalle"
         '
         'GrpRegistro
@@ -407,7 +450,7 @@ Partial Class GenFacturasFrm
         Me.GrpRegistro.Controls.Add(CmbRegCancelar)
         Me.GrpRegistro.Controls.Add(CmbRegActualizar)
         Me.GrpRegistro.Controls.Add(Me.XtraTabControl2)
-        Me.GrpRegistro.Location = New System.Drawing.Point(3, 302)
+        Me.GrpRegistro.Location = New System.Drawing.Point(3, 290)
         Me.GrpRegistro.Name = "GrpRegistro"
         Me.GrpRegistro.Size = New System.Drawing.Size(674, 146)
         Me.GrpRegistro.TabIndex = 20
@@ -429,19 +472,89 @@ Partial Class GenFacturasFrm
         '
         'XtraTabPage4
         '
+        Me.XtraTabPage4.Controls.Add(Me.cmbLabor)
         Me.XtraTabPage4.Controls.Add(Me.txtCuentaDet)
         Me.XtraTabPage4.Controls.Add(Me.lblCuenta)
         Me.XtraTabPage4.Controls.Add(Me.txtObservaciones)
         Me.XtraTabPage4.Controls.Add(Me.txtCantidad)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl10)
+        Me.XtraTabPage4.Controls.Add(Me.cmbLaborTest)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl11)
         Me.XtraTabPage4.Controls.Add(Me.txtCosto)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl12)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl13)
-        Me.XtraTabPage4.Controls.Add(Me.cmbLabor)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.Size = New System.Drawing.Size(549, 114)
         Me.XtraTabPage4.Text = "Detalle"
+        '
+        'cmbLabor
+        '
+        Me.cmbLabor.EditValue = ""
+        Me.cmbLabor.Location = New System.Drawing.Point(84, 11)
+        Me.cmbLabor.Name = "cmbLabor"
+        Me.cmbLabor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cmbLabor.Properties.NullText = "Labores"
+        Me.cmbLabor.Properties.PopupFormSize = New System.Drawing.Size(700, 0)
+        Me.cmbLabor.Properties.View = Me.GridView1
+        Me.cmbLabor.Size = New System.Drawing.Size(441, 20)
+        Me.cmbLabor.TabIndex = 33
+        '
+        'GridView1
+        '
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.GridColumn5})
+        Me.GridView1.DetailHeight = 10000
+        Me.GridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsEditForm.PopupEditFormWidth = 10000
+        Me.GridView1.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView1.OptionsView.ShowGroupPanel = False
+        '
+        'GridColumn1
+        '
+        Me.GridColumn1.Caption = "FlaFacturaID"
+        Me.GridColumn1.FieldName = "FlaFacturaID"
+        Me.GridColumn1.Name = "GridColumn1"
+        Me.GridColumn1.Width = 65
+        '
+        'GridColumn2
+        '
+        Me.GridColumn2.Caption = "Codigo"
+        Me.GridColumn2.FieldName = "Codigo"
+        Me.GridColumn2.Name = "GridColumn2"
+        Me.GridColumn2.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn2.Visible = True
+        Me.GridColumn2.VisibleIndex = 0
+        Me.GridColumn2.Width = 90
+        '
+        'GridColumn3
+        '
+        Me.GridColumn3.Caption = "Descripcion"
+        Me.GridColumn3.FieldName = "Descripcion"
+        Me.GridColumn3.Name = "GridColumn3"
+        Me.GridColumn3.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn3.Visible = True
+        Me.GridColumn3.VisibleIndex = 1
+        Me.GridColumn3.Width = 100
+        '
+        'GridColumn4
+        '
+        Me.GridColumn4.Caption = "Cuenta"
+        Me.GridColumn4.FieldName = "Cuenta"
+        Me.GridColumn4.Name = "GridColumn4"
+        Me.GridColumn4.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn4.Visible = True
+        Me.GridColumn4.VisibleIndex = 2
+        Me.GridColumn4.Width = 90
+        '
+        'GridColumn5
+        '
+        Me.GridColumn5.Caption = "Tarifa"
+        Me.GridColumn5.FieldName = "Tarifa"
+        Me.GridColumn5.Name = "GridColumn5"
+        Me.GridColumn5.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn5.Visible = True
+        Me.GridColumn5.VisibleIndex = 3
+        Me.GridColumn5.Width = 104
         '
         'txtCuentaDet
         '
@@ -484,6 +597,73 @@ Partial Class GenFacturasFrm
         Me.LabelControl10.TabIndex = 28
         Me.LabelControl10.Text = "Cantidad"
         '
+        'cmbLaborTest
+        '
+        Me.cmbLaborTest.EditValue = "Labores"
+        Me.cmbLaborTest.Location = New System.Drawing.Point(67, 56)
+        Me.cmbLaborTest.Name = "cmbLaborTest"
+        Me.cmbLaborTest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cmbLaborTest.Properties.View = Me.GridLookUpEdit1View
+        Me.cmbLaborTest.Size = New System.Drawing.Size(437, 20)
+        Me.cmbLaborTest.TabIndex = 1
+        Me.cmbLaborTest.Visible = False
+        '
+        'GridLookUpEdit1View
+        '
+        Me.GridLookUpEdit1View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.FlaFacturaID, Me.Codigo, Me.Descripcion, Me.Cuenta, Me.Tarifa})
+        Me.GridLookUpEdit1View.DetailHeight = 10000
+        Me.GridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridLookUpEdit1View.Name = "GridLookUpEdit1View"
+        Me.GridLookUpEdit1View.OptionsEditForm.PopupEditFormWidth = 10000
+        Me.GridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridLookUpEdit1View.OptionsView.ShowGroupPanel = False
+        '
+        'FlaFacturaID
+        '
+        Me.FlaFacturaID.Caption = "FlaFacturaID"
+        Me.FlaFacturaID.FieldName = "FlaFacturaID"
+        Me.FlaFacturaID.Name = "FlaFacturaID"
+        '
+        'Codigo
+        '
+        Me.Codigo.Caption = "Código"
+        Me.Codigo.FieldName = "Codigo"
+        Me.Codigo.Name = "Codigo"
+        Me.Codigo.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Codigo.Visible = True
+        Me.Codigo.VisibleIndex = 0
+        Me.Codigo.Width = 87
+        '
+        'Descripcion
+        '
+        Me.Descripcion.Caption = "Descripcion"
+        Me.Descripcion.FieldName = "Descripcion"
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Descripcion.Visible = True
+        Me.Descripcion.VisibleIndex = 1
+        Me.Descripcion.Width = 170
+        '
+        'Cuenta
+        '
+        Me.Cuenta.Caption = "Cuenta"
+        Me.Cuenta.FieldName = "Cuenta"
+        Me.Cuenta.Name = "Cuenta"
+        Me.Cuenta.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Cuenta.Visible = True
+        Me.Cuenta.VisibleIndex = 2
+        Me.Cuenta.Width = 100
+        '
+        'Tarifa
+        '
+        Me.Tarifa.Caption = "Tarifa"
+        Me.Tarifa.FieldName = "Tarifa"
+        Me.Tarifa.Name = "Tarifa"
+        Me.Tarifa.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.Tarifa.Visible = True
+        Me.Tarifa.VisibleIndex = 3
+        Me.Tarifa.Width = 90
+        '
         'LabelControl11
         '
         Me.LabelControl11.Location = New System.Drawing.Point(7, 82)
@@ -517,65 +697,23 @@ Partial Class GenFacturasFrm
         Me.LabelControl13.TabIndex = 5
         Me.LabelControl13.Text = "Labor"
         '
-        'cmbLabor
+        'btnDelete
         '
-        Me.cmbLabor.Location = New System.Drawing.Point(88, 11)
-        Me.cmbLabor.Name = "cmbLabor"
-        Me.cmbLabor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cmbLabor.Properties.View = Me.GridLookUpEdit1View
-        Me.cmbLabor.Size = New System.Drawing.Size(437, 20)
-        Me.cmbLabor.TabIndex = 1
-        '
-        'GridLookUpEdit1View
-        '
-        Me.GridLookUpEdit1View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.FlaFacturaID, Me.Codigo, Me.Descripcion})
-        Me.GridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridLookUpEdit1View.Name = "GridLookUpEdit1View"
-        Me.GridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridLookUpEdit1View.OptionsView.ShowGroupPanel = False
-        '
-        'FlaFacturaID
-        '
-        Me.FlaFacturaID.Caption = "FlaFacturaID"
-        Me.FlaFacturaID.FieldName = "FlaFacturaID"
-        Me.FlaFacturaID.Name = "FlaFacturaID"
-        '
-        'Codigo
-        '
-        Me.Codigo.Caption = "Código"
-        Me.Codigo.FieldName = "Codigo"
-        Me.Codigo.Name = "Codigo"
-        Me.Codigo.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
-        Me.Codigo.Visible = True
-        Me.Codigo.VisibleIndex = 0
-        '
-        'Descripcion
-        '
-        Me.Descripcion.Caption = "Descripcion"
-        Me.Descripcion.FieldName = "Descripcion"
-        Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
-        Me.Descripcion.Visible = True
-        Me.Descripcion.VisibleIndex = 1
-        '
-        'btnDeleteDetail
-        '
-        Me.btnDeleteDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDeleteDetail.Image = CType(resources.GetObject("btnDeleteDetail.Image"), System.Drawing.Image)
-        Me.btnDeleteDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDeleteDetail.Location = New System.Drawing.Point(678, 110)
-        Me.btnDeleteDetail.Name = "btnDeleteDetail"
-        Me.btnDeleteDetail.Size = New System.Drawing.Size(55, 50)
-        Me.btnDeleteDetail.TabIndex = 17
-        Me.btnDeleteDetail.ToolTip = "Eliminar item"
-        Me.btnDeleteDetail.Visible = False
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.Image = CType(resources.GetObject("btnDelete.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnDelete.Location = New System.Drawing.Point(820, 110)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(55, 50)
+        Me.btnDelete.TabIndex = 17
+        Me.btnDelete.ToolTip = "Eliminar item"
         '
         'btnEditDetail
         '
         Me.btnEditDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEditDetail.Image = CType(resources.GetObject("btnEditDetail.Image"), System.Drawing.Image)
         Me.btnEditDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnEditDetail.Location = New System.Drawing.Point(678, 57)
+        Me.btnEditDetail.Location = New System.Drawing.Point(820, 57)
         Me.btnEditDetail.Name = "btnEditDetail"
         Me.btnEditDetail.Size = New System.Drawing.Size(55, 50)
         Me.btnEditDetail.TabIndex = 16
@@ -586,7 +724,7 @@ Partial Class GenFacturasFrm
         Me.btnDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDetail.Image = CType(resources.GetObject("btnDetail.Image"), System.Drawing.Image)
         Me.btnDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDetail.Location = New System.Drawing.Point(678, 4)
+        Me.btnDetail.Location = New System.Drawing.Point(820, 4)
         Me.btnDetail.Name = "btnDetail"
         Me.btnDetail.Size = New System.Drawing.Size(55, 50)
         Me.btnDetail.TabIndex = 15
@@ -600,7 +738,7 @@ Partial Class GenFacturasFrm
         Me.gcDetalle.Location = New System.Drawing.Point(3, 3)
         Me.gcDetalle.MainView = Me.gvDetalle
         Me.gcDetalle.Name = "gcDetalle"
-        Me.gcDetalle.Size = New System.Drawing.Size(674, 293)
+        Me.gcDetalle.Size = New System.Drawing.Size(816, 281)
         Me.gcDetalle.TabIndex = 0
         Me.gcDetalle.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvDetalle})
         '
@@ -621,7 +759,7 @@ Partial Class GenFacturasFrm
         Me.XtraTabPage2.Controls.Add(Me.txtOTDescrip)
         Me.XtraTabPage2.Controls.Add(Me.LabelControl6)
         Me.XtraTabPage2.Name = "XtraTabPage2"
-        Me.XtraTabPage2.Size = New System.Drawing.Size(736, 451)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(878, 439)
         Me.XtraTabPage2.Text = "Detalle OT"
         '
         'gcOT
@@ -632,7 +770,7 @@ Partial Class GenFacturasFrm
         Me.gcOT.Location = New System.Drawing.Point(3, 31)
         Me.gcOT.MainView = Me.GVOT
         Me.gcOT.Name = "gcOT"
-        Me.gcOT.Size = New System.Drawing.Size(730, 409)
+        Me.gcOT.Size = New System.Drawing.Size(872, 397)
         Me.gcOT.TabIndex = 7
         Me.gcOT.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GVOT})
         '
@@ -693,7 +831,7 @@ Partial Class GenFacturasFrm
         'chkContabilizado
         '
         Me.chkContabilizado.Enabled = False
-        Me.chkContabilizado.Location = New System.Drawing.Point(607, 33)
+        Me.chkContabilizado.Location = New System.Drawing.Point(640, 33)
         Me.chkContabilizado.Name = "chkContabilizado"
         Me.chkContabilizado.Properties.Caption = "Contabilizado"
         Me.chkContabilizado.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.[Default]
@@ -703,7 +841,7 @@ Partial Class GenFacturasFrm
         'chkAprobado
         '
         Me.chkAprobado.Enabled = False
-        Me.chkAprobado.Location = New System.Drawing.Point(607, 4)
+        Me.chkAprobado.Location = New System.Drawing.Point(640, 4)
         Me.chkAprobado.Name = "chkAprobado"
         Me.chkAprobado.Properties.Caption = "Aprobado"
         Me.chkAprobado.Size = New System.Drawing.Size(75, 15)
@@ -712,14 +850,14 @@ Partial Class GenFacturasFrm
         'txtCodigo
         '
         Me.txtCodigo.Enabled = False
-        Me.txtCodigo.Location = New System.Drawing.Point(54, 2)
+        Me.txtCodigo.Location = New System.Drawing.Point(87, 2)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.Size = New System.Drawing.Size(139, 20)
         Me.txtCodigo.TabIndex = 0
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(14, 35)
+        Me.LabelControl2.Location = New System.Drawing.Point(47, 35)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(29, 13)
         Me.LabelControl2.TabIndex = 1
@@ -727,7 +865,7 @@ Partial Class GenFacturasFrm
         '
         'LblCodigo
         '
-        Me.LblCodigo.Location = New System.Drawing.Point(10, 6)
+        Me.LblCodigo.Location = New System.Drawing.Point(43, 6)
         Me.LblCodigo.Name = "LblCodigo"
         Me.LblCodigo.Size = New System.Drawing.Size(33, 13)
         Me.LblCodigo.TabIndex = 0
@@ -738,7 +876,7 @@ Partial Class GenFacturasFrm
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbGrabarNuevo, Me.ToolStripSeparator2, Me.CmbGrabarSalir, Me.CmbRegresarConsulta})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(768, 53)
+        Me.ToolStrip1.Size = New System.Drawing.Size(910, 53)
         Me.ToolStrip1.TabIndex = 11
         '
         'CmbGrabarNuevo
@@ -791,7 +929,7 @@ Partial Class GenFacturasFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(775, 658)
+        Me.ClientSize = New System.Drawing.Size(917, 683)
         Me.Controls.Add(Me.XTTEmpaginacion)
         Me.Name = "GenFacturasFrm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -824,11 +962,13 @@ Partial Class GenFacturasFrm
         Me.XtraTabControl2.ResumeLayout(False)
         Me.XtraTabPage4.ResumeLayout(False)
         Me.XtraTabPage4.PerformLayout()
+        CType(Me.cmbLabor.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtCuentaDet.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtCantidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtCosto.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cmbLabor.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmbLaborTest.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtCosto.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gcDetalle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.gvDetalle, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraTabPage2.ResumeLayout(False)
@@ -893,7 +1033,7 @@ Partial Class GenFacturasFrm
     Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents cmbDepto As DevExpress.XtraEditors.LookUpEdit
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents btnDeleteDetail As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnDelete As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnEditDetail As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnDetail As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents GrpRegistro As System.Windows.Forms.GroupBox
@@ -908,10 +1048,22 @@ Partial Class GenFacturasFrm
     Friend WithEvents LabelControl13 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtCuentaDet As DevExpress.XtraEditors.TextEdit
     Friend WithEvents lblCuenta As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents cmbLabor As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents cmbLaborTest As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridLookUpEdit1View As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents ProduccionDataSet As ConsolaProgramas.ProduccionDataSet
     Friend WithEvents FlaFacturaID As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents Codigo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents Descripcion As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Cuenta As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents Tarifa As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents cmbAnular As System.Windows.Forms.ToolStripButton
+    Friend WithEvents txtDescripcion As System.Windows.Forms.RichTextBox
+    Friend WithEvents LabelControl9 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents cmbLabor As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn3 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn4 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn5 As DevExpress.XtraGrid.Columns.GridColumn
 End Class

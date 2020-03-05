@@ -53,8 +53,8 @@ Public Class CoFInteresesCanerosFrm
 
     End Sub
 
-    Private Sub PerformLayout()
-        Throw New NotImplementedException
-    End Sub
+    'Private Sub PerformLayout()
+    '    Throw New NotImplementedException
+    'End Sub
 
 End Class

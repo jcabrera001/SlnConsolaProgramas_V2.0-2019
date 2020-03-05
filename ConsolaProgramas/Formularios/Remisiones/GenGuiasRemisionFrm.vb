@@ -7,7 +7,7 @@ Public Class GenGuiasRemisionFrm
     Dim user As String
     Dim time As Integer
 
-    Public Sub New(cnx As SqlConnection, Usuario As String, Password As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, Usuario As String, tiempo As Integer)
 
         ' This call is required by the designer.
         InitializeComponent()

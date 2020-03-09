@@ -732,7 +732,7 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub CmbGenRemision_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbGenRemision.ItemClick
-        Dim frm As New GenGuiasRemisionFrm(cnxFinanzas, usuario, pw, tiempo)
+        Dim frm As New GenGuiasRemisionFrm(cnxFinanzas, usuario, tiempo)
         frm.ShowDialog()
 
     End Sub

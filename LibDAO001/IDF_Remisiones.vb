@@ -50,6 +50,8 @@ Public Class IDF_Remisiones
     Private _Marchamo4 As System.String
     Private _TiposDoctoID As System.Int32
     Private _NumCabezal As System.String
+    Private _EstadoPesaje As System.String
+    Private _NumOrdenPesoBioSalc As System.Int32
     '
     ' Este método se usará para ajustar los anchos de las propiedades
     Private Function ajustarAncho(cadena As String, ancho As Integer) As String
@@ -341,6 +343,22 @@ Public Class IDF_Remisiones
             _NumCabezal = value
         End Set
     End Property
+    Public Property EstadoPesaje() As System.String
+        Get
+            Return ajustarAncho(_EstadoPesaje, 10)
+        End Get
+        Set(value As System.String)
+            _EstadoPesaje = value
+        End Set
+    End Property
+    Public Property NumOrdenPesoBioSalc() As System.Int32
+        Get
+            Return _NumOrdenPesoBioSalc
+        End Get
+        Set(value As System.Int32)
+            _NumOrdenPesoBioSalc = value
+        End Set
+    End Property
     '
     Public Default Property Item(index As Integer) As String
         ' Devuelve el contenido del campo indicado en index
@@ -416,6 +434,10 @@ Public Class IDF_Remisiones
                 Return Me.TiposDoctoID.ToString()
             ElseIf index = 34 Then
                 Return Me.NumCabezal.ToString()
+            ElseIf index = 35 Then
+                Return Me.EstadoPesaje.ToString()
+            ElseIf index = 36 Then
+                Return Me.NumOrdenPesoBioSalc.ToString()
             End If
             ' Para que no de error el compilador de C#
             Return ""
@@ -579,6 +601,14 @@ Public Class IDF_Remisiones
                 End Try
             ElseIf index = 34 Then
                 Me.NumCabezal = value
+            ElseIf index = 35 Then
+                Me.EstadoPesaje = value
+            ElseIf index = 36 Then
+                Try
+                    Me.NumOrdenPesoBioSalc = System.Int32.Parse("0" & value)
+                Catch
+                    Me.NumOrdenPesoBioSalc = System.Int32.Parse("0")
+                End Try
             End If
         End Set
     End Property
@@ -656,6 +686,10 @@ Public Class IDF_Remisiones
                 Return Me.TiposDoctoID.ToString()
             ElseIf index = "NumCabezal" Then
                 Return Me.NumCabezal.ToString()
+            ElseIf index = "EstadoPesaje" Then
+                Return Me.EstadoPesaje.ToString()
+            ElseIf index = "NumOrdenPesoBioSalc" Then
+                Return Me.NumOrdenPesoBioSalc.ToString()
             End If
             ' Para que no de error el compilador de C#
             Return ""
@@ -819,6 +853,14 @@ Public Class IDF_Remisiones
                 End Try
             ElseIf index = "NumCabezal" Then
                 Me.NumCabezal = value
+            ElseIf index = "EstadoPesaje" Then
+                Me.EstadoPesaje = value
+            ElseIf index = "NumOrdenPesoBioSalc" Then
+                Try
+                    Me.NumOrdenPesoBioSalc = System.Int32.Parse("0" & value)
+                Catch
+                    Me.NumOrdenPesoBioSalc = System.Int32.Parse("0")
+                End Try
             End If
         End Set
     End Property
@@ -938,6 +980,8 @@ Public Class IDF_Remisiones
         oIDF_Remisiones.Marchamo4 = r("Marchamo4").ToString()
         oIDF_Remisiones.TiposDoctoID = System.Int32.Parse("0" & r("TiposDoctoID").ToString())
         oIDF_Remisiones.NumCabezal = r("NumCabezal").ToString()
+        oIDF_Remisiones.EstadoPesaje = r("EstadoPesaje").ToString()
+        oIDF_Remisiones.NumOrdenPesoBioSalc = System.Int32.Parse("0" & r("NumOrdenPesoBioSalc").ToString())
         '
         Return oIDF_Remisiones
     End Function
@@ -982,6 +1026,8 @@ Public Class IDF_Remisiones
         r("Marchamo4") = oIDF_Remisiones.Marchamo4
         r("TiposDoctoID") = oIDF_Remisiones.TiposDoctoID
         r("NumCabezal") = oIDF_Remisiones.NumCabezal
+        r("EstadoPesaje") = oIDF_Remisiones.EstadoPesaje
+        r("NumOrdenPesoBioSalc") = oIDF_Remisiones.NumOrdenPesoBioSalc
     End Sub
     '
     ' crea una nueva fila y la asigna a un objeto IDF_Remisiones
@@ -1025,6 +1071,8 @@ Public Class IDF_Remisiones
         oI.Marchamo4 = oIDF_Remisiones.Marchamo4
         oI.TiposDoctoID = oIDF_Remisiones.TiposDoctoID
         oI.NumCabezal = oIDF_Remisiones.NumCabezal
+        oI.EstadoPesaje = oIDF_Remisiones.EstadoPesaje
+        oI.NumOrdenPesoBioSalc = oIDF_Remisiones.NumOrdenPesoBioSalc
         '
         IDF_Remisiones2Row(oI, dr)
         '
@@ -1110,7 +1158,7 @@ Public Class IDF_Remisiones
         ' TODO: Comprobar cual es el campo de índice principal (sin duplicados)
         '       Yo compruebo que sea un campo llamado RemisionID, pero en tu caso puede ser otro
         '       Ese campo, (en mi caso RemisionID) será el que hay que poner al final junto al WHERE.
-        sCommand = "UPDATE IDF_Remisiones SET RemNum = @RemNum, CAI = @CAI, Fecha = @Fecha, EmpresaCodigo = @EmpresaCodigo, SdNCodigo = @SdNCodigo, DFFactID = @DFFactID, Estado = @Estado, UsuCreador = @UsuCreador, FechaCreacion = @FechaCreacion, UsuEditor = @UsuEditor, FechaEdicion = @FechaEdicion, UsuAnulacion = @UsuAnulacion, FechaAnulacion = @FechaAnulacion, UsuImpresion = @UsuImpresion, FechaImpresion = @FechaImpresion, estaImpreso = @estaImpreso, PuntoPartida = @PuntoPartida, PuntoDestino = @PuntoDestino, FechaInicio = @FechaInicio, FechaFinal = @FechaFinal, Motivo = @Motivo, OtroMotivo = @OtroMotivo, TransportistaID = @TransportistaID, ConductorID = @ConductorID, Marca = @Marca, Placa = @Placa, Licencia = @Licencia, Identidad = @Identidad, Marchamo1 = @Marchamo1, Marchamo2 = @Marchamo2, Marchamo3 = @Marchamo3, Marchamo4 = @Marchamo4, TiposDoctoID = @TiposDoctoID, NumCabezal = @NumCabezal  WHERE (RemisionID = @RemisionID)"
+        sCommand = "UPDATE IDF_Remisiones SET RemNum = @RemNum, CAI = @CAI, Fecha = @Fecha, EmpresaCodigo = @EmpresaCodigo, SdNCodigo = @SdNCodigo, DFFactID = @DFFactID, Estado = @Estado, UsuCreador = @UsuCreador, FechaCreacion = @FechaCreacion, UsuEditor = @UsuEditor, FechaEdicion = @FechaEdicion, UsuAnulacion = @UsuAnulacion, FechaAnulacion = @FechaAnulacion, UsuImpresion = @UsuImpresion, FechaImpresion = @FechaImpresion, estaImpreso = @estaImpreso, PuntoPartida = @PuntoPartida, PuntoDestino = @PuntoDestino, FechaInicio = @FechaInicio, FechaFinal = @FechaFinal, Motivo = @Motivo, OtroMotivo = @OtroMotivo, TransportistaID = @TransportistaID, ConductorID = @ConductorID, Marca = @Marca, Placa = @Placa, Licencia = @Licencia, Identidad = @Identidad, Marchamo1 = @Marchamo1, Marchamo2 = @Marchamo2, Marchamo3 = @Marchamo3, Marchamo4 = @Marchamo4, TiposDoctoID = @TiposDoctoID, NumCabezal = @NumCabezal, EstadoPesaje = @EstadoPesaje, NumOrdenPesoBioSalc = @NumOrdenPesoBioSalc  WHERE (RemisionID = @RemisionID)"
         da.UpdateCommand = New SqlCommand(sCommand, cnn)
         ' TODO: Comprobar el tipo de datos a usar...
         da.UpdateCommand.Parameters.Add("@RemisionID", SqlDbType.Int, 0, "RemisionID")
@@ -1161,7 +1209,9 @@ Public Class IDF_Remisiones
         da.UpdateCommand.Parameters.Add("@Marchamo4", SqlDbType.NVarChar, 25, "Marchamo4")
         ' TODO: Comprobar el tipo de datos a usar...
         da.UpdateCommand.Parameters.Add("@TiposDoctoID", SqlDbType.Int, 0, "TiposDoctoID")
+        da.UpdateCommand.Parameters.Add("@EstadoPesaje", SqlDbType.NVarChar, 10, "EstadoPesaje")
         da.UpdateCommand.Parameters.Add("@NumCabezal", SqlDbType.NVarChar, 0, "NumCabezal")
+        da.UpdateCommand.Parameters.Add("@NumOrdenPesoBioSalc", SqlDbType.Int, 0, "NumOrdenPesoBioSalc")
         '
         Try
             da.Fill(dt)
@@ -1266,6 +1316,8 @@ Public Class IDF_Remisiones
         ' TODO: Comprobar el tipo de datos a usar...
         da.InsertCommand.Parameters.Add("@TiposDoctoID", SqlDbType.Int, 0, "TiposDoctoID")
         da.InsertCommand.Parameters.Add("@NumCabezal", SqlDbType.NVarChar, 0, "NumCabezal")
+        da.InsertCommand.Parameters.Add("@EstadoPesaje", SqlDbType.NVarChar, 10, "EstadoPesaje")
+        da.InsertCommand.Parameters.Add("@NumOrdenPesoBioSalc", SqlDbType.Int, 0, "NumOrdenPesoBioSalc")
         '
         '
         Try

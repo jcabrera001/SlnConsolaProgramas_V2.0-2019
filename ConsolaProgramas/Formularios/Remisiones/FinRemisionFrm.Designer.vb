@@ -167,6 +167,14 @@ Partial Class FinRemisionFrm
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.CmbGrabarSalir = New System.Windows.Forms.ToolStripButton()
         Me.CmbRegresarConsulta = New System.Windows.Forms.ToolStripButton()
+        Me.TxtOrdenPesoBioSalc = New DevExpress.XtraEditors.TextEdit()
+        Me.btnProcesarOrdenBioSalc = New System.Windows.Forms.Button()
+        Me.TxtRegEmbalajes = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView3 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.gcolcod_empaque = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.gcoldesc_empaque = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.gcolpeso_emb = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.XTTEmpaginacion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XTTEmpaginacion.SuspendLayout()
         Me.XTTPagina1.SuspendLayout()
@@ -233,6 +241,9 @@ Partial Class FinRemisionFrm
         CType(Me.TxtPuntoPartida.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtPuntoDestino.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TlSNotas.SuspendLayout()
+        CType(Me.TxtOrdenPesoBioSalc.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TxtRegEmbalajes.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'XTTEmpaginacion
@@ -456,7 +467,7 @@ Partial Class FinRemisionFrm
         Me.XTTPagina2.Controls.Add(Me.XTTDatos)
         Me.XTTPagina2.Controls.Add(Me.TlSNotas)
         Me.XTTPagina2.Name = "XTTPagina2"
-        Me.XTTPagina2.Size = New System.Drawing.Size(766, 562)
+        Me.XTTPagina2.Size = New System.Drawing.Size(798, 562)
         Me.XTTPagina2.Text = "XtraTabPage2"
         '
         'CmbEliminarItem
@@ -540,6 +551,8 @@ Partial Class FinRemisionFrm
         '
         'XTTRegPagina1
         '
+        Me.XTTRegPagina1.Controls.Add(Me.TxtRegEmbalajes)
+        Me.XTTRegPagina1.Controls.Add(Me.LabelControl2)
         Me.XTTRegPagina1.Controls.Add(Me.LblRegDescrip1)
         Me.XTTRegPagina1.Controls.Add(Me.LblRegUnidMedCodigo)
         Me.XTTRegPagina1.Controls.Add(Me.LblRegCantidad)
@@ -873,6 +886,8 @@ Partial Class FinRemisionFrm
         '
         'XTPEncBasico
         '
+        Me.XTPEncBasico.Controls.Add(Me.btnProcesarOrdenBioSalc)
+        Me.XTPEncBasico.Controls.Add(Me.TxtOrdenPesoBioSalc)
         Me.XTPEncBasico.Controls.Add(Me.TxtRemNum)
         Me.XTPEncBasico.Controls.Add(Me.LblConductorID)
         Me.XTPEncBasico.Controls.Add(Me.LblTransportistaID)
@@ -889,10 +904,10 @@ Partial Class FinRemisionFrm
         '
         'TxtRemNum
         '
-        Me.TxtRemNum.Location = New System.Drawing.Point(110, 7)
+        Me.TxtRemNum.Location = New System.Drawing.Point(60, 7)
         Me.TxtRemNum.Name = "TxtRemNum"
         Me.TxtRemNum.Properties.ReadOnly = True
-        Me.TxtRemNum.Size = New System.Drawing.Size(230, 20)
+        Me.TxtRemNum.Size = New System.Drawing.Size(275, 20)
         Me.TxtRemNum.TabIndex = 100
         '
         'LblConductorID
@@ -931,9 +946,9 @@ Partial Class FinRemisionFrm
         '
         Me.LblFactNum.Location = New System.Drawing.Point(7, 10)
         Me.LblFactNum.Name = "LblFactNum"
-        Me.LblFactNum.Size = New System.Drawing.Size(97, 13)
+        Me.LblFactNum.Size = New System.Drawing.Size(42, 13)
         Me.LblFactNum.TabIndex = 0
-        Me.LblFactNum.Text = "Número de Remision"
+        Me.LblFactNum.Text = "Remision"
         '
         'TxtSdNCodigo
         '
@@ -993,13 +1008,13 @@ Partial Class FinRemisionFrm
         'TxtFecha
         '
         Me.TxtFecha.EditValue = Nothing
-        Me.TxtFecha.Location = New System.Drawing.Point(110, 34)
+        Me.TxtFecha.Location = New System.Drawing.Point(60, 34)
         Me.TxtFecha.Name = "TxtFecha"
         Me.TxtFecha.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.TxtFecha.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.TxtFecha.Properties.Mask.EditMask = ""
         Me.TxtFecha.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.None
-        Me.TxtFecha.Size = New System.Drawing.Size(230, 20)
+        Me.TxtFecha.Size = New System.Drawing.Size(275, 20)
         Me.TxtFecha.TabIndex = 1
         '
         'TxtConductorID
@@ -1623,7 +1638,7 @@ Partial Class FinRemisionFrm
         Me.TlSNotas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbGrabarNuevo, Me.ToolStripSeparator2, Me.CmbGrabarSalir, Me.CmbRegresarConsulta})
         Me.TlSNotas.Location = New System.Drawing.Point(0, 0)
         Me.TlSNotas.Name = "TlSNotas"
-        Me.TlSNotas.Size = New System.Drawing.Size(766, 53)
+        Me.TlSNotas.Size = New System.Drawing.Size(798, 53)
         Me.TlSNotas.TabIndex = 11
         '
         'CmbGrabarNuevo
@@ -1669,6 +1684,84 @@ Partial Class FinRemisionFrm
         Me.CmbRegresarConsulta.Name = "CmbRegresarConsulta"
         Me.CmbRegresarConsulta.Size = New System.Drawing.Size(50, 50)
         Me.CmbRegresarConsulta.Text = "Volver a la consulta"
+        '
+        'TxtOrdenPesoBioSalc
+        '
+        Me.TxtOrdenPesoBioSalc.Location = New System.Drawing.Point(60, 60)
+        Me.TxtOrdenPesoBioSalc.Name = "TxtOrdenPesoBioSalc"
+        Me.TxtOrdenPesoBioSalc.Size = New System.Drawing.Size(155, 20)
+        Me.TxtOrdenPesoBioSalc.TabIndex = 106
+        '
+        'btnProcesarOrdenBioSalc
+        '
+        Me.btnProcesarOrdenBioSalc.Enabled = False
+        Me.btnProcesarOrdenBioSalc.Location = New System.Drawing.Point(221, 58)
+        Me.btnProcesarOrdenBioSalc.Name = "btnProcesarOrdenBioSalc"
+        Me.btnProcesarOrdenBioSalc.Size = New System.Drawing.Size(114, 23)
+        Me.btnProcesarOrdenBioSalc.TabIndex = 107
+        Me.btnProcesarOrdenBioSalc.Text = "Procesar Orden"
+        Me.btnProcesarOrdenBioSalc.UseVisualStyleBackColor = True
+        '
+        'TxtRegEmbalajes
+        '
+        Me.TxtRegEmbalajes.Location = New System.Drawing.Point(426, 44)
+        Me.TxtRegEmbalajes.Name = "TxtRegEmbalajes"
+        Me.TxtRegEmbalajes.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.TxtRegEmbalajes.Properties.NullText = ""
+        Me.TxtRegEmbalajes.Properties.PopupView = Me.GridView3
+        Me.TxtRegEmbalajes.Size = New System.Drawing.Size(157, 20)
+        Me.TxtRegEmbalajes.TabIndex = 26
+        '
+        'GridView3
+        '
+        Me.GridView3.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.gcolcod_empaque, Me.gcoldesc_empaque, Me.gcolpeso_emb})
+        Me.GridView3.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView3.Name = "GridView3"
+        Me.GridView3.OptionsFilter.ShowAllTableValuesInFilterPopup = True
+        Me.GridView3.OptionsFilter.UseNewCustomFilterDialog = True
+        Me.GridView3.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView3.OptionsView.ShowAutoFilterRow = True
+        Me.GridView3.OptionsView.ShowGroupPanel = False
+        '
+        'gcolcod_empaque
+        '
+        Me.gcolcod_empaque.Caption = "Código"
+        Me.gcolcod_empaque.FieldName = "COD_EMPAQUE"
+        Me.gcolcod_empaque.Name = "gcolcod_empaque"
+        Me.gcolcod_empaque.OptionsColumn.AllowEdit = False
+        Me.gcolcod_empaque.OptionsColumn.ReadOnly = True
+        Me.gcolcod_empaque.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.gcolcod_empaque.Visible = True
+        Me.gcolcod_empaque.VisibleIndex = 0
+        '
+        'gcoldesc_empaque
+        '
+        Me.gcoldesc_empaque.Caption = "Descripción"
+        Me.gcoldesc_empaque.FieldName = "DESC_EMPAQUE"
+        Me.gcoldesc_empaque.Name = "gcoldesc_empaque"
+        Me.gcoldesc_empaque.OptionsColumn.AllowEdit = False
+        Me.gcoldesc_empaque.OptionsColumn.ReadOnly = True
+        Me.gcoldesc_empaque.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.gcoldesc_empaque.Visible = True
+        Me.gcoldesc_empaque.VisibleIndex = 1
+        '
+        'gcolpeso_emb
+        '
+        Me.gcolpeso_emb.Caption = "Peso Tara KG"
+        Me.gcolpeso_emb.FieldName = "PESO_EMB"
+        Me.gcolpeso_emb.Name = "gcolpeso_emb"
+        Me.gcolpeso_emb.OptionsColumn.AllowEdit = False
+        Me.gcolpeso_emb.OptionsColumn.ReadOnly = True
+        Me.gcolpeso_emb.Visible = True
+        Me.gcolpeso_emb.VisibleIndex = 2
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(366, 47)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(47, 13)
+        Me.LabelControl2.TabIndex = 25
+        Me.LabelControl2.Text = "Embalaje:"
         '
         'FinRemisionFrm
         '
@@ -1757,6 +1850,9 @@ Partial Class FinRemisionFrm
         CType(Me.TxtPuntoDestino.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TlSNotas.ResumeLayout(False)
         Me.TlSNotas.PerformLayout()
+        CType(Me.TxtOrdenPesoBioSalc.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TxtRegEmbalajes.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1907,4 +2003,12 @@ Partial Class FinRemisionFrm
     Friend WithEvents TxtNumCabezal As DevExpress.XtraEditors.TextEdit
     Friend WithEvents GridColumn9 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents GridColumn11 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnProcesarOrdenBioSalc As Button
+    Friend WithEvents TxtOrdenPesoBioSalc As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents TxtRegEmbalajes As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView3 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents gcolcod_empaque As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents gcoldesc_empaque As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents gcolpeso_emb As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
 End Class

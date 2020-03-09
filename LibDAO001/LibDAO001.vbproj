@@ -74,6 +74,7 @@
     <Compile Include="CDP_FormatosxProveedor.vb" />
     <Compile Include="CDP_Ubicaciones.vb" />
     <Compile Include="ClsAPR.vb" />
+    <Compile Include="ClsBiosalc.vb" />
     <Compile Include="ClsConexion.vb" />
     <Compile Include="ClsEntiAPR.vb" />
     <Compile Include="ClsUtilitarios.vb" />

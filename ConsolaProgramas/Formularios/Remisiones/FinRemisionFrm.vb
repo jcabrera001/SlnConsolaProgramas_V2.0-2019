@@ -26,7 +26,7 @@ Public Class FinRemisionFrm
     Public dtOpciones, dtConfigxEmpresa, dtIDF_ConfigEmp002, dtDetalleProductosBioSalc, dtOrdenPesoTaraBioSalc As DataTable
     Public PesoNetoKG, PesoTaraKG, PesoBrutoKG As Double
     Public PesoTaraEmpaque, PesoNetoLbs, PesoTaraLbs, PesoBrutoLbs As Double
-    Public contador, OpcionConsultar, OpcionModificar As Integer
+    Public contador, OpcionConsultar, OpcionModificar, AplicaCancelarItem As Integer
     Public msgResultado As MsgBoxResult = New MsgBoxResult()
     Public DialogoResult As DialogResult = New DialogResult()
 
@@ -1009,8 +1009,9 @@ Public Class FinRemisionFrm
         oProdXFactRegistro.Descrip2 = Me.TxtRegDescrip2.Text
 
         'Codigo y peso de embalaje. Tabla: EMPAQUE. Base de Datos: BioSalc
-        'oProdXFactRegistro.CodEmpaqueBioSalc = Me.TxtRegEmbalajes.EditValue
-        'oProdXFactRegistro.PesoEmbBioSalc = PesoTaraEmpaque
+        oProdXFactRegistro.CodEmpaqueBioSalc = Me.TxtRegEmbalajes.EditValue
+        oProdXFactRegistro.PesoEmbBioSalc = PesoTaraEmpaque
+
         If cAccion = "Edición de datos." Then
             Try
                 oProdXFactRegistro.Actualizar()
@@ -1021,13 +1022,53 @@ Public Class FinRemisionFrm
 
         If cAccion = "Nuevo registro." Then
             Try
-                oProdXFactRegistro.Crear()
+                'Si el codigo de producto es 2000 - Azucar a despachar
+                'Debera de generar un mensaje de alerta o advertencia
+                If TxtRegProdCodigo.EditValue.ToString.Equals("2000") Then
+                    ClsU.NotaCompleta("Error: favor seleccionar el codigo de producto segun tipo de azucar. (REFINO | MORENA | SULFITADA JUMBO | ETC)." &
+                                      "Para buscar un producto, debera desplegar el grid y en la columna Producto, digitar las letras AZU, de esta forma, solo se visualizara los productos de la categoria AZUCAR...", 16)
+                    AplicaCancelarItem = -1
+                Else
+                    'Si el codigo de embalaje esta vacio
+                    If TxtRegEmbalajes.EditValue.ToString.Length = 0 Then
+                        ClsU.NotaCompleta("Error: Codigo de embalaje o empaque vacio o nulo... Favor verifique e intente de nuevo", 16)
+                        AplicaCancelarItem = -1
+                    Else
+                        AplicaCancelarItem = 1
+                        oProdXFactRegistro.Crear()
+
+
+                        ClsBioSalc = New ClsBioSalc()
+                        Dim mensaje As String = ""
+                        Dim xTicket As Integer = 0
+                        xTicket = Convert.ToInt32(Me.TxtOrdenPesoBioSalc.EditValue)
+                        mensaje = ClsBioSalc.GuardarModificarOrdenPesoBioSalc_TARA(strUsuario, strPassword, True,
+                                                                                    Me.TxtRegEmbalajes.EditValue,
+                                                                                    Me.TxtRegProdCodigo.EditValue,
+                                                                                    Me.TxtRegUnidMedCodigo.EditValue,
+                                                                                    xTicket)
+                        Dim resultadoMensaje As String
+                        resultadoMensaje = mensaje.Substring(0, 1)
+                        If resultadoMensaje.Equals("+") Then
+                            mensaje = mensaje.Replace(resultadoMensaje, "")
+                            ClsU.NotaCompleta(mensaje & " " &
+                                              "Tabla: OPROD_MOV_PROD", 64)
+                        Else
+                            ClsU.NotaCompleta(mensaje, 16)
+                            AplicaCancelarItem = -1
+                        End If
+                    End If
+
+                End If
             Catch ex As Exception
                 ClsU.NotaCompleta("Error en la creación del registro. " & ex.Message, 16)
+                AplicaCancelarItem = -1
             End Try
         End If
 
-        CancelarItem()
+        If AplicaCancelarItem = 1 Then
+            CancelarItem()
+        End If
 
     End Sub
 

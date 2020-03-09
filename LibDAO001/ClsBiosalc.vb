@@ -40,127 +40,22 @@ Public Class ClsBioSalc
         cnx = conexion.conectarAmigoDbBioSalc(strUsuario, strPasswd)
 
         If (intIdxQuery = "vT") Then
-            query = "SELECT COUNT(O.NUMERO) AS Numero " &
-                   "FROM OPROD_MOV O, " &
-                         "OPROD_MOV_PROD OP, " &
-                         "CLIENTE C, " &
-                         "VEICULOS V, " &
-                         "MODEQUIP ME, " &
-                         "GRUEQUIP GR " &
-                   "WHERE O.NUMERO = OP.NUMERO " &
-                   "AND O.CLIENTE = C.CODIGO " &
-                   "AND V.CODIGO  = O.CABEZOTE " &
-                   "AND ME.CODIGO = V.MODELO " &
-                   "AND GR.CODIGO = ME.GRUPO " &
-                   "AND O.STATUS IN ('A') " &
-                   "AND O.TARA > 0 " &
-                   "AND O.NUMERO IN (" + NumPesajeBioSalc.ToString() + ") "
-        End If
-
-        If (intIdxQuery = "T") Then
-            query = "SELECT O.CLIENTE AS CodCliente," &
-                    "C.NOME AS Cliente," &
-                    "O.STATUS AS Estado," &
-                    "O.ALMOXAGR AS CodBodega," &
-                    "ISNULL((SELECT a.NOME FROM ALMOXAGR a " &
-                             "WHERE a.CODIGO = O.ALMOXAGR),'') AS Bodega," &
-                    "O.OBSERV   AS BodegaDestino," &
-                   "O.FH_SAI   AS FechaSalida," &
-                   "O.HORA_SAI AS HoraSalida," &
-                   "O.TRANSACAO AS MotivoRemision, " &
-                   "O.TRANSP AS TransportistaID," &
-                   "O.CHOFER AS ConductorID," &
-                   "O.CABEZOTE AS VehiculoID," &
-                   "ME.GRUPO AS MarcaID, " &
-                   "GR.NOME  AS MarcaVehiculo," &
-                   "ISNULL(V.PLACA,'')  AS Placa, " &
-                   "ISNULL(O.SELLO_I,0) AS SelloInicial, " &
-                   "ISNULL(O.SELLO_F,0) AS SelloFinal," &
-                   " (CAST(ISNULL(O.SELLO_I,0) AS NVARCHAR)+' AL '+CAST(ISNULL(O.SELLO_F,0) AS NVARCHAR)) AS RangoSelloCamion," &
-                   "O.OBSERV2 AS SellosJumbosOtros," &
-                   "OP.PROD AS CodProducto,		 " &
-                   "OP.CANTIDAD AS Cantidad," &
-                   "OP.UM AS UnidadMedidaID," &
-                   "O.PESO_BRUTO AS PesoBrutoLbs," &
-                   "O.TARA AS PesoTaraLbs," &
-                   "O.PESO_NETO AS PesoNetoLbs," &
-                   "(O.PESO_NETO  * (SELECT FATOR FROM CONV_UM WHERE CODIGO IN ('LBS_KG'))) AS PesoNetoKG," &
-                   "((O.PESO_NETO * (SELECT FATOR FROM CONV_UM WHERE CODIGO IN ('LBS_KG')))/50) AS Sacos50KG,   " &
-                   "O.NUMERO AS NumOrden," &
-                   "O.DOC_INTERNO AS DocInterno1, " &
-                   "ISNULL(O.DOC_INTERNO2,'') AS DocInterno2," &
-                   "ISNULL(O.REMOLQUE,'') AS CodRemolque," &
-                   "ISNULL(O.REMOLQUE2,'') AS PlacaRemolque," &
-                   "OP.EMPAQUE AS CodEmpaque " &
-                   "FROM OPROD_MOV O, " &
-                         "OPROD_MOV_PROD OP, " &
-                         "CLIENTE C, " &
-                         "VEICULOS V, " &
-                         "MODEQUIP ME, " &
-                         "GRUEQUIP GR " &
-                   "WHERE O.NUMERO = OP.NUMERO " &
-                   "AND O.CLIENTE = C.CODIGO " &
-                   "AND V.CODIGO  = O.CABEZOTE " &
-                   "AND ME.CODIGO = V.MODELO " &
-                   "AND GR.CODIGO = ME.GRUPO " &
-                   "AND O.STATUS IN ('A') " &
-                   "AND O.TARA > 0 " &
-                   "AND O.NUMERO IN (" + NumPesajeBioSalc.ToString() + ") "
-        End If
-
-        If (intIdxQuery = "N") Then
-            query = "SELECT O.CLIENTE AS CodCliente," &
-                    "C.NOME AS Cliente," &
-                    "O.STATUS AS Estado," &
-                    "O.ALMOXAGR AS CodBodega," &
-                    "ISNULL((SELECT a.NOME FROM ALMOXAGR a " &
-                             "WHERE a.CODIGO = O.ALMOXAGR),'') AS Bodega," &
-                    "O.OBSERV   AS BodegaDestino," &
-                   "O.FH_SAI   AS FechaSalida," &
-                   "O.HORA_SAI AS HoraSalida," &
-                   "O.TRANSACAO AS MotivoRemision, " &
-                   "O.TRANSP AS TransportistaID," &
-                   "O.CHOFER AS ConductorID," &
-                   "O.CABEZOTE AS VehiculoID," &
-                   "ME.GRUPO AS MarcaID, " &
-                   "GR.NOME  AS MarcaVehiculo," &
-                   "ISNULL(V.PLACA,'')  AS Placa, " &
-                   "ISNULL(O.SELLO_I,0) AS SelloInicial, " &
-                   "ISNULL(O.SELLO_F,0) AS SelloFinal," &
-                   " (CAST(ISNULL(O.SELLO_I,0) AS NVARCHAR)+' AL '+CAST(ISNULL(O.SELLO_F,0) AS NVARCHAR)) AS RangoSelloCamion," &
-                   "O.OBSERV2 AS SellosJumbosOtros," &
-                   "OP.PROD AS CodProducto,		 " &
-                   "OP.CANTIDAD AS Cantidad," &
-                   "OP.UM AS UnidadMedidaID," &
-                   "O.PESO_BRUTO AS PesoBrutoLbs," &
-                   "O.TARA AS PesoTaraLbs," &
-                   "O.PESO_NETO AS PesoNetoLbs," &
-                   "(O.PESO_NETO  * (SELECT FATOR FROM CONV_UM WHERE CODIGO IN ('LBS_KG'))) AS PesoNetoKG," &
-                   "((O.PESO_NETO * (SELECT FATOR FROM CONV_UM WHERE CODIGO IN ('LBS_KG')))/50) AS Sacos50KG,   " &
-                   "O.NUMERO AS NumOrden," &
-                   "O.DOC_INTERNO AS DocInterno1, " &
-                   "ISNULL(O.DOC_INTERNO2,'') AS DocInterno2," &
-                   "ISNULL(O.REMOLQUE,'') AS CodRemolque," &
-                   "ISNULL(O.REMOLQUE2,'') AS PlacaRemolque," &
-                   "OP.EMPAQUE AS CodEmpaque " &
-                   "FROM OPROD_MOV O, " &
-                         "OPROD_MOV_PROD OP, " &
-                         "CLIENTE C, " &
-                         "VEICULOS V, " &
-                         "MODEQUIP ME, " &
-                         "GRUEQUIP GR " &
-                   "WHERE O.NUMERO = OP.NUMERO " &
-                   "AND O.CLIENTE = C.CODIGO " &
-                   "AND V.CODIGO  = O.CABEZOTE " &
-                   "AND ME.CODIGO = V.MODELO " &
-                   "AND GR.CODIGO = ME.GRUPO " &
-                   "AND O.STATUS IN ('A') " &
-                   "AND O.PESO_NETO > 0 " &
-                   "AND O.NUMERO IN (" + NumPesajeBioSalc.ToString() + ") "
+            query = "spRemisionBiosalcVT" ' & NumPesajeBioSalc.ToString() & "'"
+        ElseIf (intIdxQuery = "T") Then
+            query = "spRemisionBiosalcT" ' & NumPesajeBioSalc.ToString() & "'"
+        ElseIf (intIdxQuery = "N") Then
+            query = "spRemisionBiosalcN" ' & NumPesajeBioSalc.ToString() & "'"
         End If
 
         da = New SqlDataAdapter(query, cnx)
-        'da.SelectCommand.CommandType = CommandType.StoredProcedure
+        da.SelectCommand.CommandType = CommandType.StoredProcedure
+        da.SelectCommand.Parameters.AddWithValue("@num", NumPesajeBioSalc.ToString())
+
+        cnx.Open()
+        Dim cmd As New SqlCommand(query, cnx)
+        cnx.Close()
+
+
         da.Fill(ds, "datos")
         da.Dispose()
         cnx.Dispose()

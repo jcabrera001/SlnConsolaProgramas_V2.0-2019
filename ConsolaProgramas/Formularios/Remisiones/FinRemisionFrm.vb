@@ -404,6 +404,7 @@ Public Class FinRemisionFrm
         Dim DtDatosTiposDoctos As New DataTable
         Dim DtDatosTransportistas As New DataTable
         Dim DtDatosConductores As New DataTable
+        Dim DtDatosEmbalajes As New DataTable
 
         ClsProductos = New IDF_Productos(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         ClsUnidMeds = New IDF_UnidMeds(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -481,6 +482,16 @@ Public Class FinRemisionFrm
 
         Catch ex As Exception
             ClsU.NotaCompleta("Problemas al consultar Conductores. " & ex.Message, 16)
+        End Try
+
+        Try
+            DtDatosEmbalajes = ClsBioSalc.ObtenerEmbalajes(strUsuario, strPassword, 1)
+            Me.TxtRegEmbalajes.Properties.DataSource = DtDatosEmbalajes
+            Me.TxtRegEmbalajes.Properties.ValueMember = DtDatosEmbalajes.Columns(0).ToString()
+            Me.TxtRegEmbalajes.Properties.DisplayMember = DtDatosEmbalajes.Columns(1).ToString()
+
+        Catch ex As Exception
+            ClsU.NotaCompleta("Problemas al consultar Embalajes. " & ex.Message, 16)
         End Try
 
         TxtFechaInicio.EditValue = DateTime.Now
@@ -997,8 +1008,10 @@ Public Class FinRemisionFrm
         oProdXFactRegistro.Descrip1 = Me.TxtRegDescrip1.Text
         oProdXFactRegistro.Descrip2 = Me.TxtRegDescrip2.Text
 
+        'Codigo y peso de embalaje. Tabla: EMPAQUE. Base de Datos: BioSalc
+        'oProdXFactRegistro.CodEmpaqueBioSalc = Me.TxtRegEmbalajes.EditValue
+        'oProdXFactRegistro.PesoEmbBioSalc = PesoTaraEmpaque
         If cAccion = "Edición de datos." Then
-
             Try
                 oProdXFactRegistro.Actualizar()
             Catch ex As Exception

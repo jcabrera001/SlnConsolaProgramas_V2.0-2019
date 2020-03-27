@@ -21,6 +21,7 @@ Public Class frmRemisionesList
         f.Conexion = cnx
     End Sub
     Private Sub frmRemisiones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CmbOpcImpresion.SelectedIndex = 0
         LoadPrincipal()
         gc.DataSource = dt 'f.getDataTable("spIDF_RemisionesSelect '" & emp & "', '" & caiRemision & "'")
     End Sub

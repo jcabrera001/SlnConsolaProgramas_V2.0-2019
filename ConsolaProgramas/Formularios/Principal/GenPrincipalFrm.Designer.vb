@@ -164,7 +164,6 @@ Partial Class GenPrincipalFrm
         Me.rpgPermisos = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPage3 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup9 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
-        Me.RibbonPageGroup11 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
         Me.cmbEnvioCorrero = New DevExpress.XtraBars.BarButtonItem()
         Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
@@ -1271,7 +1270,7 @@ Partial Class GenPrincipalFrm
         '
         'RibbonPage3
         '
-        Me.RibbonPage3.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup9, Me.RibbonPageGroup11})
+        Me.RibbonPage3.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup9})
         Me.RibbonPage3.Name = "RibbonPage3"
         Me.RibbonPage3.Text = "Proveedores"
         '
@@ -1280,12 +1279,6 @@ Partial Class GenPrincipalFrm
         Me.RibbonPageGroup9.ItemLinks.Add(Me.cmbPagos)
         Me.RibbonPageGroup9.Name = "RibbonPageGroup9"
         Me.RibbonPageGroup9.Text = "Pagos"
-        '
-        'RibbonPageGroup11
-        '
-        Me.RibbonPageGroup11.ItemLinks.Add(Me.BarButtonItem27)
-        Me.RibbonPageGroup11.Name = "RibbonPageGroup11"
-        Me.RibbonPageGroup11.Text = "RibbonPageGroup11"
         '
         'RibbonStatusBar
         '
@@ -1529,5 +1522,4 @@ Partial Class GenPrincipalFrm
     Friend WithEvents cmbFactMasiva As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup10 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents BarButtonItem27 As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents RibbonPageGroup11 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
 End Class

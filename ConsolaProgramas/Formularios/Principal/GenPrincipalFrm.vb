@@ -667,10 +667,18 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub CmbBoletasRemision_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbBoletasRemision.ItemClick
-        Dim FrmFinRemision As FinRemisionFrm = New FinRemisionFrm(cnxFinanzas, "30C292-628B09-6840A5-BFC210-0923F3-4B")
-        FrmFinRemision.FuncionInicial(usuario, pw, xEmpresaID, 4, PerfilID, CInt(rPagIDF.Tag.ToString), CInt(CmbBoletasRemision.Tag.ToString))
-        FrmFinRemision.ShowDialog()
+        'Dim FrmFinRemision As FinRemisionFrm = New FinRemisionFrm(cnxFinanzas, "30C292-628B09-6840A5-BFC210-0923F3-4B")
+        'FrmFinRemision.FuncionInicial(usuario, pw, xEmpresaID, 4, PerfilID, CInt(rPagIDF.Tag.ToString), CInt(CmbBoletasRemision.Tag.ToString))
+        'FrmFinRemision.ShowDialog()
 
+        If Not IsNothing(caiRemision) Then
+            Dim frm As New frmRemisionesList(cnxFinanzas, usuario, xEmpresaID)
+            frm.ShowDialog()
+
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, xEmpresaID, 4)
+            frm.ShowDialog()
+        End If
 
         'Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 4, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
         'frm.ShowDialog()
@@ -755,14 +763,14 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub BarButtonItem27_ItemClick_2(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem27.ItemClick
-        If Not IsNothing(caiRemision) Then
-            Dim frm As New frmRemisionesList(cnxFinanzas, usuario, xEmpresaID)
-            frm.ShowDialog()
+        'If Not IsNothing(caiRemision) Then
+        '    Dim frm As New frmRemisionesList(cnxFinanzas, usuario, xEmpresaID)
+        '    frm.ShowDialog()
 
-        Else
-            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, xEmpresaID, 4)
-            frm.ShowDialog()
-        End If
+        'Else
+        '    Dim frm As New frmSelectPunto(cnxFinanzas, usuario, xEmpresaID, 4)
+        '    frm.ShowDialog()
+        'End If
 
 
         'Dim frm As New frmRemisionesList(cnxFinanzas, usuario, tiempo)

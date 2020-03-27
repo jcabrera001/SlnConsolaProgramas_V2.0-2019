@@ -151,7 +151,7 @@ Partial Class GenFacturasFrm
         'CmbRegCancelar
         '
         CmbRegCancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        CmbRegCancelar.Image = CType(resources.GetObject("CmbRegCancelar.Image"), System.Drawing.Image)
+        CmbRegCancelar.ImageOptions.Image = CType(resources.GetObject("CmbRegCancelar.ImageOptions.Image"), System.Drawing.Image)
         CmbRegCancelar.Location = New System.Drawing.Point(616, 81)
         CmbRegCancelar.Name = "CmbRegCancelar"
         CmbRegCancelar.Size = New System.Drawing.Size(50, 50)
@@ -162,7 +162,7 @@ Partial Class GenFacturasFrm
         'CmbRegActualizar
         '
         CmbRegActualizar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        CmbRegActualizar.Image = CType(resources.GetObject("CmbRegActualizar.Image"), System.Drawing.Image)
+        CmbRegActualizar.ImageOptions.Image = CType(resources.GetObject("CmbRegActualizar.ImageOptions.Image"), System.Drawing.Image)
         CmbRegActualizar.Location = New System.Drawing.Point(616, 25)
         CmbRegActualizar.Name = "CmbRegActualizar"
         CmbRegActualizar.Size = New System.Drawing.Size(50, 50)
@@ -189,7 +189,7 @@ Partial Class GenFacturasFrm
         Me.XTTPagina1.Controls.Add(Me.gc)
         Me.XTTPagina1.Controls.Add(Me.tsMenu)
         Me.XTTPagina1.Name = "XTTPagina1"
-        Me.XTTPagina1.Size = New System.Drawing.Size(910, 652)
+        Me.XTTPagina1.Size = New System.Drawing.Size(914, 656)
         '
         'gc
         '
@@ -218,7 +218,7 @@ Partial Class GenFacturasFrm
         Me.tsMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.CmbNuevo, Me.CmbActualizarConsulta, Me.ToolStripSeparator3, Me.CmbEditar, Me.cmbPrint, Me.cmbAnular})
         Me.tsMenu.Location = New System.Drawing.Point(0, 0)
         Me.tsMenu.Name = "tsMenu"
-        Me.tsMenu.Size = New System.Drawing.Size(910, 53)
+        Me.tsMenu.Size = New System.Drawing.Size(914, 53)
         Me.tsMenu.TabIndex = 10
         '
         'ToolStripSeparator1
@@ -293,7 +293,7 @@ Partial Class GenFacturasFrm
         Me.XTTPagina2.Controls.Add(Me.XTTDatos)
         Me.XTTPagina2.Controls.Add(Me.ToolStrip1)
         Me.XTTPagina2.Name = "XTTPagina2"
-        Me.XTTPagina2.Size = New System.Drawing.Size(910, 652)
+        Me.XTTPagina2.Size = New System.Drawing.Size(914, 656)
         Me.XTTPagina2.Text = "XtraTabPage2"
         '
         'XTTDatos
@@ -328,7 +328,7 @@ Partial Class GenFacturasFrm
         Me.XTPBasico.Controls.Add(Me.LabelControl2)
         Me.XTPBasico.Controls.Add(Me.LblCodigo)
         Me.XTPBasico.Name = "XTPBasico"
-        Me.XTPBasico.Size = New System.Drawing.Size(894, 565)
+        Me.XTPBasico.Size = New System.Drawing.Size(898, 568)
         Me.XTPBasico.Text = "Básico"
         '
         'txtDescripcion
@@ -429,7 +429,7 @@ Partial Class GenFacturasFrm
         Me.XtraTabControl1.Location = New System.Drawing.Point(7, 95)
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
-        Me.XtraTabControl1.Size = New System.Drawing.Size(884, 467)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(888, 470)
         Me.XtraTabControl1.TabIndex = 10
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
         '
@@ -441,7 +441,7 @@ Partial Class GenFacturasFrm
         Me.XtraTabPage1.Controls.Add(Me.btnDetail)
         Me.XtraTabPage1.Controls.Add(Me.gcDetalle)
         Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(878, 439)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(886, 445)
         Me.XtraTabPage1.Text = "Detalle"
         '
         'GrpRegistro
@@ -450,7 +450,7 @@ Partial Class GenFacturasFrm
         Me.GrpRegistro.Controls.Add(CmbRegCancelar)
         Me.GrpRegistro.Controls.Add(CmbRegActualizar)
         Me.GrpRegistro.Controls.Add(Me.XtraTabControl2)
-        Me.GrpRegistro.Location = New System.Drawing.Point(3, 290)
+        Me.GrpRegistro.Location = New System.Drawing.Point(3, 296)
         Me.GrpRegistro.Name = "GrpRegistro"
         Me.GrpRegistro.Size = New System.Drawing.Size(674, 146)
         Me.GrpRegistro.TabIndex = 20
@@ -484,7 +484,7 @@ Partial Class GenFacturasFrm
         Me.XtraTabPage4.Controls.Add(Me.LabelControl12)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl13)
         Me.XtraTabPage4.Name = "XtraTabPage4"
-        Me.XtraTabPage4.Size = New System.Drawing.Size(549, 114)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(552, 118)
         Me.XtraTabPage4.Text = "Detalle"
         '
         'cmbLabor
@@ -495,7 +495,7 @@ Partial Class GenFacturasFrm
         Me.cmbLabor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cmbLabor.Properties.NullText = "Labores"
         Me.cmbLabor.Properties.PopupFormSize = New System.Drawing.Size(700, 0)
-        Me.cmbLabor.Properties.View = Me.GridView1
+        Me.cmbLabor.Properties.PopupView = Me.GridView1
         Me.cmbLabor.Size = New System.Drawing.Size(441, 20)
         Me.cmbLabor.TabIndex = 33
         '
@@ -603,7 +603,7 @@ Partial Class GenFacturasFrm
         Me.cmbLaborTest.Location = New System.Drawing.Point(67, 56)
         Me.cmbLaborTest.Name = "cmbLaborTest"
         Me.cmbLaborTest.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cmbLaborTest.Properties.View = Me.GridLookUpEdit1View
+        Me.cmbLaborTest.Properties.PopupView = Me.GridLookUpEdit1View
         Me.cmbLaborTest.Size = New System.Drawing.Size(437, 20)
         Me.cmbLaborTest.TabIndex = 1
         Me.cmbLaborTest.Visible = False
@@ -700,9 +700,9 @@ Partial Class GenFacturasFrm
         'btnDelete
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.Image = CType(resources.GetObject("btnDelete.Image"), System.Drawing.Image)
-        Me.btnDelete.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDelete.Location = New System.Drawing.Point(820, 110)
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnDelete.Location = New System.Drawing.Point(828, 110)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(55, 50)
         Me.btnDelete.TabIndex = 17
@@ -711,9 +711,9 @@ Partial Class GenFacturasFrm
         'btnEditDetail
         '
         Me.btnEditDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEditDetail.Image = CType(resources.GetObject("btnEditDetail.Image"), System.Drawing.Image)
-        Me.btnEditDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnEditDetail.Location = New System.Drawing.Point(820, 57)
+        Me.btnEditDetail.ImageOptions.Image = CType(resources.GetObject("btnEditDetail.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnEditDetail.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnEditDetail.Location = New System.Drawing.Point(828, 57)
         Me.btnEditDetail.Name = "btnEditDetail"
         Me.btnEditDetail.Size = New System.Drawing.Size(55, 50)
         Me.btnEditDetail.TabIndex = 16
@@ -722,9 +722,9 @@ Partial Class GenFacturasFrm
         'btnDetail
         '
         Me.btnDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDetail.Image = CType(resources.GetObject("btnDetail.Image"), System.Drawing.Image)
-        Me.btnDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDetail.Location = New System.Drawing.Point(820, 4)
+        Me.btnDetail.ImageOptions.Image = CType(resources.GetObject("btnDetail.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDetail.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnDetail.Location = New System.Drawing.Point(828, 4)
         Me.btnDetail.Name = "btnDetail"
         Me.btnDetail.Size = New System.Drawing.Size(55, 50)
         Me.btnDetail.TabIndex = 15
@@ -738,7 +738,7 @@ Partial Class GenFacturasFrm
         Me.gcDetalle.Location = New System.Drawing.Point(3, 3)
         Me.gcDetalle.MainView = Me.gvDetalle
         Me.gcDetalle.Name = "gcDetalle"
-        Me.gcDetalle.Size = New System.Drawing.Size(816, 281)
+        Me.gcDetalle.Size = New System.Drawing.Size(824, 287)
         Me.gcDetalle.TabIndex = 0
         Me.gcDetalle.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.gvDetalle})
         '
@@ -759,7 +759,7 @@ Partial Class GenFacturasFrm
         Me.XtraTabPage2.Controls.Add(Me.txtOTDescrip)
         Me.XtraTabPage2.Controls.Add(Me.LabelControl6)
         Me.XtraTabPage2.Name = "XtraTabPage2"
-        Me.XtraTabPage2.Size = New System.Drawing.Size(878, 439)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(886, 445)
         Me.XtraTabPage2.Text = "Detalle OT"
         '
         'gcOT
@@ -770,7 +770,7 @@ Partial Class GenFacturasFrm
         Me.gcOT.Location = New System.Drawing.Point(3, 31)
         Me.gcOT.MainView = Me.GVOT
         Me.gcOT.Name = "gcOT"
-        Me.gcOT.Size = New System.Drawing.Size(872, 397)
+        Me.gcOT.Size = New System.Drawing.Size(880, 403)
         Me.gcOT.TabIndex = 7
         Me.gcOT.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GVOT})
         '
@@ -835,7 +835,7 @@ Partial Class GenFacturasFrm
         Me.chkContabilizado.Name = "chkContabilizado"
         Me.chkContabilizado.Properties.Caption = "Contabilizado"
         Me.chkContabilizado.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.[Default]
-        Me.chkContabilizado.Size = New System.Drawing.Size(75, 15)
+        Me.chkContabilizado.Size = New System.Drawing.Size(75, 20)
         Me.chkContabilizado.TabIndex = 9
         '
         'chkAprobado
@@ -844,7 +844,7 @@ Partial Class GenFacturasFrm
         Me.chkAprobado.Location = New System.Drawing.Point(640, 4)
         Me.chkAprobado.Name = "chkAprobado"
         Me.chkAprobado.Properties.Caption = "Aprobado"
-        Me.chkAprobado.Size = New System.Drawing.Size(75, 15)
+        Me.chkAprobado.Size = New System.Drawing.Size(75, 20)
         Me.chkAprobado.TabIndex = 8
         '
         'txtCodigo
@@ -876,7 +876,7 @@ Partial Class GenFacturasFrm
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbGrabarNuevo, Me.ToolStripSeparator2, Me.CmbGrabarSalir, Me.CmbRegresarConsulta})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(910, 53)
+        Me.ToolStrip1.Size = New System.Drawing.Size(914, 53)
         Me.ToolStrip1.TabIndex = 11
         '
         'CmbGrabarNuevo

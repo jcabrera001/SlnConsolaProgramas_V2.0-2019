@@ -6,6 +6,9 @@ Public Class XGenLogin
     Public dta As New DataTable
     Public dtEmpxU As New DataTable
     Private Sub XGenLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CleanVariables() 'Funcion para limpiar las variables globales.
+
+
         'txtUsuario.Focus()
         txtPassword.Text = Nothing
 
@@ -69,12 +72,11 @@ Public Class XGenLogin
                 XEmpresaID = cbxEmpresasxUsuario.EditValue.ToString() 'CInt(dta.Rows(0).Item(3))
                 XEmpresa = cbxEmpresasxUsuario.Text
                 DescPerfil = dta.Rows(0)(15).ToString
-                'DescPerfil = cbxUsuarios.Properties.View.GetRowCellValue(cbxUsuarios.Properties.View.FocusedRowHandle, "Perfil")
-                'GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "DFFactID")
-                'idgrupo = CInt(dta.Rows(0).Item(0))
-                'grupo = dta.Rows(0).Item(1).ToString
-                'idarea = CInt(dta.Rows(0).Item(2))
-                'area = dta.Rows(0).Item(3).ToString
+
+                'Agregando valores a las variables Globales
+                mdVariablesGlobales.user = usert
+                mdVariablesGlobales.pwd = passt
+                mdVariablesGlobales.empresa = cbxEmpresasxUsuario.EditValue.ToString()
                 Close()
             Catch ex As Exception
                 MsgBox("Ocurrio un error al llamar el formulario " & ex.Message, MsgBoxStyle.Critical, "Reporte")

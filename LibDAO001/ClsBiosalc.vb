@@ -14,19 +14,14 @@ Public Class ClsBioSalc
     Public query, mensaje, dtNombre As String
     Public dsTem As DataSet = Nothing
 
-    Public Function ObtenerEmbalajes(strUsuario As String, strPasswd As String,
-                                     intIdxQuery As Integer) As DataTable
+    Public Function ObtenerEmbalajes(strUsuario As String, strPasswd As String) As DataTable
         Dim ds As New DataSet()
         'cnx = conexion.conectarAmigoDbBioSalcPrueba(strUsuario, strPasswd)
         cnx = conexion.conectarAmigoDbBioSalc(strUsuario, strPasswd)
 
-        If (intIdxQuery = 1) Then
-            query = "SELECT * " &
-                    "FROM empaque ORDER BY COD_EMPAQUE "
-        End If
 
-        da = New SqlDataAdapter(query, cnx)
-        'da.SelectCommand.CommandType = CommandType.StoredProcedure
+        da = New SqlDataAdapter("SELECT * FROM empaque ORDER BY COD_EMPAQUE", cnx)
+        da.SelectCommand.CommandType = CommandType.Text
         da.Fill(ds, "datos")
         da.Dispose()
         cnx.Dispose()

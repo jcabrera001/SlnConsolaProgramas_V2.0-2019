@@ -461,6 +461,18 @@
     <Compile Include="Formularios\GenCalendarioFrm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\Remisiones\frmRemisionesDetail.Designer.vb">
+      <DependentUpon>frmRemisionesDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Remisiones\frmRemisionesDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Remisiones\frmRemisionesList.Designer.vb">
+      <DependentUpon>frmRemisionesList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Remisiones\frmRemisionesList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\Remisiones\GenGuiasRemisionFrm.Designer.vb">
       <DependentUpon>GenGuiasRemisionFrm.vb</DependentUpon>
     </Compile>
@@ -725,6 +737,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\GenCalendarioFrm.resx">
       <DependentUpon>GenCalendarioFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Remisiones\frmRemisionesDetail.resx">
+      <DependentUpon>frmRemisionesDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Remisiones\frmRemisionesList.resx">
+      <DependentUpon>frmRemisionesList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Remisiones\GenGuiasRemisionFrm.resx">
       <DependentUpon>GenGuiasRemisionFrm.vb</DependentUpon>

@@ -230,7 +230,7 @@ Public Class FinRemisionFrm
         CancelarItem()
     End Sub
 
-    Private Sub GrdConsulta_DoubleClick(sender As Object, e As EventArgs) Handles GrdConsulta.DoubleClick
+    Private Sub GrdConsulta_DoubleClick(sender As Object, e As EventArgs)
         Dim nRemisionID As Integer
         nRemisionID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "RemisionID")
 
@@ -404,7 +404,10 @@ Public Class FinRemisionFrm
         Dim DtDatosTiposDoctos As New DataTable
         Dim DtDatosTransportistas As New DataTable
         Dim DtDatosConductores As New DataTable
+
+        'BioSalc
         Dim DtDatosEmbalajes As New DataTable
+        ClsBioSalc = New ClsBioSalc
 
         ClsProductos = New IDF_Productos(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         ClsUnidMeds = New IDF_UnidMeds(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -485,7 +488,7 @@ Public Class FinRemisionFrm
         End Try
 
         Try
-            DtDatosEmbalajes = ClsBioSalc.ObtenerEmbalajes(strUsuario, strPassword, 1)
+            DtDatosEmbalajes = ClsBioSalc.ObtenerEmbalajes(strUsuario, strPassword)
             Me.TxtRegEmbalajes.Properties.DataSource = DtDatosEmbalajes
             Me.TxtRegEmbalajes.Properties.ValueMember = DtDatosEmbalajes.Columns(0).ToString()
             Me.TxtRegEmbalajes.Properties.DisplayMember = DtDatosEmbalajes.Columns(1).ToString()
@@ -588,6 +591,7 @@ Public Class FinRemisionFrm
         Me.TxtMarchamo4.EditValue = oRemisionNuevo.Marchamo4
         Me.TxtMotivo.SelectedIndex = oRemisionNuevo.Motivo
         Me.TxtOtroMotivo.Text = oRemisionNuevo.OtroMotivo
+        TxtOrdenPesoBioSalc.Text = oRemisionNuevo.NumOrdenPesoBioSalc
 
         Me.CmbNuevoItem.Enabled = True
         Me.CmbEliminarItem.Enabled = False
@@ -701,7 +705,7 @@ Public Class FinRemisionFrm
             Dim NumOrdenPesoBioSalc As Integer = Convert.ToInt32(TxtOrdenPesoBioSalc.EditValue)
             Dim res As Int16
             res = VerificarOrdenPesoTara(NumOrdenPesoBioSalc)
-            If res = 1 Then
+            If res <> 0 Then
                 'GroupControl1.Text = GroupControl1.Text & " - " & "Proceso Pesaje#1 [TARA]"
                 btnProcesarOrdenBioSalc.Enabled = True
                 EstadoPesajeBioSalc = "TARA"
@@ -711,6 +715,11 @@ Public Class FinRemisionFrm
             End If
         End If
     End Sub
+
+    Private Sub CmbOpcImpresion_Click(sender As Object, e As EventArgs) Handles CmbOpcImpresion.Click
+
+    End Sub
+
     Public Function VerificarOrdenPesoTara(NumOrdenPeso As Integer) As Integer
         ClsBioSalc = New ClsBioSalc()
         Dim resultado As Integer
@@ -881,12 +890,16 @@ Public Class FinRemisionFrm
 
         'Datos de BioSalc
         oRemisionRegistro.NumCabezal = Me.TxtNumCabezal.Text
-        If EstadoPesajeBioSalc.Equals("TARA") Then
-            oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc
-        Else
-            oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc 'NETO
+
+        If TxtOrdenPesoBioSalc.Text.Length > 0 Then
+            If EstadoPesajeBioSalc.Equals("TARA") Then
+                oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc
+            Else
+                oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc 'NETO
+            End If
+            oRemisionRegistro.NumOrdenPesoBioSalc = TxtOrdenPesoBioSalc.Text
         End If
-        oRemisionRegistro.NumOrdenPesoBioSalc = TxtOrdenPesoBioSalc.Text
+
 
         If cAccion = "Edición de datos." Then
 
@@ -943,10 +956,7 @@ Public Class FinRemisionFrm
                     ClsU.NotaCompleta("No se pudo crear el nuevo registro [" & cResultado & "]", 16)
                     Return
                 End If
-                'If cResultado Like "ERROR%" Then
-                '    ClsU.NotaCompleta("No se pudo crear el nuevo registro [" & cResultado & "]", 16)
-                '    Return
-                'End If
+
 
                 Me.CmbNuevoItem.Enabled = True
                 Me.CmbEliminarItem.Enabled = True
@@ -1009,7 +1019,7 @@ Public Class FinRemisionFrm
         oProdXFactRegistro.Descrip2 = Me.TxtRegDescrip2.Text
 
         'Codigo y peso de embalaje. Tabla: EMPAQUE. Base de Datos: BioSalc
-        oProdXFactRegistro.CodEmpaqueBioSalc = Me.TxtRegEmbalajes.EditValue
+        oProdXFactRegistro.CodEmpaqueBioSalc = TxtRegEmbalajes.EditValue
         oProdXFactRegistro.PesoEmbBioSalc = PesoTaraEmpaque
 
         If cAccion = "Edición de datos." Then
@@ -1109,7 +1119,7 @@ Public Class FinRemisionFrm
         cServidor = oRepReg.server
         cBDD = oRepReg.jDataBase
 
-        Dim ocInforme As New ReportDocument
+        'Dim ocInforme As New ReportDocument
         Dim v As GenVistaPrevia
 
         Try

@@ -29,24 +29,7 @@ Public Class frmRemisionesDetail
         Adapters()
         Init()
     End Sub
-    Private Sub cmbConductor_EditValueChanged(sender As Object, e As EventArgs) Handles cmbConductor.EditValueChanged
-        If ID = -1 Then
-            If cmbConductor.EditValue.ToString.Length > 0 Then
-                Try
-                    Dim dtConductor As DataTable = f.getDataTable("spConductoresBiosalc '" & cmbConductor.SelectedText & "'")
 
-                    txtMarca.Text = dtConductor.Rows(0).Item("MarcaPred").ToString
-                    txtPlaca.Text = dtConductor.Rows(0).Item("PlacaPred").ToString
-                    txtLicencia.Text = dtConductor.Rows(0).Item("Identificacion").ToString
-                    txtIdentidad.Text = dtConductor.Rows(0).Item("Identificacion").ToString
-                Catch ex As Exception
-                    MsgBox("Erro al consultar la informacion del conductor!")
-                End Try
-
-
-            End If
-        End If
-    End Sub
     Private Sub cmbProductos_EditValueChanged(sender As Object, e As EventArgs) Handles cmbProductos.EditValueChanged
         If ID = -1 Then
             If cmbProductos.EditValue <> "" Then
@@ -267,6 +250,9 @@ Public Class frmRemisionesDetail
 
         If dt.Rows.Count = 0 Then
             dt.Rows.Add()
+            dtpFecha.EditValue = Now()
+            dtpInicio.EditValue = Now()
+            dtpTerminacion.EditValue = Now()
         Else
             rbtMotivo.SelectedIndex = dt.Rows(0).Item("Motivo")
             dtpFecha.EditValue = dt.Rows(0).Item("Fecha")
@@ -309,6 +295,25 @@ Public Class frmRemisionesDetail
 
     Private Sub TlSNotas_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TlSNotas.ItemClicked
 
+    End Sub
+
+    Private Sub cmbConductor_Leave(sender As Object, e As EventArgs) Handles cmbConductor.Leave
+        ' If ID = -1 Then
+        If cmbConductor.EditValue.ToString.Length > 0 Then
+                Try
+                Dim dtConductor As DataTable = f.getDataTable("spConductoresBiosalc '" & cmbConductor.Text & "'")
+
+                txtMarca.Text = dtConductor.Rows(0).Item("MarcaPred").ToString
+                    txtPlaca.Text = dtConductor.Rows(0).Item("PlacaPred").ToString
+                    txtLicencia.Text = dtConductor.Rows(0).Item("Identificacion").ToString
+                    txtIdentidad.Text = dtConductor.Rows(0).Item("Identificacion").ToString
+                Catch ex As Exception
+                    MsgBox("Erro al consultar la informacion del conductor!")
+                End Try
+
+
+            End If
+        ' End If
     End Sub
 
     Private Sub setCombos()

@@ -1,30 +1,39 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class frmParentList
-    Private ReadOnly cnx As SqlConnection
-    Public ReadOnly Property Usuario As String
-    Private Property f As New Funciones
-    Private ReadOnly Property dt As DataTable
-    Private Property adp As SqlDataAdapter
+    'Protected ReadOnly cnx As SqlConnection
+    'Protected ReadOnly Property Usuario As String
+    'Protected ReadOnly Property emp As String
 
-    Public Sub New(cnx As SqlConnection, Usuario As String, parent As GenPrincipalFrm)
 
-        ' This call is required by the designer.
-        InitializeComponent()
+    Private ReadOnly Property dt As New DataTable
+    Protected Property adaptador As SqlDataAdapter
 
-        ' Add any initialization after the InitializeComponent() call.
-        Me.cnx = cnx
-        Me.Usuario = Usuario
-        f.Conexion = cnx
+    'Public Sub New() 'cnx As SqlConnection, Usuario As String, emp As String)
+    '    ' This call is required by the designer.
+    '    InitializeComponent()
 
-        Me.MdiParent = parent
+    '    ' Add any initialization after the InitializeComponent() call.
+    '    'Me.cnx = cnx
+    '    'Me.Usuario = Usuario
+    '    'Me.emp = emp
 
-    End Sub
+    'End Sub
     Private Sub frmParentList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadTable()
-    End Sub
+        Init()
 
-    Public Overridable Sub LoadTable()
+
+        adaptador.Fill(dt)
+        gc.DataSource = dt
+        gv.OptionsBehavior.Editable = False
+        gv.OptionsCustomization.AllowFilter = False
+
+        For i As Integer = 0 To gv.Columns.Count - 1
+            gv.Columns(i).OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Next
+
+
+
     End Sub
 
     Public Overridable Sub Adicionar()
@@ -43,5 +52,11 @@ Public Class frmParentList
 
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
         Modificar()
+    End Sub
+    Protected Function getID(campo As String) As Integer
+        Return gv.GetFocusedRowCellValue(campo)
+    End Function
+    Public Overridable Sub Init()
+
     End Sub
 End Class

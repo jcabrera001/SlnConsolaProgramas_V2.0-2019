@@ -4,18 +4,19 @@ Public Class GenGuiasRemisionFrm
     Dim adp As New SqlDataAdapter
     Dim dt As New DataTable
     Dim cmd As New SqlCommand
-    Dim user As String
-    Dim time As Integer
+    Dim usu, emp As String
+    Dim ID As Integer
 
-    Public Sub New(cnx As SqlConnection, Usuario As String, tiempo As Integer)
+    Public Sub New(cnx As SqlConnection, ID As Integer, usu As String, emp As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         Me.cnx = cnx
-        user = Usuario
-        time = tiempo
+        Me.usu = usu
+        Me.emp = emp
+        Me.ID = ID
     End Sub
     Private Sub cmdCancelar_Click(sender As Object, e As EventArgs) Handles cmdCancelar.Click
         Close()
@@ -65,8 +66,8 @@ Public Class GenGuiasRemisionFrm
                     Exit Sub
                 Else
                     cnx.Open()
-                    cmd = New SqlCommand("_IDFGenGR '" & cbxEmpresa.EditValue & "', '', '" & Format(CDate(dtpInicio.EditValue), "MM/dd/yyyy") & "', '" & Format(CDate(dtpFinal.EditValue), "MM/dd/yyyy") & "', " & txtCantidad.Text & ", '" & user & "'", cnx)
-                    cmd.CommandTimeout = time
+                    cmd = New SqlCommand("_IDFGenGR '" & cbxEmpresa.EditValue & "', '', '" & Format(CDate(dtpInicio.EditValue), "MM/dd/yyyy") & "', '" & Format(CDate(dtpFinal.EditValue), "MM/dd/yyyy") & "', " & txtCantidad.Text & ", '" & usu & "'", cnx)
+                    'cmd.CommandTimeout = time
                     cmd.ExecuteNonQuery()
 
                     MsgBox("Guias generadas exitosamente!" + vbNewLine & " Inicial: " & CInt(dtBusqueda.DefaultView.Item(0).Item("NumActual")) + 1 & vbNewLine &

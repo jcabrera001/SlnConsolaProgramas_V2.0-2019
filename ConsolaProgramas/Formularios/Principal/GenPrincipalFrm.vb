@@ -574,18 +574,36 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub CmbFXC_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbFXC.ItemClick
-        Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 1, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
-        frm.ShowDialog()
+        If Not IsNothing(mdVariablesGlobales.caiFactura) Then
+            Dim frm As FinDFFactsFrm = New FinDFFactsFrm(usuario, pw)
+            frm.FuncionInicial(usuario, pw, xEmpresaID, 1, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString, mdVariablesGlobales.caiFactura)
+            frm.ShowDialog()
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, 1, xEmpresaID, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+            frm.ShowDialog()
+        End If
     End Sub
 
     Private Sub CmbFactExp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbFactExp.ItemClick
-        Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 7, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
-        frm.ShowDialog()
+        If Not IsNothing(mdVariablesGlobales.caiFactura) Then
+            Dim frm As FinDFFactsFrm = New FinDFFactsFrm(usuario, pw)
+            frm.FuncionInicial(usuario, pw, xEmpresaID, 7, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString, mdVariablesGlobales.caiFactura)
+            frm.ShowDialog()
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, 7, xEmpresaID, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+            frm.ShowDialog()
+        End If
     End Sub
 
     Private Sub CmbBolVen_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbBolVen.ItemClick
-        Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 8, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
-        frm.ShowDialog()
+        If Not IsNothing(mdVariablesGlobales.caiBolVenta) Then
+            Dim frm As FinDFFactsFrm = New FinDFFactsFrm(usuario, pw)
+            frm.FuncionInicial(usuario, pw, xEmpresaID, 8, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString, mdVariablesGlobales.caiBolVenta)
+            frm.ShowDialog()
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, 8, xEmpresaID, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+            frm.ShowDialog()
+        End If
     End Sub
     Private Sub CmbND_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbND.ItemClick
         Dim frmFinDFDescrip As FinDFDescripFrm = New FinDFDescripFrm(cnxFinanzas)
@@ -652,8 +670,18 @@ Public Class GenPrincipalFrm
         'Dim FrmFinRemision As FinRemisionFrm = New FinRemisionFrm(cnxFinanzas, "30C292-628B09-6840A5-BFC210-0923F3-4B")
         'FrmFinRemision.FuncionInicial(usuario, pw, xEmpresaID, 4, PerfilID, CInt(rPagIDF.Tag.ToString), CInt(CmbBoletasRemision.Tag.ToString))
         'FrmFinRemision.ShowDialog()
-        Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 4, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
-        frm.ShowDialog()
+
+        If Not IsNothing(caiRemision) Then
+            Dim frm As New frmRemisionesList(cnxFinanzas, usuario, xEmpresaID)
+            frm.ShowDialog()
+
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, xEmpresaID, 4)
+            frm.ShowDialog()
+        End If
+
+        'Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 4, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+        'frm.ShowDialog()
     End Sub
 
     Private Sub CmbConductores_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbConductores.ItemClick
@@ -717,13 +745,36 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub CmbFactBoletaCompra_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbFactBoletaCompra.ItemClick
-        Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 9, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
-        frm.ShowDialog()
+        'Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, xEmpresaID, 9, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+        'frm.ShowDialog()
+        If Not IsNothing(mdVariablesGlobales.caiBolCompra) Then
+            Dim frm As FinDFFactsFrm = New FinDFFactsFrm(usuario, pw)
+            frm.FuncionInicial(usuario, pw, xEmpresaID, 9, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString, mdVariablesGlobales.caiBolCompra)
+            frm.ShowDialog()
+        Else
+            Dim frm As New frmSelectPunto(cnxFinanzas, usuario, pw, 9, xEmpresaID, PerfilID, rPagIDF.Tag.ToString, CmbFXC.Tag.ToString)
+            frm.ShowDialog()
+        End If
     End Sub
 
     Private Sub cmbFactMasiva_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbFactMasiva.ItemClick
         Dim frm As New frmFacturasProtean(cnxFinanzas, usuario)
         frm.ShowDialog()
+    End Sub
+
+    Private Sub BarButtonItem27_ItemClick_2(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem27.ItemClick
+        'If Not IsNothing(caiRemision) Then
+        '    Dim frm As New frmRemisionesList(cnxFinanzas, usuario, xEmpresaID)
+        '    frm.ShowDialog()
+
+        'Else
+        '    Dim frm As New frmSelectPunto(cnxFinanzas, usuario, xEmpresaID, 4)
+        '    frm.ShowDialog()
+        'End If
+
+
+        'Dim frm As New frmRemisionesList(cnxFinanzas, usuario, tiempo)
+        'frm.ShowDialog()
     End Sub
 
     Private Sub cmbPagos_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbPagos.ItemClick
@@ -732,7 +783,7 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub CmbGenRemision_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbGenRemision.ItemClick
-        Dim frm As New GenGuiasRemisionFrm(cnxFinanzas, usuario, pw, tiempo)
+        Dim frm As New GenGuiasRemisionFrm(cnxFinanzas, 0, usuario, xEmpresaID)
         frm.ShowDialog()
 
     End Sub

@@ -289,7 +289,7 @@ namespace ConsolaProgramasCS
             }
             catch (Exception exp)
             {
-
+                this.m_strErrorDes = exp.Message;
             }
             this.m_sftpClient = null;
         }
@@ -300,17 +300,7 @@ namespace ConsolaProgramasCS
             return this.m_strErrorDes;
         }
 
-        public Stream GenerateStreamFromString(string s)
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
-
-
+    
 
     }
 }

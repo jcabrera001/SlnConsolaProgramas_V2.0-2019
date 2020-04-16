@@ -22,6 +22,8 @@ Public Class IDF_ProdxRem
     Private _UnidMedCodigo As System.String
     Private _Descrip1 As System.String
     Private _Descrip2 As System.String
+    Private _CodEmpaqueBioSalc As System.String
+    Private _PesoEmbBioSalc As System.Double
     '
     ' Este método se usará para ajustar los anchos de las propiedades
     Private Function ajustarAncho(cadena As String, ancho As Integer) As String
@@ -83,10 +85,26 @@ Public Class IDF_ProdxRem
     End Property
     Public Property Descrip2() As System.String
         Get
-            Return ajustarAncho(_Descrip2,100)
+            Return ajustarAncho(_Descrip2, 100)
         End Get
         Set(value As System.String)
             _Descrip2 = value
+        End Set
+    End Property
+    Public Property CodEmpaqueBioSalc() As System.String
+        Get
+            Return ajustarAncho(_CodEmpaqueBioSalc, 100)
+        End Get
+        Set(value As System.String)
+            _CodEmpaqueBioSalc = value
+        End Set
+    End Property
+    Public Property PesoEmbBioSalc() As System.Double
+        Get
+            Return _PesoEmbBioSalc
+        End Get
+        Set(value As System.Double)
+            _PesoEmbBioSalc = value
         End Set
     End Property
     '
@@ -108,6 +126,10 @@ Public Class IDF_ProdxRem
                 Return Me.Descrip1.ToString()
             ElseIf index = 6 Then
                 Return Me.Descrip2.ToString()
+            ElseIf index = 7 Then
+                Return Me.CodEmpaqueBioSalc.ToString()
+            ElseIf index = 8 Then
+                Return Me.PesoEmbBioSalc().ToString()
             End If
             ' Para que no de error el compilador de C#
             Return ""
@@ -139,6 +161,14 @@ Public Class IDF_ProdxRem
                 Me.Descrip1 = value
             ElseIf index = 6 Then
                 Me.Descrip2 = value
+            ElseIf index = 7 Then
+                Me.CodEmpaqueBioSalc = value
+            ElseIf index = 8 Then
+                Try
+                    Me.PesoEmbBioSalc = System.Double.Parse("0" & value)
+                Catch
+                    Me.PesoEmbBioSalc = System.Double.Parse("0")
+                End Try
             End If
         End Set
     End Property
@@ -160,6 +190,10 @@ Public Class IDF_ProdxRem
                 Return Me.Descrip1.ToString()
             ElseIf index = "Descrip2" Then
                 Return Me.Descrip2.ToString()
+            ElseIf index = "CodEmpaqueBioSalc" Then
+                Return Me.CodEmpaqueBioSalc.ToString()
+            ElseIf index = "PesoEmbBioSalc" Then
+                Return Me.PesoEmbBioSalc.ToString()
             End If
             ' Para que no de error el compilador de C#
             Return ""
@@ -191,6 +225,14 @@ Public Class IDF_ProdxRem
                 Me.Descrip1 = value
             ElseIf index = "Descrip2" Then
                 Me.Descrip2 = value
+            ElseIf index = "CodEmpaqueBioSalc" Then
+                Me.CodEmpaqueBioSalc = value
+            ElseIf index = "PesoEmbBioSalc" Then
+                Try
+                    Me.PesoEmbBioSalc = System.Double.Parse("0" & value)
+                Catch
+                    Me.PesoEmbBioSalc = System.Double.Parse("0")
+                End Try
             End If
         End Set
     End Property
@@ -222,6 +264,8 @@ Public Class IDF_ProdxRem
         oIDF_ProdxRem.UnidMedCodigo = r("UnidMedCodigo").ToString()
         oIDF_ProdxRem.Descrip1 = r("Descrip1").ToString()
         oIDF_ProdxRem.Descrip2 = r("Descrip2").ToString()
+        oIDF_ProdxRem.CodEmpaqueBioSalc = r("CodEmpaqueBioSalc").ToString()
+        oIDF_ProdxRem.PesoEmbBioSalc = System.Double.Parse("0" & r("PesoEmbBioSalc").ToString())
         '
         Return oIDF_ProdxRem
     End Function
@@ -238,6 +282,8 @@ Public Class IDF_ProdxRem
         r("UnidMedCodigo") = oIDF_ProdxRem.UnidMedCodigo
         r("Descrip1") = oIDF_ProdxRem.Descrip1
         r("Descrip2") = oIDF_ProdxRem.Descrip2
+        r("CodEmpaqueBioSalc") = oIDF_ProdxRem.CodEmpaqueBioSalc
+        r("PesoEmbBioSalc") = oIDF_ProdxRem.PesoEmbBioSalc
     End Sub
     '
     ' crea una nueva fila y la asigna a un objeto IDF_ProdxRem
@@ -253,6 +299,8 @@ Public Class IDF_ProdxRem
         oI.UnidMedCodigo = oIDF_ProdxRem.UnidMedCodigo
         oI.Descrip1 = oIDF_ProdxRem.Descrip1
         oI.Descrip2 = oIDF_ProdxRem.Descrip2
+        oI.CodEmpaqueBioSalc = oIDF_ProdxRem.CodEmpaqueBioSalc
+        oI.PesoEmbBioSalc = oIDF_ProdxRem.PesoEmbBioSalc
         '
         IDF_ProdxRem2Row(oI, dr)
         '
@@ -338,7 +386,7 @@ Public Class IDF_ProdxRem
         ' TODO: Comprobar cual es el campo de índice principal (sin duplicados)
         '       Yo compruebo que sea un campo llamado ProdxRemID, pero en tu caso puede ser otro
         '       Ese campo, (en mi caso ProdxRemID) será el que hay que poner al final junto al WHERE.
-        sCommand = "UPDATE IDF_ProdxRem SET ProdCodigo = @ProdCodigo, RemisionID = @RemisionID, Cantidad = @Cantidad, UnidMedCodigo = @UnidMedCodigo, Descrip1 = @Descrip1, Descrip2 = @Descrip2  WHERE (ProdxRemID = @ProdxRemID)"
+        sCommand = "UPDATE IDF_ProdxRem SET ProdCodigo = @ProdCodigo, RemisionID = @RemisionID, Cantidad = @Cantidad, UnidMedCodigo = @UnidMedCodigo, Descrip1 = @Descrip1, Descrip2 = @Descrip2, CodEmpaqueBioSalc = @CodEmpaqueBioSalc, PesoEmbBioSalc = @PesoEmbBioSalc  WHERE (ProdxRemID = @ProdxRemID)"
         da.UpdateCommand = New SqlCommand(sCommand, cnn)
         ' TODO: Comprobar el tipo de datos a usar...
         da.UpdateCommand.Parameters.Add("@ProdxRemID", SqlDbType.Int, 0, "ProdxRemID")
@@ -350,6 +398,8 @@ Public Class IDF_ProdxRem
         da.UpdateCommand.Parameters.Add("@UnidMedCodigo", SqlDbType.NVarChar, 10, "UnidMedCodigo")
         da.UpdateCommand.Parameters.Add("@Descrip1", SqlDbType.NVarChar, 100, "Descrip1")
         da.UpdateCommand.Parameters.Add("@Descrip2", SqlDbType.NVarChar, 100, "Descrip2")
+        da.UpdateCommand.Parameters.Add("@CodEmpaqueBioSalc", SqlDbType.NVarChar, 100, "CodEmpaqueBioSalc")
+        da.UpdateCommand.Parameters.Add("@PesoEmbBioSalc", SqlDbType.Float, 100, "PesoEmbBioSalc")
         '
         Try
             da.Fill(dt)
@@ -399,7 +449,7 @@ Public Class IDF_ProdxRem
         ' El comando INSERT
         ' TODO: No incluir el campo de clave primaria incremental
         '       Yo compruebo que sea un campo llamado ProdxRemID, pero en tu caso puede ser otro
-        sCommand = "INSERT INTO IDF_ProdxRem (ProdCodigo, RemisionID, Cantidad, UnidMedCodigo, Descrip1, Descrip2)  VALUES(@ProdCodigo, @RemisionID, @Cantidad, @UnidMedCodigo, @Descrip1, @Descrip2)"
+        sCommand = "INSERT INTO IDF_ProdxRem (ProdCodigo, RemisionID, Cantidad, UnidMedCodigo, Descrip1, Descrip2, CodEmpaqueBioSalc,PesoEmbBioSalc)  VALUES(@ProdCodigo, @RemisionID, @Cantidad, @UnidMedCodigo, @Descrip1, @Descrip2,@CodEmpaqueBioSalc, @PesoEmbBioSalc)"
         da.InsertCommand = New SqlCommand(sCommand, cnn)
         ' TODO: Comprobar el tipo de datos a usar...
         da.InsertCommand.Parameters.Add("@ProdxRemID", SqlDbType.Int, 0, "ProdxRemID")
@@ -411,6 +461,8 @@ Public Class IDF_ProdxRem
         da.InsertCommand.Parameters.Add("@UnidMedCodigo", SqlDbType.NVarChar, 10, "UnidMedCodigo")
         da.InsertCommand.Parameters.Add("@Descrip1", SqlDbType.NVarChar, 100, "Descrip1")
         da.InsertCommand.Parameters.Add("@Descrip2", SqlDbType.NVarChar, 100, "Descrip2")
+        da.InsertCommand.Parameters.Add("@CodEmpaqueBioSalc", SqlDbType.NVarChar, 100, "CodEmpaqueBioSalc")
+        da.InsertCommand.Parameters.Add("@PesoEmbBioSalc", SqlDbType.Float, 100, "PesoEmbBioSalc")
         '
         '
         Try

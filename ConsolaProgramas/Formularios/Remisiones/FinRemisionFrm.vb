@@ -21,8 +21,12 @@ Public Class FinRemisionFrm
     Public ClsDFFacts As IDF_DFFacts
     Public ClsAccesos As ClsVistas = Nothing
     Public ClsVista As ClsVistas = Nothing
-    Public dtOpciones, dtConfigxEmpresa, dtIDF_ConfigEmp002 As DataTable
-    Public contador, OpcionConsultar, OpcionModificar As Integer
+    Public ClsBioSalc As ClsBioSalc
+    Public EstadoPesajeBioSalc As String
+    Public dtOpciones, dtConfigxEmpresa, dtIDF_ConfigEmp002, dtDetalleProductosBioSalc, dtOrdenPesoTaraBioSalc As DataTable
+    Public PesoNetoKG, PesoTaraKG, PesoBrutoKG As Double
+    Public PesoTaraEmpaque, PesoNetoLbs, PesoTaraLbs, PesoBrutoLbs As Double
+    Public contador, OpcionConsultar, OpcionModificar, AplicaCancelarItem As Integer
     Public msgResultado As MsgBoxResult = New MsgBoxResult()
     Public DialogoResult As DialogResult = New DialogResult()
 
@@ -172,7 +176,7 @@ Public Class FinRemisionFrm
     End Sub
 
     Private Sub CmbNuevoItem_Click(sender As Object, e As EventArgs) Handles CmbNuevoItem.Click
-        NuevoItem()
+        NuevoItem("N")
     End Sub
     Private Sub CmbEliminarItem_Click(sender As Object, e As EventArgs) Handles CmbEliminarItem.Click
         Try
@@ -210,6 +214,12 @@ Public Class FinRemisionFrm
             GrabarItem(Me.GrpRegistro.Text)
             CargarItems()
 
+            'Si es EstadoPesaje = NETO, entonces, se actualiza este campo directamente en la tabla
+            'IDF_Remisiones
+            If EstadoPesajeBioSalc.Equals("NETO") Then
+                CmbGrabarSalir_Click(sender, e)
+            End If
+
         Catch ex As Exception
             ClsU.NotaCompleta("Problemas al actualizar registro. [" & ex.Message & "]", 16)
         End Try
@@ -220,7 +230,7 @@ Public Class FinRemisionFrm
         CancelarItem()
     End Sub
 
-    Private Sub GrdConsulta_DoubleClick(sender As Object, e As EventArgs) Handles GrdConsulta.DoubleClick
+    Private Sub GrdConsulta_DoubleClick(sender As Object, e As EventArgs)
         Dim nRemisionID As Integer
         nRemisionID = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "RemisionID")
 
@@ -330,7 +340,7 @@ Public Class FinRemisionFrm
                 End If
 
                 ImprimirVarias(nRemisionID, CantImprimir)
-                System.Threading.Thread.Sleep(9000)
+                'Threading.Thread.Sleep(9000)
                 nRemisionUltID = nRemisionID
                 'Catch ex As Exception
                 '    ClsU.NotaCompleta("Debe de elegir un registro para imprimir. " & ex.Message, 16)
@@ -394,6 +404,10 @@ Public Class FinRemisionFrm
         Dim DtDatosTiposDoctos As New DataTable
         Dim DtDatosTransportistas As New DataTable
         Dim DtDatosConductores As New DataTable
+
+        'BioSalc
+        Dim DtDatosEmbalajes As New DataTable
+        ClsBioSalc = New ClsBioSalc
 
         ClsProductos = New IDF_Productos(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         ClsUnidMeds = New IDF_UnidMeds(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -473,6 +487,16 @@ Public Class FinRemisionFrm
             ClsU.NotaCompleta("Problemas al consultar Conductores. " & ex.Message, 16)
         End Try
 
+        Try
+            DtDatosEmbalajes = ClsBioSalc.ObtenerEmbalajes(strUsuario, strPassword)
+            Me.TxtRegEmbalajes.Properties.DataSource = DtDatosEmbalajes
+            Me.TxtRegEmbalajes.Properties.ValueMember = DtDatosEmbalajes.Columns(0).ToString()
+            Me.TxtRegEmbalajes.Properties.DisplayMember = DtDatosEmbalajes.Columns(1).ToString()
+
+        Catch ex As Exception
+            ClsU.NotaCompleta("Problemas al consultar Embalajes. " & ex.Message, 16)
+        End Try
+
         TxtFechaInicio.EditValue = DateTime.Now
         TxtFechaFinal.EditValue = DateTime.Now
 
@@ -500,8 +524,21 @@ Public Class FinRemisionFrm
 
         Try
             DtDatosProdXRem = IDF_ProdxRem.Tabla("SELECT * FROM IDF_ProdXRem WHERE RemisionID='" & Me.TxtRemisionID.Text & "'")
+            dtDetalleProductosBioSalc = DtDatosProdXRem
             Me.GrdItems.DataSource = DtDatosProdXRem
 
+            If dtDetalleProductosBioSalc.Rows.Count = 1 Then
+                Dim xprod As String = dtDetalleProductosBioSalc.Rows(0)(0).ToString
+                If EstadoPesajeBioSalc.Equals("TARA") And xprod.Equals("AZUSULJB") Then
+                    'GroupControl1.Text = GroupControl1.Text & " - " & "Proceso Pesaje#2 [PESO NETO]"
+                    btnProcesarOrdenBioSalc.Enabled = True
+                    btnProcesarOrdenBioSalc.Text = "Procesar Cierre Peso Neto SACJ"
+                Else
+                    'GroupControl1.Text = GroupControl1.Text & " - " & "Proceso Pesaje#2 [PESO NETO]"
+                    btnProcesarOrdenBioSalc.Enabled = True
+                    btnProcesarOrdenBioSalc.Text = "ProcesarCierre PesoNeto Opcional"
+                End If
+            End If
         Catch ex As Exception
             ClsU.NotaCompleta("Problemas al consultar Líneas de la Remisión. " & ex.Message, 16)
         End Try
@@ -554,6 +591,7 @@ Public Class FinRemisionFrm
         Me.TxtMarchamo4.EditValue = oRemisionNuevo.Marchamo4
         Me.TxtMotivo.SelectedIndex = oRemisionNuevo.Motivo
         Me.TxtOtroMotivo.Text = oRemisionNuevo.OtroMotivo
+        TxtOrdenPesoBioSalc.Text = oRemisionNuevo.NumOrdenPesoBioSalc
 
         Me.CmbNuevoItem.Enabled = True
         Me.CmbEliminarItem.Enabled = False
@@ -598,6 +636,8 @@ Public Class FinRemisionFrm
         Me.TxtOtroMotivo.Text = oRemEdicion.OtroMotivo
 
         Me.TxtNumCabezal.Text = oRemEdicion.NumCabezal
+        EstadoPesajeBioSalc = oRemEdicion.EstadoPesaje
+        Me.TxtOrdenPesoBioSalc.Text = oRemEdicion.NumOrdenPesoBioSalc
 
         Me.lblEstado.Text = IIf(oRemEdicion.Estado = 0, "VIGENTE", IIf(oRemEdicion.Estado = 1, "Aprobado", "ANULADO"))
 
@@ -605,21 +645,90 @@ Public Class FinRemisionFrm
 
     End Sub
 
-    Public Sub NuevoItem()
+    Public Sub NuevoItem(aplicaBioSalc As String)
         Me.XTTDetalle.SelectedTabPage = XTTRegPagina1
         Me.GrpRegistro.Text = "Nuevo registro."
 
         Dim oProdXDFFactReg As New IDF_ProdxRem(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
+        If aplicaBioSalc.Equals("N") Then
+            Me.TxtRegProdXRemID.Text = oProdXDFFactReg.ProdxRemID
+            Me.TxtRegProdCodigo.EditValue = oProdXDFFactReg.ProdCodigo
+            Me.TxtRegCantidad.EditValue = oProdXDFFactReg.Cantidad
+            Me.TxtRegUnidMedCodigo.EditValue = oProdXDFFactReg.UnidMedCodigo
+            Me.TxtRegDescrip1.Text = oProdXDFFactReg.Descrip1
+            Me.TxtRegDescrip2.Text = oProdXDFFactReg.Descrip2
 
-        Me.TxtRegProdXRemID.Text = oProdXDFFactReg.ProdxRemID
-        Me.TxtRegProdCodigo.EditValue = oProdXDFFactReg.ProdCodigo
-        Me.TxtRegCantidad.EditValue = oProdXDFFactReg.Cantidad
-        Me.TxtRegUnidMedCodigo.EditValue = oProdXDFFactReg.UnidMedCodigo
-        Me.TxtRegDescrip1.Text = oProdXDFFactReg.Descrip1
-        Me.TxtRegDescrip2.Text = oProdXDFFactReg.Descrip2
+            ActivarItem()
+        End If
 
-        ActivarItem()
+        If aplicaBioSalc.Equals("S") Then 'Peso tara - estado pesaje #1
+            Me.TxtRegProdXRemID.Text = oProdXDFFactReg.ProdxRemID
+            Me.TxtRegProdCodigo.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(19).ToString
+            Me.TxtRegCantidad.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(20).ToString
+            'Me.TxtRegUnidMedCodigo.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(21).ToString
+            Me.TxtRegEmbalajes.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(32).ToString
+            Me.TxtRegDescrip1.Text = oProdXDFFactReg.Descrip1
+            Me.TxtRegDescrip2.Text = oProdXDFFactReg.Descrip2
+
+            ActivarItem()
+        End If
+
+        If aplicaBioSalc.Equals("S2") Then 'Peso tara  | peso neto - estado pesaje #2
+            Dim xProdCod As String = dtOrdenPesoTaraBioSalc.Rows(0)(19).ToString
+            Try
+                Dim nProdxRemID As Integer
+                nProdxRemID = Me.GrdVwItems.GetRowCellValue(Me.GrdVwItems.FocusedRowHandle, "ProdxRemID")
+
+                ModificarItem(nProdxRemID)
+
+                If xProdCod.Equals("AZUSULJB") Then 'AZUCAR SULFITADA BLANCA JUMBO
+
+                    PesoNetoLbs = Convert.ToDouble(dtOrdenPesoTaraBioSalc.Rows(0)(24).ToString)
+                    PesoNetoKG = ((PesoNetoLbs * 0.46008) / 50)
+                    EstadoPesajeBioSalc = "NETO"
+                    Me.TxtRegCantidad.EditValue = PesoNetoKG.ToString()
+                Else
+                    Me.TxtRegProdCodigo.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(19).ToString
+                End If
+
+            Catch ex As Exception
+
+                ClsU.NotaCompleta("Debe de elegir un registro para modificar. [" & ex.Message & "]", 16)
+
+            End Try
+        End If
     End Sub
+
+    Private Sub TxtOrdenPesoBioSalc_KeyDown(sender As Object, e As KeyEventArgs) Handles TxtOrdenPesoBioSalc.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            'Verificar si el comprobante de peso tiene tara
+            Dim NumOrdenPesoBioSalc As Integer = Convert.ToInt32(TxtOrdenPesoBioSalc.EditValue)
+            Dim res As Int16
+            res = VerificarOrdenPesoTara(NumOrdenPesoBioSalc)
+            If res <> 0 Then
+                'GroupControl1.Text = GroupControl1.Text & " - " & "Proceso Pesaje#1 [TARA]"
+                btnProcesarOrdenBioSalc.Enabled = True
+                EstadoPesajeBioSalc = "TARA"
+                btnProcesarOrdenBioSalc.Text = "Procesar Encabezado Ticket..."
+            Else
+                ClsU.NotaCompleta("No existen datos del peso tara de la transaccion: #" + NumOrdenPesoBioSalc.ToString(), 16)
+            End If
+        End If
+    End Sub
+
+    Private Sub CmbOpcImpresion_Click(sender As Object, e As EventArgs) Handles CmbOpcImpresion.Click
+
+    End Sub
+
+    Public Function VerificarOrdenPesoTara(NumOrdenPeso As Integer) As Integer
+        ClsBioSalc = New ClsBioSalc()
+        Dim resultado As Integer
+        Dim dt As DataTable
+        dt = ClsBioSalc.ObtenerOrdenPesoOtrosProductosBioSalc(strUsuario, strPassword, "vT", NumOrdenPeso)
+        resultado = Convert.ToInt32(dt.Rows(0)(0).ToString)
+
+        Return resultado
+    End Function
 
     Public Sub EliminarItem(nDato As Integer)
         Dim oProdXFact As New IDF_ProdxRem(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
@@ -677,6 +786,55 @@ Public Class FinRemisionFrm
         CmbGrabarSalir.Enabled = True
     End Sub
 
+    Private Sub btnProcesarOrdenBioSalc_Click(sender As Object, e As EventArgs) Handles btnProcesarOrdenBioSalc.Click
+        'Proceso para obtener Pesaje desde Biosalc.
+        If EstadoPesajeBioSalc.Equals("TARA") And Me.LblAccion.Text = "Edición de datos." Then
+            ObtenerPesoNeto()
+        Else
+            ObtenerPesoTara()
+        End If
+    End Sub
+    Public Sub ObtenerPesoNeto()
+        ClsBioSalc = New ClsBioSalc()
+        Dim resultado As Integer = 0
+        Dim NumOrdenPesoBioSalc As Integer = Convert.ToInt32(TxtOrdenPesoBioSalc.EditValue)
+        dtOrdenPesoTaraBioSalc = ClsBioSalc.ObtenerOrdenPesoOtrosProductosBioSalc(strUsuario, strPassword, "N", NumOrdenPesoBioSalc)
+        resultado = dtOrdenPesoTaraBioSalc.Rows.Count
+        If resultado > 0 Then
+            'Asignacion de datos a campos local - Encabezado
+            'TxtSdNCodigo.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(0).ToString
+            'GroupControl1.Text = "Info. Comprobante Peso|BD:BioSalc"
+            'Asignacion de datos en campos local - detalle
+            NuevoItem("S2")
+        End If
+    End Sub
+    Public Sub ObtenerPesoTara()
+        ClsBioSalc = New ClsBioSalc()
+        Dim resultado As Integer = 0
+        Dim NumOrdenPesoBioSalc As Integer = Convert.ToInt32(TxtOrdenPesoBioSalc.EditValue)
+        dtOrdenPesoTaraBioSalc = ClsBioSalc.ObtenerOrdenPesoOtrosProductosBioSalc(strUsuario, strPassword, "T", NumOrdenPesoBioSalc)
+        resultado = dtOrdenPesoTaraBioSalc.Rows.Count
+        If resultado > 0 Then
+            'Asignacion de datos a campos local - Encabezado
+            TxtSdNCodigo.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(0).ToString
+            TxtTransportistaID.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(9).ToString
+            TxtConductorID.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(10).ToString
+            TxtMarca.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(13).ToString
+            TxtPlaca.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(14).ToString
+            TxtNumCabezal.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(11).ToString
+            TxtMarchamo1.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(18).ToString
+            TxtMarchamo2.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(17).ToString
+            TxtMotivo.SelectedIndex = dtOrdenPesoTaraBioSalc.Rows(0)(8).ToString
+            TxtPuntoPartida.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(4).ToString
+            TxtPuntoDestino.EditValue = dtOrdenPesoTaraBioSalc.Rows(0)(5).ToString
+
+            'GroupControl1.Text = "Info. Comprobante Peso|BD:BioSalc"
+
+            'Asignacion de datos en campos local - detalle
+            NuevoItem("S")
+        End If
+    End Sub
+
     Public Sub RegresarConsulta()
         Me.XTTEmpaginacion.SelectedTabPage = XTTPagina1
     End Sub
@@ -729,6 +887,19 @@ Public Class FinRemisionFrm
         oRemisionRegistro.Motivo = Me.TxtMotivo.SelectedIndex
         oRemisionRegistro.OtroMotivo = Me.TxtOtroMotivo.Text
         oRemisionRegistro.NumCabezal = Me.TxtNumCabezal.Text
+
+        'Datos de BioSalc
+        oRemisionRegistro.NumCabezal = Me.TxtNumCabezal.Text
+
+        If TxtOrdenPesoBioSalc.Text.Length > 0 Then
+            If EstadoPesajeBioSalc.Equals("TARA") Then
+                oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc
+            Else
+                oRemisionRegistro.EstadoPesaje = EstadoPesajeBioSalc 'NETO
+            End If
+            oRemisionRegistro.NumOrdenPesoBioSalc = TxtOrdenPesoBioSalc.Text
+        End If
+
 
         If cAccion = "Edición de datos." Then
 
@@ -785,10 +956,7 @@ Public Class FinRemisionFrm
                     ClsU.NotaCompleta("No se pudo crear el nuevo registro [" & cResultado & "]", 16)
                     Return
                 End If
-                'If cResultado Like "ERROR%" Then
-                '    ClsU.NotaCompleta("No se pudo crear el nuevo registro [" & cResultado & "]", 16)
-                '    Return
-                'End If
+
 
                 Me.CmbNuevoItem.Enabled = True
                 Me.CmbEliminarItem.Enabled = True
@@ -850,8 +1018,11 @@ Public Class FinRemisionFrm
         oProdXFactRegistro.Descrip1 = Me.TxtRegDescrip1.Text
         oProdXFactRegistro.Descrip2 = Me.TxtRegDescrip2.Text
 
-        If cAccion = "Edición de datos." Then
+        'Codigo y peso de embalaje. Tabla: EMPAQUE. Base de Datos: BioSalc
+        oProdXFactRegistro.CodEmpaqueBioSalc = TxtRegEmbalajes.EditValue
+        oProdXFactRegistro.PesoEmbBioSalc = PesoTaraEmpaque
 
+        If cAccion = "Edición de datos." Then
             Try
                 oProdXFactRegistro.Actualizar()
             Catch ex As Exception
@@ -861,13 +1032,53 @@ Public Class FinRemisionFrm
 
         If cAccion = "Nuevo registro." Then
             Try
-                oProdXFactRegistro.Crear()
+                'Si el codigo de producto es 2000 - Azucar a despachar
+                'Debera de generar un mensaje de alerta o advertencia
+                If TxtRegProdCodigo.EditValue.ToString.Equals("2000") Then
+                    ClsU.NotaCompleta("Error: favor seleccionar el codigo de producto segun tipo de azucar. (REFINO | MORENA | SULFITADA JUMBO | ETC)." &
+                                      "Para buscar un producto, debera desplegar el grid y en la columna Producto, digitar las letras AZU, de esta forma, solo se visualizara los productos de la categoria AZUCAR...", 16)
+                    AplicaCancelarItem = -1
+                Else
+                    'Si el codigo de embalaje esta vacio
+                    If TxtRegEmbalajes.EditValue.ToString.Length = 0 Then
+                        ClsU.NotaCompleta("Error: Codigo de embalaje o empaque vacio o nulo... Favor verifique e intente de nuevo", 16)
+                        AplicaCancelarItem = -1
+                    Else
+                        AplicaCancelarItem = 1
+                        oProdXFactRegistro.Crear()
+
+
+                        ClsBioSalc = New ClsBioSalc()
+                        Dim mensaje As String = ""
+                        Dim xTicket As Integer = 0
+                        xTicket = Convert.ToInt32(Me.TxtOrdenPesoBioSalc.EditValue)
+                        mensaje = ClsBioSalc.GuardarModificarOrdenPesoBioSalc_TARA(strUsuario, strPassword, True,
+                                                                                    Me.TxtRegEmbalajes.EditValue,
+                                                                                    Me.TxtRegProdCodigo.EditValue,
+                                                                                    Me.TxtRegUnidMedCodigo.EditValue,
+                                                                                    xTicket)
+                        Dim resultadoMensaje As String
+                        resultadoMensaje = mensaje.Substring(0, 1)
+                        If resultadoMensaje.Equals("+") Then
+                            mensaje = mensaje.Replace(resultadoMensaje, "")
+                            ClsU.NotaCompleta(mensaje & " " &
+                                              "Tabla: OPROD_MOV_PROD", 64)
+                        Else
+                            ClsU.NotaCompleta(mensaje, 16)
+                            AplicaCancelarItem = -1
+                        End If
+                    End If
+
+                End If
             Catch ex As Exception
                 ClsU.NotaCompleta("Error en la creación del registro. " & ex.Message, 16)
+                AplicaCancelarItem = -1
             End Try
         End If
 
-        CancelarItem()
+        If AplicaCancelarItem = 1 Then
+            CancelarItem()
+        End If
 
     End Sub
 
@@ -908,7 +1119,7 @@ Public Class FinRemisionFrm
         cServidor = oRepReg.server
         cBDD = oRepReg.jDataBase
 
-        Dim ocInforme As New ReportDocument
+        'Dim ocInforme As New ReportDocument
         Dim v As GenVistaPrevia
 
         Try

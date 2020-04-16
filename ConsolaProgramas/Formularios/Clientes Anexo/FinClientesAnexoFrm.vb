@@ -189,8 +189,8 @@ Public Class FinClientesAnexoFrm
             Me.TxtTelCliente2.EditValue = ""
             Me.TxtEmailCliente1.EditValue = ""
             Me.TxtEmailCliente2.EditValue = ""
-            cbxRetencion.EditValue = Nothing
-            cbxImpuesto.EditValue = Nothing
+            cbxRetencion.EditValue = ""
+            cbxImpuesto.EditValue = ""
         End If
 
         'If Me.TxtTP.Text.Length > 0 Then

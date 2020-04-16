@@ -194,7 +194,24 @@ Public Class frmRemisionesDetail
             End If
         End If
     End Sub
+    Private Sub cmbConductor_Leave(sender As Object, e As EventArgs) Handles cmbConductor.Leave
+        ' If ID = -1 Then
+        If cmbConductor.EditValue.ToString.Length > 0 Then
+            Try
+                Dim dtConductor As DataTable = f.getDataTable("spConductoresBiosalc '" & cmbConductor.Text & "'")
 
+                txtMarca.Text = dtConductor.Rows(0).Item("MarcaPred").ToString
+                txtPlaca.Text = dtConductor.Rows(0).Item("PlacaPred").ToString
+                txtLicencia.Text = dtConductor.Rows(0).Item("Identificacion").ToString
+                txtIdentidad.Text = dtConductor.Rows(0).Item("Identificacion").ToString
+            Catch ex As Exception
+                MsgBox("Erro al consultar la informacion del conductor!")
+            End Try
+
+
+        End If
+        ' End If
+    End Sub
 
 #Region "Definidos propios"
     Private Sub gbDetalleRegistro(id As Integer)
@@ -292,30 +309,6 @@ Public Class frmRemisionesDetail
         f.NewTable("select * from IDF_Productos", "productos")
         f.NewTable("select * from IDF_UnidMeds", "unidad")
     End Sub
-
-    Private Sub TlSNotas_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TlSNotas.ItemClicked
-
-    End Sub
-
-    Private Sub cmbConductor_Leave(sender As Object, e As EventArgs) Handles cmbConductor.Leave
-        ' If ID = -1 Then
-        If cmbConductor.EditValue.ToString.Length > 0 Then
-                Try
-                Dim dtConductor As DataTable = f.getDataTable("spConductoresBiosalc '" & cmbConductor.Text & "'")
-
-                txtMarca.Text = dtConductor.Rows(0).Item("MarcaPred").ToString
-                    txtPlaca.Text = dtConductor.Rows(0).Item("PlacaPred").ToString
-                    txtLicencia.Text = dtConductor.Rows(0).Item("Identificacion").ToString
-                    txtIdentidad.Text = dtConductor.Rows(0).Item("Identificacion").ToString
-                Catch ex As Exception
-                    MsgBox("Erro al consultar la informacion del conductor!")
-                End Try
-
-
-            End If
-        ' End If
-    End Sub
-
     Private Sub setCombos()
         f.SetGridLookUpEdit(cmbCliente, f.dsDesarrollo.Tables("cliente"), "TP", "Description")
         f.SetGridLookUpEdit(cmbConductor, f.dsDesarrollo.Tables("conductores"), "ConductorID", "Descripcion")

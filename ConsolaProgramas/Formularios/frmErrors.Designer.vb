@@ -45,6 +45,7 @@ Partial Class frmErrors
         '
         'lvErrores
         '
+        Me.lvErrores.HideSelection = False
         Me.lvErrores.Location = New System.Drawing.Point(12, 12)
         Me.lvErrores.Name = "lvErrores"
         Me.lvErrores.Size = New System.Drawing.Size(424, 260)
@@ -64,7 +65,7 @@ Partial Class frmErrors
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(439, 306)
+        Me.ClientSize = New System.Drawing.Size(442, 306)
         Me.Controls.Add(Me.lvErrores)
         Me.Controls.Add(Me.cmdAceptar)
         Me.Controls.Add(Me.cmdCancelar)

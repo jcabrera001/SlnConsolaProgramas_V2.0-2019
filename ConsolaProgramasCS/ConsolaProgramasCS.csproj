@@ -37,6 +37,14 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="FluentFTP, Version=30.0.0.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentFTP.30.0.0\lib\net45\FluentFTP.dll</HintPath>
     </Reference>
@@ -57,18 +65,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FTP.cs">
+    <Compile Include="Shared Functions\frmErrors.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FTP.Designer.cs">
+    <Compile Include="Shared Functions\frmErrors.Designer.cs">
+      <DependentUpon>frmErrors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shared Functions\FTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shared Functions\FTP.Designer.cs">
       <DependentUpon>FTP.cs</DependentUpon>
     </Compile>
-    <Compile Include="H2H-BAC.cs" />
+    <Compile Include="Shared Functions\Funciones.cs" />
+    <Compile Include="Shared Functions\H2H-BAC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FTP.resx">
+    <Compile Include="TolProveedores\frmTolProveedorDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TolProveedores\frmTolProveedorDetail.Designer.cs">
+      <DependentUpon>frmTolProveedorDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TolProveedores\frmTolProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TolProveedores\frmTolProveedores.Designer.cs">
+      <DependentUpon>frmTolProveedores.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Shared Functions\frmErrors.resx">
+      <DependentUpon>frmErrors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared Functions\FTP.resx">
       <DependentUpon>FTP.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,6 +110,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TolProveedores\frmTolProveedorDetail.resx">
+      <DependentUpon>frmTolProveedorDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TolProveedores\frmTolProveedores.resx">
+      <DependentUpon>frmTolProveedores.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

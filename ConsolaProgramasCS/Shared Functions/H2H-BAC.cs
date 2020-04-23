@@ -21,8 +21,6 @@ namespace ConsolaProgramasCS
 
     public class H2H_BAC
     {
-
-        
         private String m_strErrorDes = "";
 
         //this is sftp client variable

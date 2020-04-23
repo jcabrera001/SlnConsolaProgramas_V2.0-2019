@@ -15,6 +15,8 @@ Imports System.Globalization
 Imports LibDAO001
 Imports System.Data.SqlClient
 Imports DevExpress.XtraSplashScreen
+Imports ConsolaProgramasCS
+Imports ConsolaProgramasCS.TolProveedores
 
 Public Class GenPrincipalFrm
     Inherits DevExpress.XtraBars.Ribbon.RibbonForm
@@ -61,7 +63,7 @@ Public Class GenPrincipalFrm
         Dim barManager1 As New DevExpress.XtraBars.BarManager()
         barManager1.ForceInitialize()
 
-        combo = TryCast(barManager1.RepositoryItems.Add("ComboBoxEdit"), 
+        combo = TryCast(barManager1.RepositoryItems.Add("ComboBoxEdit"),
                         DevExpress.XtraEditors.Repository.RepositoryItemComboBox)
 
         For Each cnt As SkinContainer In SkinManager.Default.Skins
@@ -775,6 +777,11 @@ Public Class GenPrincipalFrm
 
         'Dim frm As New frmRemisionesList(cnxFinanzas, usuario, tiempo)
         'frm.ShowDialog()
+    End Sub
+
+    Private Sub cmbProveedores_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbProveedores.ItemClick
+        Dim frm As New frmTolProveedores(cnxFinanzas)
+        frm.ShowDialog()
     End Sub
 
     Private Sub cmbPagos_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbPagos.ItemClick

@@ -21,6 +21,17 @@ Partial Class AprFacturasSIFrm
     Private Sub InitializeComponent()
         Me.gc = New DevExpress.XtraGrid.GridControl()
         Me.gv = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn3 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn5 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn7 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn8 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn9 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn10 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn11 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tsMenu = New System.Windows.Forms.ToolStrip()
         Me.CmbEditar = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -47,6 +58,7 @@ Partial Class AprFacturasSIFrm
         '
         'gv
         '
+        Me.gv.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.GridColumn5, Me.GridColumn6, Me.GridColumn7, Me.GridColumn8, Me.GridColumn9, Me.GridColumn10, Me.GridColumn11})
         Me.gv.GridControl = Me.gc
         Me.gv.Name = "gv"
         Me.gv.OptionsFilter.ShowAllTableValuesInFilterPopup = True
@@ -54,6 +66,105 @@ Partial Class AprFacturasSIFrm
         Me.gv.OptionsView.ShowAutoFilterRow = True
         Me.gv.OptionsView.ShowFooter = True
         Me.gv.OptionsView.ShowGroupPanel = False
+        '
+        'GridColumn1
+        '
+        Me.GridColumn1.Caption = "Seleccionar"
+        Me.GridColumn1.FieldName = "Seleccionar"
+        Me.GridColumn1.Name = "GridColumn1"
+        Me.GridColumn1.OptionsFilter.AllowAutoFilter = False
+        Me.GridColumn1.Visible = True
+        Me.GridColumn1.VisibleIndex = 0
+        '
+        'GridColumn2
+        '
+        Me.GridColumn2.Caption = "FlaFacturaID"
+        Me.GridColumn2.FieldName = "FlaFacturaID"
+        Me.GridColumn2.Name = "GridColumn2"
+        '
+        'GridColumn3
+        '
+        Me.GridColumn3.Caption = "Código"
+        Me.GridColumn3.FieldName = "Codigo"
+        Me.GridColumn3.Name = "GridColumn3"
+        Me.GridColumn3.OptionsColumn.AllowEdit = False
+        Me.GridColumn3.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn3.Visible = True
+        Me.GridColumn3.VisibleIndex = 1
+        '
+        'GridColumn4
+        '
+        Me.GridColumn4.Caption = "Fecha"
+        Me.GridColumn4.FieldName = "Fecha"
+        Me.GridColumn4.Name = "GridColumn4"
+        Me.GridColumn4.OptionsColumn.AllowEdit = False
+        Me.GridColumn4.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn4.Visible = True
+        Me.GridColumn4.VisibleIndex = 2
+        '
+        'GridColumn5
+        '
+        Me.GridColumn5.Caption = "Número de OT"
+        Me.GridColumn5.FieldName = "OTID"
+        Me.GridColumn5.Name = "GridColumn5"
+        Me.GridColumn5.OptionsColumn.AllowEdit = False
+        Me.GridColumn5.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn5.Visible = True
+        Me.GridColumn5.VisibleIndex = 3
+        '
+        'GridColumn6
+        '
+        Me.GridColumn6.Caption = "Contabilizada"
+        Me.GridColumn6.FieldName = "Contabilizada"
+        Me.GridColumn6.Name = "GridColumn6"
+        '
+        'GridColumn7
+        '
+        Me.GridColumn7.Caption = "CC"
+        Me.GridColumn7.FieldName = "cc"
+        Me.GridColumn7.Name = "GridColumn7"
+        '
+        'GridColumn8
+        '
+        Me.GridColumn8.Caption = "CentroCosto"
+        Me.GridColumn8.FieldName = "CentroCosto"
+        Me.GridColumn8.Name = "GridColumn8"
+        Me.GridColumn8.OptionsColumn.AllowEdit = False
+        Me.GridColumn8.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn8.Visible = True
+        Me.GridColumn8.VisibleIndex = 4
+        '
+        'GridColumn9
+        '
+        Me.GridColumn9.Caption = "Creador"
+        Me.GridColumn9.FieldName = "Creador"
+        Me.GridColumn9.Name = "GridColumn9"
+        Me.GridColumn9.OptionsColumn.AllowEdit = False
+        Me.GridColumn9.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn9.Visible = True
+        Me.GridColumn9.VisibleIndex = 5
+        '
+        'GridColumn10
+        '
+        Me.GridColumn10.Caption = "Aprobador"
+        Me.GridColumn10.FieldName = "Aprobador"
+        Me.GridColumn10.Name = "GridColumn10"
+        Me.GridColumn10.OptionsColumn.AllowEdit = False
+        Me.GridColumn10.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn10.Visible = True
+        Me.GridColumn10.VisibleIndex = 6
+        '
+        'GridColumn11
+        '
+        Me.GridColumn11.Caption = "Total"
+        Me.GridColumn11.DisplayFormat.FormatString = "{0:0,0.00}"
+        Me.GridColumn11.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.GridColumn11.FieldName = "Total"
+        Me.GridColumn11.Name = "GridColumn11"
+        Me.GridColumn11.OptionsColumn.AllowEdit = False
+        Me.GridColumn11.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains
+        Me.GridColumn11.Visible = True
+        Me.GridColumn11.VisibleIndex = 7
         '
         'tsMenu
         '
@@ -149,4 +260,15 @@ Partial Class AprFacturasSIFrm
     Friend WithEvents CmbActualizarConsulta As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents CmbEliminar As System.Windows.Forms.ToolStripButton
+    Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn3 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn4 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn5 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn6 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn7 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn8 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn9 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn10 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn11 As DevExpress.XtraGrid.Columns.GridColumn
 End Class

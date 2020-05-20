@@ -341,10 +341,10 @@
     <Compile Include="Formularios\FinDFFactsFrm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FinEmpresasAnexoFrm.Designer.vb">
+    <Compile Include="Formularios\Empresas\FinEmpresasAnexoFrm.Designer.vb">
       <DependentUpon>FinEmpresasAnexoFrm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FinEmpresasAnexoFrm.vb">
+    <Compile Include="Formularios\Empresas\FinEmpresasAnexoFrm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FinItemsFrm.Designer.vb">
@@ -678,7 +678,7 @@
     <EmbeddedResource Include="Formularios\FinDFFactsFrm.resx">
       <DependentUpon>FinDFFactsFrm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FinEmpresasAnexoFrm.resx">
+    <EmbeddedResource Include="Formularios\Empresas\FinEmpresasAnexoFrm.resx">
       <DependentUpon>FinEmpresasAnexoFrm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FinItemsFrm.resx">

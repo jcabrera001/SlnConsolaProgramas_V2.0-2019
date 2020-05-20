@@ -27,10 +27,11 @@ Partial Class frmPagoProveedoresList
         Me.GridColumn3 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn5 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.btnNuevo = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCancelar = New DevExpress.XtraEditors.SimpleButton()
         Me.btnDetalle = New DevExpress.XtraEditors.SimpleButton()
-        Me.GridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.btnAnular = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.gc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.gv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -121,6 +122,14 @@ Partial Class frmPagoProveedoresList
         Me.GridColumn5.VisibleIndex = 4
         Me.GridColumn5.Width = 300
         '
+        'GridColumn6
+        '
+        Me.GridColumn6.Caption = "Estado"
+        Me.GridColumn6.FieldName = "nomEstado"
+        Me.GridColumn6.Name = "GridColumn6"
+        Me.GridColumn6.Visible = True
+        Me.GridColumn6.VisibleIndex = 5
+        '
         'btnNuevo
         '
         Me.btnNuevo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -148,19 +157,21 @@ Partial Class frmPagoProveedoresList
         Me.btnDetalle.TabIndex = 4
         Me.btnDetalle.Text = "Detalle"
         '
-        'GridColumn6
+        'btnAnular
         '
-        Me.GridColumn6.Caption = "Estado"
-        Me.GridColumn6.FieldName = "nomEstado"
-        Me.GridColumn6.Name = "GridColumn6"
-        Me.GridColumn6.Visible = True
-        Me.GridColumn6.VisibleIndex = 5
+        Me.btnAnular.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnAnular.Location = New System.Drawing.Point(93, 448)
+        Me.btnAnular.Name = "btnAnular"
+        Me.btnAnular.Size = New System.Drawing.Size(75, 23)
+        Me.btnAnular.TabIndex = 5
+        Me.btnAnular.Text = "Anular"
         '
         'frmPagoProveedoresList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(751, 499)
+        Me.Controls.Add(Me.btnAnular)
         Me.Controls.Add(Me.btnDetalle)
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.btnNuevo)
@@ -187,4 +198,5 @@ Partial Class frmPagoProveedoresList
     Friend WithEvents btnDetalle As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents GridColumn6 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnAnular As DevExpress.XtraEditors.SimpleButton
 End Class

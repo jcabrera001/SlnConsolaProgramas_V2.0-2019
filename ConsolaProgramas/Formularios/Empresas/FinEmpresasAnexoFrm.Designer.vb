@@ -59,7 +59,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.Descripción = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LblRTN = New DevExpress.XtraEditors.LabelControl()
         Me.lblFDA = New DevExpress.XtraEditors.LabelControl()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.pbEmpresa = New System.Windows.Forms.PictureBox()
         Me.lblRetencion = New DevExpress.XtraEditors.LabelControl()
         Me.LblLogoEmpresa = New DevExpress.XtraEditors.LabelControl()
         Me.TxtDireccion = New DevExpress.XtraEditors.TextEdit()
@@ -168,7 +168,7 @@ Partial Class FinEmpresasAnexoFrm
         CType(Me.txtPathLogo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtRetencionID.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtDireccion.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtEmailCliente1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TxtRTN.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -215,7 +215,7 @@ Partial Class FinEmpresasAnexoFrm
         'CmbRegActualizar
         '
         CmbRegActualizar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        CmbRegActualizar.Image = CType(resources.GetObject("CmbRegActualizar.Image"), System.Drawing.Image)
+        CmbRegActualizar.ImageOptions.Image = CType(resources.GetObject("CmbRegActualizar.ImageOptions.Image"), System.Drawing.Image)
         CmbRegActualizar.Location = New System.Drawing.Point(557, 20)
         CmbRegActualizar.Name = "CmbRegActualizar"
         CmbRegActualizar.Size = New System.Drawing.Size(50, 50)
@@ -226,7 +226,7 @@ Partial Class FinEmpresasAnexoFrm
         'CmbRegCancelar
         '
         CmbRegCancelar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        CmbRegCancelar.Image = CType(resources.GetObject("CmbRegCancelar.Image"), System.Drawing.Image)
+        CmbRegCancelar.ImageOptions.Image = CType(resources.GetObject("CmbRegCancelar.ImageOptions.Image"), System.Drawing.Image)
         CmbRegCancelar.Location = New System.Drawing.Point(557, 76)
         CmbRegCancelar.Name = "CmbRegCancelar"
         CmbRegCancelar.Size = New System.Drawing.Size(50, 50)
@@ -254,7 +254,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTTPagina1.Controls.Add(Me.GrdConsulta)
         Me.XTTPagina1.Controls.Add(Me.tsMenu)
         Me.XTTPagina1.Name = "XTTPagina1"
-        Me.XTTPagina1.Size = New System.Drawing.Size(683, 550)
+        Me.XTTPagina1.Size = New System.Drawing.Size(687, 554)
         '
         'GrdConsulta
         '
@@ -330,7 +330,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.tsMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbEditar, Me.ToolStripSeparator1, Me.CmbNuevo, Me.CmbActualizarConsulta, Me.ToolStripSeparator3, Me.CmbEliminar})
         Me.tsMenu.Location = New System.Drawing.Point(0, 0)
         Me.tsMenu.Name = "tsMenu"
-        Me.tsMenu.Size = New System.Drawing.Size(683, 53)
+        Me.tsMenu.Size = New System.Drawing.Size(687, 53)
         Me.tsMenu.TabIndex = 10
         '
         'CmbEditar
@@ -396,7 +396,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTTPagina2.Controls.Add(Me.XTTDatos)
         Me.XTTPagina2.Controls.Add(Me.ToolStrip1)
         Me.XTTPagina2.Name = "XTTPagina2"
-        Me.XTTPagina2.Size = New System.Drawing.Size(683, 550)
+        Me.XTTPagina2.Size = New System.Drawing.Size(687, 554)
         Me.XTTPagina2.Text = "XtraTabPage2"
         '
         'PCTEncabezado
@@ -412,6 +412,7 @@ Partial Class FinEmpresasAnexoFrm
         'LblCodigoValor
         '
         Me.LblCodigoValor.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.LblCodigoValor.Appearance.Options.UseFont = True
         Me.LblCodigoValor.Location = New System.Drawing.Point(51, 26)
         Me.LblCodigoValor.Name = "LblCodigoValor"
         Me.LblCodigoValor.Size = New System.Drawing.Size(82, 13)
@@ -429,6 +430,7 @@ Partial Class FinEmpresasAnexoFrm
         'LblAccion
         '
         Me.LblAccion.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.LblAccion.Appearance.Options.UseFont = True
         Me.LblAccion.Location = New System.Drawing.Point(8, 6)
         Me.LblAccion.Name = "LblAccion"
         Me.LblAccion.Size = New System.Drawing.Size(37, 13)
@@ -450,10 +452,11 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTPBasico.Controls.Add(Me.TxtDescription)
         Me.XTPBasico.Controls.Add(Me.TxtEmpresaCodigo)
         Me.XTPBasico.Controls.Add(Me.LblDescripcion)
+        Me.XTPBasico.Controls.Add(Me.txtPathLogo)
         Me.XTPBasico.Controls.Add(Me.lblComentario)
         Me.XTPBasico.Controls.Add(Me.LblEmpresaCodigo)
         Me.XTPBasico.Name = "XTPBasico"
-        Me.XTPBasico.Size = New System.Drawing.Size(670, 409)
+        Me.XTPBasico.Size = New System.Drawing.Size(674, 412)
         Me.XTPBasico.Text = "Básico"
         '
         'gbxInfo
@@ -462,12 +465,11 @@ Partial Class FinEmpresasAnexoFrm
         Me.gbxInfo.Controls.Add(Me.LabelControl3)
         Me.gbxInfo.Controls.Add(Me.LblDireccion)
         Me.gbxInfo.Controls.Add(Me.CmbCargaLogo)
-        Me.gbxInfo.Controls.Add(Me.txtPathLogo)
         Me.gbxInfo.Controls.Add(Me.LblPathLogo)
         Me.gbxInfo.Controls.Add(Me.TxtRetencionID)
         Me.gbxInfo.Controls.Add(Me.LblRTN)
         Me.gbxInfo.Controls.Add(Me.lblFDA)
-        Me.gbxInfo.Controls.Add(Me.PictureBox1)
+        Me.gbxInfo.Controls.Add(Me.pbEmpresa)
         Me.gbxInfo.Controls.Add(Me.lblRetencion)
         Me.gbxInfo.Controls.Add(Me.LblLogoEmpresa)
         Me.gbxInfo.Controls.Add(Me.TxtDireccion)
@@ -491,7 +493,6 @@ Partial Class FinEmpresasAnexoFrm
         Me.memoTxtNotaDoc1.Properties.MaxLength = 250
         Me.memoTxtNotaDoc1.Size = New System.Drawing.Size(267, 64)
         Me.memoTxtNotaDoc1.TabIndex = 15
-        Me.memoTxtNotaDoc1.UseOptimizedRendering = True
         '
         'LabelControl3
         '
@@ -520,16 +521,15 @@ Partial Class FinEmpresasAnexoFrm
         '
         'txtPathLogo
         '
-        Me.txtPathLogo.Location = New System.Drawing.Point(102, 292)
+        Me.txtPathLogo.Location = New System.Drawing.Point(574, 280)
         Me.txtPathLogo.Name = "txtPathLogo"
         Me.txtPathLogo.Properties.ReadOnly = True
-        Me.txtPathLogo.Size = New System.Drawing.Size(48, 20)
+        Me.txtPathLogo.Size = New System.Drawing.Size(87, 20)
         Me.txtPathLogo.TabIndex = 12
-        Me.txtPathLogo.Visible = False
         '
         'LblPathLogo
         '
-        Me.LblPathLogo.Location = New System.Drawing.Point(70, 295)
+        Me.LblPathLogo.Location = New System.Drawing.Point(535, 205)
         Me.LblPathLogo.Name = "LblPathLogo"
         Me.LblPathLogo.Size = New System.Drawing.Size(26, 13)
         Me.LblPathLogo.TabIndex = 13
@@ -542,7 +542,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.TxtRetencionID.Name = "TxtRetencionID"
         Me.TxtRetencionID.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.TxtRetencionID.Properties.NullText = ""
-        Me.TxtRetencionID.Properties.View = Me.GridLookUpEdit1View
+        Me.TxtRetencionID.Properties.PopupView = Me.GridLookUpEdit1View
         Me.TxtRetencionID.Size = New System.Drawing.Size(474, 20)
         Me.TxtRetencionID.TabIndex = 8
         '
@@ -595,15 +595,15 @@ Partial Class FinEmpresasAnexoFrm
         Me.lblFDA.TabIndex = 1
         Me.lblFDA.Text = "FDA"
         '
-        'PictureBox1
+        'pbEmpresa
         '
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox1.Location = New System.Drawing.Point(70, 205)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(200, 113)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 10
-        Me.PictureBox1.TabStop = False
+        Me.pbEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pbEmpresa.Location = New System.Drawing.Point(70, 205)
+        Me.pbEmpresa.Name = "pbEmpresa"
+        Me.pbEmpresa.Size = New System.Drawing.Size(200, 113)
+        Me.pbEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pbEmpresa.TabIndex = 10
+        Me.pbEmpresa.TabStop = False
         '
         'lblRetencion
         '
@@ -721,7 +721,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTPConfiguracion.Controls.Add(Me.GrdItems)
         Me.XTPConfiguracion.Name = "XTPConfiguracion"
         Me.XTPConfiguracion.PageVisible = False
-        Me.XTPConfiguracion.Size = New System.Drawing.Size(670, 409)
+        Me.XTPConfiguracion.Size = New System.Drawing.Size(674, 412)
         Me.XTPConfiguracion.Text = "Configuración"
         '
         'LabelControl2
@@ -743,9 +743,9 @@ Partial Class FinEmpresasAnexoFrm
         'cmbAnular
         '
         Me.cmbAnular.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmbAnular.Image = CType(resources.GetObject("cmbAnular.Image"), System.Drawing.Image)
-        Me.cmbAnular.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.cmbAnular.Location = New System.Drawing.Point(617, 220)
+        Me.cmbAnular.ImageOptions.Image = CType(resources.GetObject("cmbAnular.ImageOptions.Image"), System.Drawing.Image)
+        Me.cmbAnular.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.cmbAnular.Location = New System.Drawing.Point(621, 220)
         Me.cmbAnular.Name = "cmbAnular"
         Me.cmbAnular.Size = New System.Drawing.Size(50, 38)
         Me.cmbAnular.TabIndex = 10
@@ -754,9 +754,9 @@ Partial Class FinEmpresasAnexoFrm
         'cmbModificarItem
         '
         Me.cmbModificarItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmbModificarItem.Image = CType(resources.GetObject("cmbModificarItem.Image"), System.Drawing.Image)
-        Me.cmbModificarItem.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.cmbModificarItem.Location = New System.Drawing.Point(617, 4)
+        Me.cmbModificarItem.ImageOptions.Image = CType(resources.GetObject("cmbModificarItem.ImageOptions.Image"), System.Drawing.Image)
+        Me.cmbModificarItem.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.cmbModificarItem.Location = New System.Drawing.Point(621, 4)
         Me.cmbModificarItem.Name = "cmbModificarItem"
         Me.cmbModificarItem.Size = New System.Drawing.Size(50, 38)
         Me.cmbModificarItem.TabIndex = 11
@@ -765,9 +765,9 @@ Partial Class FinEmpresasAnexoFrm
         'CmbNuevoItem
         '
         Me.CmbNuevoItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CmbNuevoItem.Image = CType(resources.GetObject("CmbNuevoItem.Image"), System.Drawing.Image)
-        Me.CmbNuevoItem.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.CmbNuevoItem.Location = New System.Drawing.Point(565, 4)
+        Me.CmbNuevoItem.ImageOptions.Image = CType(resources.GetObject("CmbNuevoItem.ImageOptions.Image"), System.Drawing.Image)
+        Me.CmbNuevoItem.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.CmbNuevoItem.Location = New System.Drawing.Point(569, 4)
         Me.CmbNuevoItem.Name = "CmbNuevoItem"
         Me.CmbNuevoItem.Size = New System.Drawing.Size(50, 38)
         Me.CmbNuevoItem.TabIndex = 9
@@ -949,7 +949,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CmbGrabarNuevo, Me.ToolStripSeparator2, Me.CmbGrabarSalir, Me.CmbRegresarConsulta})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(683, 53)
+        Me.ToolStrip1.Size = New System.Drawing.Size(687, 53)
         Me.ToolStrip1.TabIndex = 11
         '
         'CmbGrabarNuevo
@@ -998,7 +998,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTTPagina3.Controls.Add(Me.XtraTabControl1)
         Me.XTTPagina3.Controls.Add(Me.ToolStrip2)
         Me.XTTPagina3.Name = "XTTPagina3"
-        Me.XTTPagina3.Size = New System.Drawing.Size(683, 550)
+        Me.XTTPagina3.Size = New System.Drawing.Size(687, 554)
         Me.XTTPagina3.Text = "XTTPagina3"
         '
         'PanelControl1
@@ -1014,6 +1014,7 @@ Partial Class FinEmpresasAnexoFrm
         'LblCai
         '
         Me.LblCai.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.LblCai.Appearance.Options.UseFont = True
         Me.LblCai.Location = New System.Drawing.Point(51, 26)
         Me.LblCai.Name = "LblCai"
         Me.LblCai.Size = New System.Drawing.Size(82, 13)
@@ -1031,6 +1032,7 @@ Partial Class FinEmpresasAnexoFrm
         'lblAccionCAI
         '
         Me.lblAccionCAI.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.lblAccionCAI.Appearance.Options.UseFont = True
         Me.lblAccionCAI.Location = New System.Drawing.Point(8, 6)
         Me.lblAccionCAI.Name = "lblAccionCAI"
         Me.lblAccionCAI.Size = New System.Drawing.Size(37, 13)
@@ -1062,7 +1064,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XtraTabPage1.Controls.Add(Me.LabelControl11)
         Me.XtraTabPage1.Controls.Add(Me.LblTP)
         Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(670, 411)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(674, 414)
         Me.XtraTabPage1.Text = "Registro CAI"
         '
         'dtRecepcion
@@ -1126,7 +1128,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.XTTRegPagina1.Controls.Add(Me.lblSolicitado)
         Me.XTTRegPagina1.Controls.Add(Me.lblTipo)
         Me.XTTRegPagina1.Name = "XTTRegPagina1"
-        Me.XTTRegPagina1.Size = New System.Drawing.Size(490, 110)
+        Me.XTTRegPagina1.Size = New System.Drawing.Size(493, 114)
         Me.XTTRegPagina1.Text = "Detalle"
         '
         'chk
@@ -1255,9 +1257,9 @@ Partial Class FinEmpresasAnexoFrm
         'btnDeleteDetail
         '
         Me.btnDeleteDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDeleteDetail.Image = CType(resources.GetObject("btnDeleteDetail.Image"), System.Drawing.Image)
-        Me.btnDeleteDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDeleteDetail.Location = New System.Drawing.Point(564, 188)
+        Me.btnDeleteDetail.ImageOptions.Image = CType(resources.GetObject("btnDeleteDetail.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDeleteDetail.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnDeleteDetail.Location = New System.Drawing.Point(568, 188)
         Me.btnDeleteDetail.Name = "btnDeleteDetail"
         Me.btnDeleteDetail.Size = New System.Drawing.Size(58, 50)
         Me.btnDeleteDetail.TabIndex = 14
@@ -1267,9 +1269,9 @@ Partial Class FinEmpresasAnexoFrm
         'btnEditDetail
         '
         Me.btnEditDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEditDetail.Image = CType(resources.GetObject("btnEditDetail.Image"), System.Drawing.Image)
-        Me.btnEditDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnEditDetail.Location = New System.Drawing.Point(564, 135)
+        Me.btnEditDetail.ImageOptions.Image = CType(resources.GetObject("btnEditDetail.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnEditDetail.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnEditDetail.Location = New System.Drawing.Point(568, 135)
         Me.btnEditDetail.Name = "btnEditDetail"
         Me.btnEditDetail.Size = New System.Drawing.Size(58, 50)
         Me.btnEditDetail.TabIndex = 8
@@ -1278,9 +1280,9 @@ Partial Class FinEmpresasAnexoFrm
         'btnDetail
         '
         Me.btnDetail.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDetail.Image = CType(resources.GetObject("btnDetail.Image"), System.Drawing.Image)
-        Me.btnDetail.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.btnDetail.Location = New System.Drawing.Point(564, 82)
+        Me.btnDetail.ImageOptions.Image = CType(resources.GetObject("btnDetail.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDetail.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.btnDetail.Location = New System.Drawing.Point(568, 82)
         Me.btnDetail.Name = "btnDetail"
         Me.btnDetail.Size = New System.Drawing.Size(58, 50)
         Me.btnDetail.TabIndex = 7
@@ -1362,7 +1364,7 @@ Partial Class FinEmpresasAnexoFrm
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveCAI, Me.ToolStripButton3})
         Me.ToolStrip2.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(683, 53)
+        Me.ToolStrip2.Size = New System.Drawing.Size(687, 53)
         Me.ToolStrip2.TabIndex = 14
         '
         'SaveCAI
@@ -1391,7 +1393,7 @@ Partial Class FinEmpresasAnexoFrm
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        Me.OpenFileDialog1.Filter = """PNG files (*.png)|*.png|JPEG files (*.jpg)|*.jpg|GIF files (*.gif)|*.gif|All fil" & _
+        Me.OpenFileDialog1.Filter = """PNG files (*.png)|*.png|JPEG files (*.jpg)|*.jpg|GIF files (*.gif)|*.gif|All fil" &
     "es (*.*)|*.*"""
         '
         'FinEmpresasAnexoFrm
@@ -1428,7 +1430,7 @@ Partial Class FinEmpresasAnexoFrm
         CType(Me.txtPathLogo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TxtRetencionID.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbEmpresa, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TxtDireccion.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TxtEmailCliente1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TxtRTN.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1551,7 +1553,7 @@ Partial Class FinEmpresasAnexoFrm
     Friend WithEvents GridColumn11 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents RepositoryItemCheckEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
     Friend WithEvents LblLogoEmpresa As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents pbEmpresa As System.Windows.Forms.PictureBox
     Friend WithEvents CmbCargaLogo As System.Windows.Forms.Button
     Friend WithEvents LblPathLogo As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtPathLogo As DevExpress.XtraEditors.TextEdit

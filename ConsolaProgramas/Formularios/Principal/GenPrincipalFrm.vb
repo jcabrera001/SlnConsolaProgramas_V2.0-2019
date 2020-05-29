@@ -835,12 +835,12 @@ Public Class GenPrincipalFrm
     End Sub
 
     Private Sub BarButtonItem26_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles CmbAproFacSE.ItemClick
-        Dim frm As New AprFacturasSIFrm(cnxProduccion, usuario, pw, xEmpresaID, False)
+        Dim frm As New AprFacturasSIFrm(cnxProduccion, usuario, xEmpresaID, False)
         frm.ShowDialog()
     End Sub
 
     Private Sub BarButtonItem27_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbDesFacSE.ItemClick
-        Dim frm As New AprFacturasSIFrm(cnxProduccion, usuario, pw, xEmpresaID, True)
+        Dim frm As New AprFacturasSIFrm(cnxProduccion, usuario, xEmpresaID, True)
         frm.ShowDialog()
     End Sub
 

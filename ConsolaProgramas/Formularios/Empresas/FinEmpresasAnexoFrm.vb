@@ -43,7 +43,7 @@ Public Class FinEmpresasAnexoFrm
 
     Private Sub CmbEditar_Click(sender As Object, e As EventArgs) Handles CmbEditar.Click
         Dim cCodigoRegistro As String
-        StrLogo = Nothing
+        'StrLogo = Nothing
         cCodigoRegistro = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "EmpresaCodigo")
         StrLogo = GrdConsultaView.GetRowCellValue(GrdConsultaView.FocusedRowHandle, "LogoEmpresa").ToString
         If StrLogo.Count > 0 Then
@@ -179,7 +179,7 @@ Public Class FinEmpresasAnexoFrm
     End Sub
     Public Sub RegresarConsulta()
         Me.XTTEmpaginacion.SelectedTabPage = XTTPagina1
-        PictureBox1.Image = Nothing
+        pbEmpresa.Image = Nothing
     End Sub
 
     Public Sub Editar(cDato As String)
@@ -213,7 +213,7 @@ Public Class FinEmpresasAnexoFrm
             'xLogoEmpresa = oRegEdicion.LogoEmpresa
             'Leer la imagen en memoria
             Dim ms As New MemoryStream(xLG)
-            PictureBox1.Image = Image.FromStream(ms)
+            pbEmpresa.Image = Image.FromStream(ms)
         End If
 
         Me.XTTEmpaginacion.SelectedTabPage = XTTPagina2
@@ -253,7 +253,7 @@ Public Class FinEmpresasAnexoFrm
     Public Sub CargarRegistros()
         Dim DtDatos As New DataTable
         Dim DtDatosRetenciones As New DataTable
-        PictureBox1.Image = Nothing
+        pbEmpresa.Image = Nothing
         ClsEmpresasAnexo = New IDF_EmpresasAnexo(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         ClsRetenciones = New IDF_Retenciones(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
 
@@ -366,7 +366,7 @@ Public Class FinEmpresasAnexoFrm
     Private Sub CmbCargaLogo_Click(sender As Object, e As EventArgs) Handles CmbCargaLogo.Click
 
         If OpenFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            PictureBox1.Image = Image.FromFile(OpenFileDialog1.FileName)
+            pbEmpresa.Image = Image.FromFile(OpenFileDialog1.FileName)
             txtPathLogo.Text = OpenFileDialog1.FileName.ToString
         End If
     End Sub
@@ -380,7 +380,7 @@ Public Class FinEmpresasAnexoFrm
         'filaPadre = False
     End Sub
 
-   
+
     Public Sub EditarCAI(cDato As String)
         LimpiarCabecera()
         Me.XTTEmpaginacion.SelectedTabPage = XTTPagina3
@@ -403,7 +403,7 @@ Public Class FinEmpresasAnexoFrm
         cbxTipo.Properties.PopulateColumns()
         'cbxTipo.Properties.Columns("TiposDoctoID").Visible = False
 
-      
+
         adp = New SqlDataAdapter("select * from IDF_ConfigXEmp where CAI='" & cDato & "'", cnx)
         adp.InsertCommand = New SqlCommand("spIDF_ConfigxEmpInsert", cnx)
         adp.InsertCommand.CommandType = CommandType.StoredProcedure
@@ -484,7 +484,7 @@ Public Class FinEmpresasAnexoFrm
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
         Me.XTTEmpaginacion.SelectedTabPage = XTTPagina2
-        PictureBox1.Image = Nothing
+        pbEmpresa.Image = Nothing
 
         CmbGrabarNuevo.Enabled = True
         CmbGrabarSalir.Enabled = True
@@ -648,11 +648,6 @@ Public Class FinEmpresasAnexoFrm
         MsgBox("Registro creado exitosamente", MsgBoxStyle.Information, "Ingreso de CAI")
         CargarConfiguraciones()
     End Sub
-
-    Private Sub btnDeleteDetail_Click(sender As Object, e As EventArgs) Handles btnDeleteDetail.Click
-
-    End Sub
-
     Private Sub cmbAnular_Click(sender As Object, e As EventArgs) Handles cmbAnular.Click
         cnx = New SqlConnection(ClsConexion.CadenaFinanzas(strUsuario, strPassword))
         cnx.Open()

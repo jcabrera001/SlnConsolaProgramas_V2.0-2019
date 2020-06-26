@@ -20,7 +20,6 @@ Partial Class GenPrincipalFrm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim SplashScreenManager1 As DevExpress.XtraSplashScreen.SplashScreenManager = New DevExpress.XtraSplashScreen.SplashScreenManager(Me, GetType(Global.ConsolaProgramas.GenSplashFrm), True, True)
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GenPrincipalFrm))
         Me.rcPrincipal = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.BarAndDockingController1 = New DevExpress.XtraBars.BarAndDockingController(Me.components)
@@ -135,6 +134,7 @@ Partial Class GenPrincipalFrm
         Me.cmbFactMasiva = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem27 = New DevExpress.XtraBars.BarButtonItem()
         Me.cmbProveedores = New DevExpress.XtraBars.BarButtonItem()
+        Me.cmbEstacionWeatherLink = New DevExpress.XtraBars.BarButtonItem()
         Me.rPagArchivo = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.rpgArchivoAccesos = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.rPagProduccion = New DevExpress.XtraBars.Ribbon.RibbonPage()
@@ -166,6 +166,8 @@ Partial Class GenPrincipalFrm
         Me.RibbonPage3 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup9 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup11 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPage4 = New DevExpress.XtraBars.Ribbon.RibbonPage()
+        Me.RibbonPageGroup12 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonStatusBar = New DevExpress.XtraBars.Ribbon.RibbonStatusBar()
         Me.cmbEnvioCorrero = New DevExpress.XtraBars.BarButtonItem()
         Me.XtraTabbedMdiManager1 = New DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(Me.components)
@@ -187,11 +189,11 @@ Partial Class GenPrincipalFrm
         '
         Me.rcPrincipal.Controller = Me.BarAndDockingController1
         Me.rcPrincipal.ExpandCollapseItem.Id = 0
-        Me.rcPrincipal.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.rcPrincipal.ExpandCollapseItem, Me.rcPrincipal.SearchEditItem, Me.cmbLogin, Me.cmbEnvioCorreos, Me.cmbCalculadora, Me.cmbNotepad, Me.BarButtonItem4, Me.cmbAyuda, Me.cmbAcercaDe, Me.BarButtonItem1, Me.BarEditItem1, Me.cmbEstilos, Me.cmbHerSkinDef, Me.cmbHerSkin2007, Me.cmbHerSkin2010, Me.cmbHerSkin2013, Me.cmbHerSkinMac, Me.cmbHerSkinTablet, Me.cmbHerSkinTabletEx, Me.cmbCalendario, Me.cbxSkins, Me.cmbOrdenQuema, Me.cmbAvanceCosecha, Me.cmbProgramacionCosecha, Me.cmbMtoPlanesCosecha, Me.cmbMtoProgramasCosecha, Me.cmbCargarEstimadosProd, Me.BarButtonItem2, Me.BarButtonGroup1, Me.BarButtonItem3, Me.BarButtonGroup2, Me.cmbAgregadosBoletaPeso, Me.CmbProductos, Me.CmbUnidadesMedida, Me.CmbFXC, Me.CmbND, Me.CmbNC, Me.CmbBoletasRemision, Me.CmbFactExp, Me.CmbComprobRet, Me.CmbBolVen, Me.CmbItems, Me.CmbRetenciones, Me.CmbTiposDoctos, Me.CmbClientes, Me.CmbEmpresas, Me.CmbMonedas, Me.BarButtonItem5, Me.BarEditItem2, Me.barLblUsuario, Me.barTxtUsuario, Me.barLblPai1, Me.barLblEmpresa, Me.barTxtEmpresa, Me.BarButtonItem6, Me.BarButtonItem7, Me.BarSubItem1, Me.BarButtonItem8, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem9, Me.BarButtonItem10, Me.BarButtonItem11, Me.BarButtonItem12, Me.BarButtonItem13, Me.BarButtonItem14, Me.BarButtonItem15, Me.BarButtonItem16, Me.BarButtonItem17, Me.BarButtonItem18, Me.BarButtonItem19, Me.barLblPerfil, Me.barLblPai0, Me.barTxtPerfil, Me.CmbConductores, Me.CmbTransportistas, Me.CmbFormatos, Me.CmbPeriodos, Me.CmbMtoLecturaPluv, Me.CmbCAIXSdN, Me.CmbRegCompras, Me.CmbImportaciones, Me.bbiIntereses, Me.CmbFactBoletaCompra, Me.CmbGenRemision, Me.CmbSerExtAprobacionMO, Me.BarButtonItem25, Me.CmbSerExtGenAsientosMO, Me.CmbServAprobMAQ, Me.CmbServGenAsientosMAQ, Me.CmbServAprobARG, Me.CmbServGenAsientosARG, Me.CmbLaboresTM, Me.CmbFacturaSE, Me.CmbAproFacSE, Me.cmbDesFacSE, Me.cmbRoles, Me.BarButtonItem24, Me.BarButtonItem26, Me.btnNewFactura, Me.cmbDuplicados, Me.cmbArrendamientos, Me.cmbAssets, Me.cmdOtrosCostos, Me.cmbPagos, Me.cmbFactMasiva, Me.BarButtonItem27, Me.cmbProveedores})
+        Me.rcPrincipal.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.rcPrincipal.ExpandCollapseItem, Me.rcPrincipal.SearchEditItem, Me.cmbLogin, Me.cmbEnvioCorreos, Me.cmbCalculadora, Me.cmbNotepad, Me.BarButtonItem4, Me.cmbAyuda, Me.cmbAcercaDe, Me.BarButtonItem1, Me.BarEditItem1, Me.cmbEstilos, Me.cmbHerSkinDef, Me.cmbHerSkin2007, Me.cmbHerSkin2010, Me.cmbHerSkin2013, Me.cmbHerSkinMac, Me.cmbHerSkinTablet, Me.cmbHerSkinTabletEx, Me.cmbCalendario, Me.cbxSkins, Me.cmbOrdenQuema, Me.cmbAvanceCosecha, Me.cmbProgramacionCosecha, Me.cmbMtoPlanesCosecha, Me.cmbMtoProgramasCosecha, Me.cmbCargarEstimadosProd, Me.BarButtonItem2, Me.BarButtonGroup1, Me.BarButtonItem3, Me.BarButtonGroup2, Me.cmbAgregadosBoletaPeso, Me.CmbProductos, Me.CmbUnidadesMedida, Me.CmbFXC, Me.CmbND, Me.CmbNC, Me.CmbBoletasRemision, Me.CmbFactExp, Me.CmbComprobRet, Me.CmbBolVen, Me.CmbItems, Me.CmbRetenciones, Me.CmbTiposDoctos, Me.CmbClientes, Me.CmbEmpresas, Me.CmbMonedas, Me.BarButtonItem5, Me.BarEditItem2, Me.barLblUsuario, Me.barTxtUsuario, Me.barLblPai1, Me.barLblEmpresa, Me.barTxtEmpresa, Me.BarButtonItem6, Me.BarButtonItem7, Me.BarSubItem1, Me.BarButtonItem8, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem9, Me.BarButtonItem10, Me.BarButtonItem11, Me.BarButtonItem12, Me.BarButtonItem13, Me.BarButtonItem14, Me.BarButtonItem15, Me.BarButtonItem16, Me.BarButtonItem17, Me.BarButtonItem18, Me.BarButtonItem19, Me.barLblPerfil, Me.barLblPai0, Me.barTxtPerfil, Me.CmbConductores, Me.CmbTransportistas, Me.CmbFormatos, Me.CmbPeriodos, Me.CmbMtoLecturaPluv, Me.CmbCAIXSdN, Me.CmbRegCompras, Me.CmbImportaciones, Me.bbiIntereses, Me.CmbFactBoletaCompra, Me.CmbGenRemision, Me.CmbSerExtAprobacionMO, Me.BarButtonItem25, Me.CmbSerExtGenAsientosMO, Me.CmbServAprobMAQ, Me.CmbServGenAsientosMAQ, Me.CmbServAprobARG, Me.CmbServGenAsientosARG, Me.CmbLaboresTM, Me.CmbFacturaSE, Me.CmbAproFacSE, Me.cmbDesFacSE, Me.cmbRoles, Me.BarButtonItem24, Me.BarButtonItem26, Me.btnNewFactura, Me.cmbDuplicados, Me.cmbArrendamientos, Me.cmbAssets, Me.cmdOtrosCostos, Me.cmbPagos, Me.cmbFactMasiva, Me.BarButtonItem27, Me.cmbProveedores, Me.cmbEstacionWeatherLink})
         Me.rcPrincipal.Location = New System.Drawing.Point(0, 0)
-        Me.rcPrincipal.MaxItemId = 18
+        Me.rcPrincipal.MaxItemId = 19
         Me.rcPrincipal.Name = "rcPrincipal"
-        Me.rcPrincipal.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.rPagArchivo, Me.rPagProduccion, Me.rPagBascula, Me.rPagIDF, Me.RibbonPage1, Me.rpContabilidad, Me.RibbonPage2, Me.rpHerramientas, Me.rpConfiguracion, Me.RibbonPage3})
+        Me.rcPrincipal.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.rPagArchivo, Me.rPagProduccion, Me.rPagBascula, Me.rPagIDF, Me.RibbonPage1, Me.rpContabilidad, Me.RibbonPage2, Me.rpHerramientas, Me.rpConfiguracion, Me.RibbonPage3, Me.RibbonPage4})
         Me.rcPrincipal.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemComboBox1, Me.RepositoryItemComboBox2, Me.RepositoryItemCalcEdit1})
         Me.rcPrincipal.Size = New System.Drawing.Size(1282, 158)
         Me.rcPrincipal.StatusBar = Me.RibbonStatusBar
@@ -1061,6 +1063,14 @@ Partial Class GenPrincipalFrm
         Me.cmbProveedores.ImageOptions.LargeImage = CType(resources.GetObject("cmbProveedores.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.cmbProveedores.Name = "cmbProveedores"
         '
+        'cmbEstacionWeatherLink
+        '
+        Me.cmbEstacionWeatherLink.Caption = "WeatherLink"
+        Me.cmbEstacionWeatherLink.Id = 18
+        Me.cmbEstacionWeatherLink.ImageOptions.Image = CType(resources.GetObject("cmbEstacionWeatherLink.ImageOptions.Image"), System.Drawing.Image)
+        Me.cmbEstacionWeatherLink.ImageOptions.LargeImage = CType(resources.GetObject("cmbEstacionWeatherLink.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.cmbEstacionWeatherLink.Name = "cmbEstacionWeatherLink"
+        '
         'rPagArchivo
         '
         Me.rPagArchivo.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.rpgArchivoAccesos})
@@ -1296,6 +1306,18 @@ Partial Class GenPrincipalFrm
         Me.RibbonPageGroup11.ItemLinks.Add(Me.cmbProveedores)
         Me.RibbonPageGroup11.Name = "RibbonPageGroup11"
         Me.RibbonPageGroup11.Text = "Proveedores"
+        '
+        'RibbonPage4
+        '
+        Me.RibbonPage4.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup12})
+        Me.RibbonPage4.Name = "RibbonPage4"
+        Me.RibbonPage4.Text = "Clima"
+        '
+        'RibbonPageGroup12
+        '
+        Me.RibbonPageGroup12.ItemLinks.Add(Me.cmbEstacionWeatherLink)
+        Me.RibbonPageGroup12.Name = "RibbonPageGroup12"
+        Me.RibbonPageGroup12.Text = "Estaciones"
         '
         'RibbonStatusBar
         '
@@ -1541,4 +1563,7 @@ Partial Class GenPrincipalFrm
     Friend WithEvents BarButtonItem27 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents cmbProveedores As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup11 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
+    Friend WithEvents cmbEstacionWeatherLink As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents RibbonPage4 As DevExpress.XtraBars.Ribbon.RibbonPage
+    Friend WithEvents RibbonPageGroup12 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
 End Class

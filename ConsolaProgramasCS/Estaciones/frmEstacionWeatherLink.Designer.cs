@@ -130,6 +130,7 @@
             this.GridColumn39.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.GridColumn39.Visible = true;
             this.GridColumn39.VisibleIndex = 0;
+            this.GridColumn39.Width = 60;
             // 
             // GridColumn1
             // 
@@ -141,7 +142,7 @@
             this.GridColumn1.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.GridColumn1.Visible = true;
             this.GridColumn1.VisibleIndex = 1;
-            this.GridColumn1.Width = 90;
+            this.GridColumn1.Width = 126;
             // 
             // GridColumn2
             // 
@@ -153,7 +154,7 @@
             this.GridColumn2.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.GridColumn2.Visible = true;
             this.GridColumn2.VisibleIndex = 2;
-            this.GridColumn2.Width = 85;
+            this.GridColumn2.Width = 67;
             // 
             // GridColumn3
             // 
@@ -165,7 +166,7 @@
             this.GridColumn3.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.GridColumn3.Visible = true;
             this.GridColumn3.VisibleIndex = 3;
-            this.GridColumn3.Width = 85;
+            this.GridColumn3.Width = 63;
             // 
             // GridColumn4
             // 
@@ -187,7 +188,7 @@
             this.gridColumn5.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 5;
-            this.gridColumn5.Width = 85;
+            this.gridColumn5.Width = 74;
             // 
             // gridColumn6
             // 
@@ -198,7 +199,7 @@
             this.gridColumn6.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn6.Visible = true;
             this.gridColumn6.VisibleIndex = 6;
-            this.gridColumn6.Width = 85;
+            this.gridColumn6.Width = 71;
             // 
             // gridColumn7
             // 
@@ -209,7 +210,7 @@
             this.gridColumn7.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn7.Visible = true;
             this.gridColumn7.VisibleIndex = 7;
-            this.gridColumn7.Width = 63;
+            this.gridColumn7.Width = 76;
             // 
             // gridColumn11
             // 
@@ -220,7 +221,7 @@
             this.gridColumn11.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn11.Visible = true;
             this.gridColumn11.VisibleIndex = 8;
-            this.gridColumn11.Width = 63;
+            this.gridColumn11.Width = 82;
             // 
             // gridColumn8
             // 
@@ -231,7 +232,7 @@
             this.gridColumn8.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn8.Visible = true;
             this.gridColumn8.VisibleIndex = 9;
-            this.gridColumn8.Width = 63;
+            this.gridColumn8.Width = 71;
             // 
             // gridColumn9
             // 
@@ -242,7 +243,7 @@
             this.gridColumn9.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn9.Visible = true;
             this.gridColumn9.VisibleIndex = 10;
-            this.gridColumn9.Width = 63;
+            this.gridColumn9.Width = 54;
             // 
             // gridColumn10
             // 
@@ -253,7 +254,7 @@
             this.gridColumn10.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumn10.Visible = true;
             this.gridColumn10.VisibleIndex = 11;
-            this.gridColumn10.Width = 70;
+            this.gridColumn10.Width = 83;
             // 
             // frmEstacionWeatherLink
             // 

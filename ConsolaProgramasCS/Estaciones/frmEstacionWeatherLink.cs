@@ -14,15 +14,19 @@ using System.Security.Cryptography;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Datos.Conexion;
+using Datos.Models;
 
 namespace ConsolaProgramasCS.Estaciones
 {
     public partial class frmEstacionWeatherLink : XtraForm
     {
         DateTime baseDate = new DateTime(1969, 12, 31, 18, 00, 00); //Hora base para el Timestamp
-        DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+        //DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
         private string apiKey="gyl68lwxjidftgfdpapnlkwrqv3tmrj6";
         private string apiSecretKey = "ycubqcgsyrgi7y8nigofvep7qggjlv8r";
+        public Estacion estacion = new Estacion();
+        public EstacionDetalle EstacionDetalle = new EstacionDetalle();
 
 
         public frmEstacionWeatherLink()
@@ -37,9 +41,9 @@ namespace ConsolaProgramasCS.Estaciones
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Esta segudo que desea procesar la  información?", "Estaciones", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Esta seguro que desea procesar la  información?", "Estaciones", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Integracion();
+                
             }
         }
         public void Integracion()
@@ -55,23 +59,21 @@ namespace ConsolaProgramasCS.Estaciones
 
             try
             {
-                using (Finanzas db = new Finanzas())
+                var estaciones = from d in estacion.getEstaciones() select d;
+                foreach (var estacion in estaciones)
                 {
-                    var estaciones = from d in db.Estacions select d;
-                    foreach (var estacion in estaciones)
-                    {
-                        getURL(estacion.StationID.ToString(), timestampStart, timestampEnd);
-                    }
-
-                    db.Database.ExecuteSqlCommand("Execute spEstacionesWeatherLinkInsert @fecha", new SqlParameter("@fecha", fecha));
-
+                    getURL(estacion.StationID.ToString(), timestampStart, timestampEnd);
                 }
+
+                estacion.executeQuery("spEstacionesWeatherLinkInsert", new SqlParameter("@fecha", fecha));
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " Integración", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void getURL(string stationId, double start, double end)
         {
             try
@@ -122,6 +124,7 @@ namespace ConsolaProgramasCS.Estaciones
                 MessageBox.Show(ex.Message + " getURL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         public void ReadAPI(string url, string stationId) //int StationID, string apiKey, string apiSignature)// TimeSpan t, TimeSpan star, TimeSpan end)
         {
             var client = new RestClient(url);
@@ -133,21 +136,20 @@ namespace ConsolaProgramasCS.Estaciones
             var content = response.Content;                         //Almacenando el contenido del Request.
 
             JObject rss = JObject.Parse(content.ToString());
-            List<EstacionDetalle> detalles = JsonConvert.DeserializeObject<List<EstacionDetalle>>(rss["sensors"][0]["data"].ToString());
+            List<EstacionDetalleModel> detalles = JsonConvert.DeserializeObject<List<EstacionDetalleModel>>(rss["sensors"][0]["data"].ToString());
 
             try
             {
-                using (Finanzas db = new Finanzas())
+                foreach (var detalle in detalles)
                 {
-                    foreach (var detalle in detalles)
-                    {
-                        detalle.StationId = stationId;
-                        detalle.Fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddDays(-1);
-                        db.EstacionDetalles.Add(detalle);
-                        db.SaveChanges();
-                    }
+                    detalle.StationId = stationId;
+                    detalle.Fecha = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddDays(-1);
+                    EstacionDetalle.Insert(detalle);
+                    //db.EstacionDetalles.Add(detalle);
+                    //db.SaveChanges();
                 }
             }
+ 
             catch (Exception ex)
             {
 

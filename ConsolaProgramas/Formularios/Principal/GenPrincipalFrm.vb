@@ -17,6 +17,7 @@ Imports System.Data.SqlClient
 Imports DevExpress.XtraSplashScreen
 Imports ConsolaProgramasCS
 Imports ConsolaProgramasCS.TolProveedores
+Imports ConsolaProgramasCS.Estaciones
 
 Public Class GenPrincipalFrm
     Inherits DevExpress.XtraBars.Ribbon.RibbonForm
@@ -781,6 +782,11 @@ Public Class GenPrincipalFrm
 
     Private Sub cmbProveedores_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbProveedores.ItemClick
         Dim frm As New frmTolProveedores(cnxFinanzas)
+        frm.ShowDialog()
+    End Sub
+
+    Private Sub cmbEstacionWeatherLink_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles cmbEstacionWeatherLink.ItemClick
+        Dim frm As New frmEstacionWeatherLink()
         frm.ShowDialog()
     End Sub
 

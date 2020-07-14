@@ -22,7 +22,7 @@ namespace ConsolaProgramasCS.Estaciones
     public partial class frmEstacionWeatherLink : XtraForm
     {
         DateTime baseDate = new DateTime(1969, 12, 31, 18, 00, 00); //Hora base para el Timestamp
-        //DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+        DateTime hoy = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
         private string apiKey="gyl68lwxjidftgfdpapnlkwrqv3tmrj6";
         private string apiSecretKey = "ycubqcgsyrgi7y8nigofvep7qggjlv8r";
         public Estacion estacion = new Estacion();
@@ -32,11 +32,11 @@ namespace ConsolaProgramasCS.Estaciones
         public frmEstacionWeatherLink()
         {
             InitializeComponent();
+            //nfjkgdsjkgbfkjd
         }
 
         private void frmEstacionWeatherLink_Load(object sender, EventArgs e)
         {
-           
         }
 
         private void btnProcesar_Click(object sender, EventArgs e)
